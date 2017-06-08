@@ -1,0 +1,180 @@
+body {
+  background-color: #f5f3f0;
+}
+.bg-focus {
+  background-color: #f2a222;
+}
+.color-focus {
+  color: #ffa222 !important;
+}
+.color-error {
+  color: #f70709 !important;
+}
+
+.main {
+  min-width: 1020px;
+  min-height: 100%;
+  margin:0 auto;
+}
+
+#topbar {
+  height: 60px;
+  background-color:#3c3c3c;
+}
+#topbar .main {
+  width: 100%;
+}
+#topbar .logo {
+  width: 200px;
+  font-size: 30px;
+  line-height: 100%;
+  color: #202020;
+}
+
+#leftbar {
+  width: 180px;
+  min-height: 100%;
+  background-color:#3f3f3f;
+}
+#leftbar .main {
+  height: 100px;
+  color: #f9f9f9;
+}
+
+#menubar {
+  height: 46px;
+  background-color: #444440;
+}
+
+#querybar {
+}
+#querybar .title {padding-top: 10px; padding-bottom: 10px; text-align: left; font-size:18px; font-weight:bold; line-height:200%; color: #606060;}
+#querybar input, #querybar select {background: #fcfcf9;}
+
+#container {
+  min-height: 588px;
+}
+#container .title {text-align: center; font-size:18px; font-weight:bold; line-height:200%; color: #404020;}
+.content {
+  min-width: 1020px;
+}
+
+#former {
+}
+#former .title {text-align: center; font-size:16px; font-weight:bold; line-height:200%; color: #FFC000;}
+
+#bottombar {
+  height: 145px;
+  background-color:#666660;
+}
+
+.arrow {
+  width:12px;
+  height:8px;
+}
+.thistab {
+  color:#FFCC44;
+  border-bottom: 4px solid #FFCC22;
+}
+
+.cv-top {
+  height: 150px;
+  background: white;
+  padding: 25px;
+}
+.cv-left {
+  float: left;
+  width: 657px;
+  background: white;
+  padding: 30px;
+}
+.cv-right {
+  float: right;
+  width: 255px;
+  background: white;
+  padding: 20px;
+}
+.detail_ :hover {
+   color:#ffcc44;
+}
+
+/************************** 左栏菜单设置 ****************************/
+.listmenu { width:180px; margin:40px auto 0 auto; }
+.listmenu ul li a { padding-left: 20px; color: #c0c0c0; font-size:12px; height:36px; line-height: 46px;}
+.listmenu ul li ul { display: none;}
+.listmenu ul li ul li ul { display: none;}
+.listmenu ul ul li a {  padding-left:40px;}
+.listmenu ul li ul li ul li a { padding-left:30px;}
+.menu-selected-v {
+  background: url(../images/tab_selected_v.png) repeat-y left center;
+  background-color: #333330;
+}
+.menu-link {color: #dfc222 !important;}
+/**************************** menu ********************************/
+
+.nav-main {cursor: pointer;}
+.menu a:link,
+.menu a:visited,
+.menu a:focus {
+  color:#e0e0d0;
+}
+.menu a:hover,
+.menu a:active {
+  color:#ffCC00;
+}
+
+.tab a:link,
+.tab a:visited,
+.tab a:focus {
+  color:#c0c0c0;
+}
+.tab a:hover,
+.tab a:active {
+  color:#e0e0e0;
+}
+
+/*图标向上旋转*/
+.hover-up{transition-duration:.5s;transform:rotate(180deg);-webkit-transform:rotate(180deg); }
+/*图标向下旋转*/
+.hover-down{transition-duration:.5s;transform:rotate(0);-webkit-transform:rotate(0)}
+/*隐藏盒子设置*/
+div.hidden-box{width:103px;position:absolute;display:none; background:#666660;top:40px;filter:alpha(opacity=80); -moz-opacity:0.8; opacity:0.8;}
+.hidden-box>p{list-style-type:none; color:#fff; cursor:pointer; padding-top:5px;padding-bottom:5px}
+.hidden-box>p span{ line-height:30px; height:30px; font-weight:500}
+/*.hidden-box li:hover{background:#643519;color:#fff}*/
+
+/*隐藏盒子位置设置*/
+.hidden-loc-index{left:284px}
+.hidden-loc-us{left:417px}
+.hidden-loc-info{left:550px}
+.box04{left:683px}
+/******************************************************************/
+/*列表的hover状态*/
+.itemFooter .mark{
+  position: relative;
+}
+.itemFooter .mark div{
+  position: absolute;
+    top: 20px;
+    left: -20px;
+    padding: 1px 5px;
+    background-color: #efefef;
+    box-shadow: 2px 2px 2px rgba(45,45,45,0.4);
+    font-size: 10px;
+    opacity: 0;
+    color: #565656;
+}
+.itemFooter .mark:nth-of-type(1) div{
+  width: 48px;
+}
+.itemFooter .mark:nth-child(3) div{
+  width: 38px;
+  left: -6px;
+}
+.itemFooter .mark:nth-child(5) div{
+  width: 72px;
+}
+.itemFooter .mark:hover div{
+    animation: fade 1s linear forwards;
+    -webkit-animation: fade 1s linear forwards;  
+}

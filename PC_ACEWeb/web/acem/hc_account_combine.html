@@ -1,0 +1,56 @@
+<link rel="stylesheet" href="../doc/js/autocomplete/style.css" />
+<script src="../doc/js/autocomplete/jquery.autocomplete.js"></script>
+<script src="../doc/js/autocomplete/autocomplete.js"></script>
+<style type="text/css">
+	.main span.searchBtn{padding-top: 9px;padding-bottom: 9px;}
+</style>
+<body>
+<div id="querybar">
+  <div class="main">
+    <div class="title">合并顾问账户</div>
+  </div>
+</div>
+
+<div id="container">
+  <div class="main">
+    <div class="dt5">
+      <span class="f14 pdr30">保留的顾问账户</span>
+      <span class="pdl3"><input type="text" class="keyword_ autocomplete-HC notnull" placeholder="公司名/顾问账户名称/邮箱/手机" size="80"><input id="remain_" type="hidden"></span>
+    </div>
+    <div class="dt5 dt30">
+      <span class="f14 pdr20">被合并的顾问账户</span>
+      <span><input type="text" class="keyword_ autocomplete-HC notnull" placeholder="公司名/顾问账户名称/邮箱/手机" size="80"><input id="combine_" type="hidden"></span>
+
+    </div>
+    <div class="h100"></div>
+    <span id="combine" class="btn-focus pd20 dt8 f14 pointer">确定合并</span>
+    <div class="dt20">
+    	<i class="x"></i>
+    	被合并的顾问账户将无法登录
+    </div>
+  </div>   
+</div>
+
+</body>
+<script>
+	$(function(){
+		autocomplete_Init();
+		$("#combine").click(function(){
+		var val1 = $("#remain_").val();
+		var val2 = $("#combine_").val();
+		util.UI.confirm("确认合并顾问？", function(){
+		var loadingIndex = util.UI.loading();
+		ACECommon_FormSubmit(null, "MMMService.y?cmd=combineHC", "{val1:'"+val1+"',val2:'"+val2+"'}", function(ret, html){
+		util.UI.closeLoading(loadingIndex);
+               if(ret==1){
+                 util.UI.msg(html);
+                 to("hc_account_combine.html");
+               }else{
+                 util.UI.err(html);
+               }
+           });
+		});
+		});
+	})
+
+</script>

@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+  <title>ACE Elite 管理在线</title>
+  <link rel="stylesheet" href="../doc/css/common.css" />
+  <link rel="stylesheet" href="../doc/css/styles_M.css" />
+  <link rel="stylesheet" href="../doc/js/layui/css/layui.css" />
+  <script src="../doc/js/jquery-2.1.4.min.js"></script>
+  <script src="../doc/js/layui/layui.js"></script>
+  <script src="../doc/js/laydate/laydate.js"></script>
+  <script src="../doc/js/common.js"></script>
+  <script src="../doc/js/myjs_M.js"></script>
+</head>
+<body>
+
+<div id="former">
+  <div class="main">
+    <form class="layui-form" action="">
+    <div class="bg-white pdall20">
+      <div class="title dt10">更新职位</div>
+      <div class="gone" id="hidata1">
+        <div class="debug">======================DEBUG=====================</div>
+      </div>
+    
+      <div class="layui-form-item center">
+        <div class="layui-input-block">
+          <button class="layui-btn" lay-submit lay-filter="submit_">保存</button>
+          <button type="reset" class="layui-btn layui-btn-primary">重置</button>
+        </div>
+      </div>
+      
+    </div>
+    </form>
+         
+  </div>
+</div>
+<script>
+  var id = getUrlId();
+  var form;
+  $(document).ready(function(){
+    /***********此处编写js*************/
+    initForm();
+    /**********************************/
+  });
+  //初始化Form
+  function initForm(){  
+    ACECommon_ShowData("ComService.y?cmd=html", "{objectMode:'H00604-8,H00604-9'}", $("#hidata1"), 0, function(ret,html){
+      Form_InitActions();
+      
+      ACECommon_ShowData("JobMService.y?cmd=jobInfo", "{jobid:'"+id+"'}", null, 0, function(ret,html){
+          if(ret==1){
+            var ss = html.split("`");
+            $("#amid").val(ss[0]);
+            $("#hrName").val(ss[1]);
+            $("#auid").val(ss[2]);
+            var vv = $("#hidata1").find(".vv");
+            for(var i=0;i<vv.length;i++){
+              $(vv[i]).val(ss[i+3]);
+            }
+            $(".address").removeClass("gone");
+            $(".address").append("<input class='radio' type='radio' name='radio_address' value='"+ss[ss.length-5]+"' title='"+ss[ss.length-5]+"' lay-filter='radio_address' checked><br/>");
+            var v_encv = $("#v_encv").val();
+            if(v_encv.length>0){
+              $("#v_encv"+v_encv).click();
+            }
+            form.render();
+          }
+      });
+    });
+  }  
+  function Form_InitActions(){
+    layui.use(['form'], function(){
+      form = layui.form();
+      form.render();
+      
+      $(".xinzi_").keyup(function(){
+          $("#xinzi").val($("#xinzi1").val()+"-"+$("#xinzi2").val());
+      });
+      form.on('radio(radio_address)', function(data){
+        $("#v_address").val(data.value);
+        $("#otherAddress").addClass("gone");
+      });
+      form.on('radio(radio_otheraddress)', function(data){
+      	$("#v_address").val("0");
+        $("#otherAddress").removeClass("gone");
+      });
+      form.on('radio(radio_encv)', function(data){
+        $("#v_encv").val(data.value);
+      });
+      //监听提交
+      form.on('submit(submit_)', function(data){
+        if(parseFloat($("#xinzi1").val()) > parseFloat($("#xinzi2").val())){
+          $(".xinzi_")[1].focus();
+          layer.tips('请正确填写', $(".xinzi_")[1]);
+          return false;
+        }
+        util.UI.confirm('确认提交吗？', function(){
+            ACECommon_FormSubmit(null, "JobMService.y?cmd=edit", "{jobid:'"+id+"',auid:'"+$("#auid").val()+"'}", function(ret, html){
+                if(ret==1){
+		              parent.util.UI.msg(html);
+	                setTime = setInterval(function(){
+	                  parent.util.UI.closeDialog();
+	                  parent.reload();
+	                },2000);
+                }else{
+                   util.UI.err(html);
+                }
+            });      
+        });
+        return false;
+      });
+    });
+  }
+</script>

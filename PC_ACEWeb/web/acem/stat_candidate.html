@@ -1,0 +1,92 @@
+<style>
+.act{color: #FFAA00;}
+.blo{color: #3897FF;}
+.bla{color: #4700A7;}
+.ina{color: #35B102;}
+.bgcol{background-color: red;}
+</style>
+<div id="querybar">
+  <div class="main">
+   <div class="dt10 f18">候选人</div>
+    <div class="dt5" id="hidata_condition">
+      <div>
+        <span><input type="text" class="keyword_" placeholder="公司名/候选人/顾问" size="80"></span><span id="search" class="btn-focus pd20 dt8 mgl10">搜索</span>
+      </div>
+    </div>
+  </div>
+</div>
+<div id="container">
+  <div class="main">
+    <div class="bg-white gone" id="hidata1">
+    </div>   
+          
+          
+    <div id="nodata" class="gone">
+      <div class="h60"></div>
+      <div class="h30"></div>
+      <div><img class="img100 bottom center" src="../doc/images/nodata.png"> </div>
+      <div class="pdall30 f16 center">列表为空</div>
+      <div class="h100"></div>
+      <div class="h60"></div>
+    </div>
+    <div id="pages" class="text-c"></div>
+    <div><input type="hidden" id="hide"/></div>
+  </div>
+</div>
+<script>
+  var flag = "";
+  var text = "";
+  $(document).ready(function(){
+    /***********此处编写js*************/
+     page_query();
+    /**********************************/
+    $("#search").click(function(){
+    	 page_query();
+    });
+  });
+  
+  function page_query(page){
+    var keyword = $(".keyword_").val();
+    var pq = new PQuery("StatMService.y?cmd=statCandidate",
+             "{objectMode:'H00607-1',queryMK:'12',keyword:'"+keyword+"',order:'"+flag+"'}",
+             $("#hidata1"), $("#nodata"));
+    pq.query(page, function(ret, html){
+        if(ret==1){
+         text = $("#hide").val();
+          My_InitActions(); //初始化按钮的控制
+        }
+    });
+
+  }
+  function My_InitActions(pdiv){
+    var curdiv = pdiv || $("#hidata1");
+    DataLine_InitFuns(curdiv);
+    Pub_InitSlide(curdiv);
+    var title = $("#hide").val()
+ 	if(title.length>0){
+      $("th[title="+title+"]").attr("style","background-color: #eee");
+      console.log($("th[title="+title+"]").attr("style"));
+ 	}
+   //升序排序
+   $(".triangle-up").click(function(page){
+    	var pa = $(this).parent();
+    	flag = pa.attr("title")+" asc";
+    	$("#hide").val(pa.parent().attr("title"));
+    	page_query();
+    });
+    //降序排序
+     $(".triangle-down").click(function(page){
+    	var pa = $(this).parent();
+    	flag = pa.attr("title")+" desc";
+    	$("#hide").val(pa.parent().attr("title"));
+    	page_query();
+    });
+    
+   $(".click_").click(function(e){
+   	  var urlCid = $(this).attr("data");	
+   	  e.stopPropagation();
+      onlog('点击[头像查看候选人详情]按钮'+urlCid);
+      util.UI.html("stat_candidate_detail.html?id="+urlCid, 450, 200, function(){});
+   }); 
+  }
+</script>

@@ -1,0 +1,286 @@
+/*public start*/
+.opacityHelf{
+    filter: alpha(opacity=80);
+    -moz-opacity: 0.8;
+    -khtml-opacity: 0.8;
+    opacity: 0.8;
+}
+/*public end*/
+
+/*vairable start*/
+@hei: 10px;
+@wid: 10px;
+
+.wh(@hei,@wid){
+    height: @hei;
+    width: @wid;
+}
+
+.whVer(@hei,@wid,@hei){
+    height: @hei;
+    width: @wid;
+    line-height: @hei;
+}
+
+.poAbso(@hei,@wid){
+    position: absolute;
+    top: @hei;
+    left: @wid;
+}
+
+.btnStyle(@hei){
+    background: rgb(247,217,48);
+    color: rgb(23,23,23);
+    height: @hei;
+    border-radius: 2px;
+}
+
+.advSectionStyle(@hei,@wid){
+    margin: 0 auto;
+    img{
+        .wh(@hei,@wid);
+        margin-right: 20px;
+    }
+}
+
+.titl(@hei){
+    text-align: center;
+    font-size: 20px;
+    padding-top: @hei;
+    color: rgb(79,79,79);
+}
+
+.line{
+    .wh(2px,20px);
+    background: rgb(247,217,48);
+    margin: 27px auto 0; 
+    text-align: center;
+    margin-bottom: 62px;
+}
+/*vairable end*/
+
+/*banner start*/
+.banner{
+    .wh(600px,100%);
+    background-image: url(../img/banner.jpg);
+    background-size: auto 900px;
+    background-position: center center;
+    background-repeat: no-repeat;
+    overflow: hidden;
+    
+    .bannerSection{
+        color: #fff;
+        padding-top: 165px;
+        h1{
+            color: rgb(247,217,48);
+            font-size: 50px;
+            padding-bottom: 10px;
+            margin-top: 14px;
+        }
+        p{
+            padding: 5px 0;
+            &:nth-child(1){
+                margin-bottom: 4px;
+            }
+        }
+        div{
+            .btnStyle(42px);
+            font-size: 20px;
+            width: 215px;
+            margin-top: 36px;
+            padding: 7px 11px;
+            font-weight: bold;
+            cursor: pointer;
+            
+            &:hover{
+                background: #FFCA00;
+            }
+        }
+    }
+    
+    .bannerShow{
+        .wh(130px,738px);
+        background-image: url(../img/btn_bg.png);
+        background-size: cover;
+        filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(src='../img/btn_bg.png',sizingMethod='scale');
+        .poAbso(540px,50%);
+        margin-left: -369px;
+        z-index: 10;
+        
+        .showCon{
+            h3{
+                color: #373737;
+                font-size: 20px;
+                margin: 27px 0 10px;
+            }
+            p{
+                color: #696969;
+                font-size: 12px;
+                margin-bottom: 10px;
+            }
+            span{
+                display: block;
+                .wh(30px,100px);
+                line-height: 30px;
+                font-size: 14px;
+                margin: 0 auto;
+                background: #373737;
+                color: #F7D930;
+                text-align: center;
+                cursor: pointer;
+                border-radius: 2px;
+                -moz-border-radius: 2px;
+                -webkit-border-radius: 2px;
+            }
+            &:nth-child(1){
+                margin-left: 208px;
+                span{
+                    &:hover{
+                        background: #000;
+                    }
+                }
+            }
+            &:nth-child(2){
+                margin-left: 120px;
+                text-align: right;
+                span{
+                    color: #373737;
+                    background: #F7D930;
+                    float: right;
+                    &:hover{
+                        background: #FFCA00;
+                    }
+                }
+            }
+        }
+    }
+}
+/*banner end*/
+
+/*advantage start*/
+.advantage{
+    .wh(516px,100%);
+    background: rgb(250,250,250);
+    
+    .advTitle{
+        .titl(123px);
+    }
+    
+    .advLine{
+        .line;
+    }
+    
+    h3{
+        color: rgb(71,71,71);
+        font-size: 20px;
+        margin-bottom: 10px;
+        padding-top: 5px;
+    }
+    p{
+        color: #737373;
+        font-size: 13px;
+    }
+    
+    .advLeft{
+        display: table;
+        width: 100%;
+        margin-bottom: 56px;
+        .advSection{
+            width: 50%;
+            display: table-cell;
+            padding-left: 80px;
+            .advSectionStyle(71px,71px);
+        }
+        .advSection3{
+            width: 50%;
+            display: table-cell;
+            padding-left: 260px;
+            .advSectionStyle(61px,61px);
+        }
+        .advSection2{
+            width: 50%;
+            display: table-cell;
+            padding-left: 80px;
+            .advSectionStyle(60px,65px);
+            img{
+                margin-right: 26px;
+            }
+        }
+        .advSection4{
+            width: 50%;
+            display: table-cell;
+            padding-left: 260px;
+            .advSectionStyle(65px,65px);
+        }
+    }
+}
+/*advantage end*/
+
+/*brand start*/
+.brand{
+    .wh(380px,100%);
+    .brandTitle{
+        .titl(36px);
+    }
+    
+    .brandLine{
+        .line;
+    }
+    
+    .brandCon{
+        span{
+            display: inline-block;
+            width: 19.6%;
+            text-align: center;
+            img{
+                height: 50px;
+                margin-bottom: 40px;
+            }
+        }
+    }
+}
+/*brand end*/
+
+/*media start*/
+@media screen and (max-width: 1366px){
+    .advantage{
+        .advLeft{
+            .advSection3{
+                width: 50%;
+                display: table-cell;
+                padding-left: 200px;
+                .advSectionStyle(61px,61px);
+            }
+            .advSection4{
+                width: 50%;
+                display: table-cell;
+                padding-left: 200px;
+                .advSectionStyle(65px,65px);
+            }
+        }
+    }
+}
+
+@media screen and (max-width: 940px){
+    .banner{
+        .wh(600px,940px);
+        .bannerShow{
+            .wh(130px,738px);
+            background-image: url(../img/btn_bg.png);
+            background-size: cover;
+            .poAbso(540px,470px);
+            margin-left: -369px;
+            z-index: 10;
+        } 
+    }
+    
+    .advantage{
+        .wh(516px,940px);
+    }
+    
+    .brand{
+        .wh(380px,940px);
+    }
+}
+
+/*media end*/

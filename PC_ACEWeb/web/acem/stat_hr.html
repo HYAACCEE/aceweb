@@ -1,0 +1,84 @@
+<style>
+.dt_left {width:230px; display:inline-block;}
+.dt_right {width:180px; display:inline-block;}
+</style>
+
+  <div id="menubar">
+    <div class="main">
+     <!--  <div class="h2"></div>
+      <div class="float-l f14 dt3 tab">
+        <div class="float-l dt10 stat_company_list" id="tab_1"><a class="white pointer"><span>公司</span></a></div>
+        <div class="float-l dt10 mgl40 stat_hr" id="tab_2"><a class="white pointer"><span>HR账户</span></a></div>
+        <div class="float-l dt10 mgl40 stat_position" id="tab_3"><a class="white pointer"><span>职位</span></a></div>
+      </div> -->
+    <div class="title">客户</div>
+    <div class="dt5">
+      <span><input type="text" class="keyword_" placeholder="候选人姓名/公司名称/职位" size="80"></span><span class="btn-focus pd20 dt8 mgl10">搜索</span>
+    </div>
+    <div class="h5"></div>
+    <div class="f14 grey tab gone" id="hidata_condition">
+      <div class="layui-inline pd20 thistab"><div class="layui-inline pointer dt10" data="1">本周精选  (99)</div></div>
+      <div class="layui-inline pd20"><div class="layui-inline pointer dt10" data="2">下周预备  (99)</div></div>
+      <div class="layui-inline pd20"><div class="layui-inline pointer dt10" data="3">非精选Active (99)</div></div>
+      <div class="layui-inline pd20"><div class="layui-inline pointer dt10" data="9">所有Active (99)</div></div>
+    </div>
+    
+    <div class="f14 grey tab gone" id="hidata_condition2">
+      <div class="layui-inline pd20"><div class="layui-inline dt10">搜索到候选人(<span id="totalCount">0</span>)</div></div>
+    </div>
+    </div>
+  </div>
+  <div id="querybar">
+    <div class="main">
+      <div class="dt5" id="hidata_condition">
+        <div>
+          <span><input type="text" class="keyword_" placeholder="公司/HR账户" size="80"></span><span class="btn-focus pd20 dt8 mgl10">搜索</span>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div id="hidata" class="pdall20">
+    <div class="debug bg-red full-width text-c">======================DEBUG=====================</div>    
+<table class="full-width" cellpadding="20">
+  <tr class="bold pdall10">
+  <th>职位名称111</th><th>当前状态/操作时间</th><th>HR账户</th><th>公司</th><th>邀请面试</th><th>接受面试</th><th>面试通过</th><th>接受Offer</th><th>确认入职</th><th>保障期离职</th>
+  </tr>
+  <tbody>
+  <LIST>
+  <tr class="bg-white">
+    <td class="pdall10">2016/02/11</td>
+    <td class="pdall10">品牌经理</td>
+    <td class="pdall10">李夏荣</td>
+    <td class="pdall10">10 万</td>
+    <td class="pdall10">未付款</td>
+    <td class="pdall10">Elsy</td>
+    <td class="pdall10">10 万</td>
+    <td class="pdall10">未付款</td>
+    <td class="pdall10">Elsy</td>
+    <td class="pdall10">10 万</td>
+  </tr>
+  </LIST>
+</table>
+  </div>
+  
+  <div id="nodata" class="gone">
+    <div class="h60"></div>
+    <div class="h30"></div>
+    <div><img class="center" src="../doc/images/nodata.png"> </div>
+    <div class="pdall30 f16 center">暂时没数据</div>
+    <div class="h100"></div>
+    <div class="h100"></div>
+    <div class="h100"></div>
+  </div>
+  
+  <div id="pages" class="text-c"></div>  
+<script src="../doc/js/cv_M.js"></script>
+<script>
+  $(document).ready(function(){
+    /***********此处编写js*************/
+  $(".stat_company_list").click(function(){to("stat_company_list.html?tab=1"); });
+  $(".stat_hr").click(function(){to("stat_hr.html?tab=2"); });
+  $(".stat_position").click(function(){to("stat_position.html?tab=3"); });
+    /**********************************/
+  });
+</script>

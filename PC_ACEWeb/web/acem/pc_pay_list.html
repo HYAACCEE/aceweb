@@ -1,0 +1,63 @@
+<style>
+.dt_left {width: 80px; display:inline-block;}
+.dt_right {width: 240px; display:inline-block;}
+</style>
+<div id="querybar">
+  <div class="main">
+    <div class="title">付款</div>
+    <div class="dt5" id="hidata_condition">
+      <div>
+        <span><input class="keyword_" placeholder="公司名称/HR账户名称/候选人/顾问" style="width:400px;"></span><span class="btn-focus pd20 dt5 mgl10" id="pay_search">搜索</span>
+      </div>
+    </div>   
+  </div>
+</div>
+<div id="former">
+  <div class="main">
+  <div id="hidata1">
+    <div class="debug bg-red full-width text-c">======================DEBUG=====================</div>
+  </div>
+          
+    <div id="nodata" class="gone">
+      <div class="h60"></div>
+      <div class="h30"></div>
+      <div><img class="img100 bottom center" src="../doc/images/nodata.png"> </div>
+      <div class="pdall30 f16 center">列表为空</div>
+      <div class="h100"></div>
+      <div class="h60"></div>
+    </div>
+    
+    <div id="pages" class="text-c"></div>
+  </div>
+</div>
+
+<script>
+  $(document).ready(function(){
+    /***********此处编写js*************/
+    page_query();
+    /**********************************/
+    $("#pay_search").click(page_query);
+  });
+  function page_query(page){
+    var keyword = $(".keyword_").val();
+    var pq = new PQuery("BillMService.y?cmd=listBilling",
+             "{objectMode:'H00605-4',queryMK:'2',keyword:'"+keyword+"'}",
+             $("#hidata1"), $("#nodata"));
+    pq.query(page, function(ret, html){
+        if(ret==1){
+          My_InitActions(); //初始化按钮的控制
+        }
+    });
+  }
+  function My_InitActions(pdiv){
+    var curdiv = pdiv || $("#hidata1");
+    DataLine_InitFuns(curdiv);
+    
+    $(".detail_").click(function(e){
+        e.stopPropagation();
+        onlog('点击[付款列表dataline]'+DATAID);
+        $("#detail_id").val(DATAID); //detail_id在main_index中定义
+        to("pc_hr_pay_detail.html?id="+DATAID);
+    });
+  }
+</script>

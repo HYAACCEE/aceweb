@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+  <title>ACE Elite 顾问在线</title>
+  <link rel="stylesheet" href="../doc/css/common.css?comcs000005" />
+  <link rel="stylesheet" href="../doc/css/styles_HC.css?hccs000001" />
+  <link rel="stylesheet" href="../doc/js/layui/css/layui.css" />
+    <!--[if IE 8]> 
+  	<script src="../doc/js/jquery-1.8.0.js"></script>
+  <![endif]--> 
+  <!--[if gte IE 8]> 
+  	<script src="../doc/js/jquery-2.1.4.min.js"></script>
+  <![endif]--> 
+  <script src="../doc/js/jquery-2.1.4.min.js"></script>
+  <script src="../doc/js/layui/layui.js"></script>
+  <script src="../doc/js/common.js"></script>
+  <script src="../doc/js/myjs_HC.js"></script>
+  <script src="../doc/js/Menu.js"></script>
+  <style>
+  .dt_left {width: 115px; display:inline-block;text-align: right;}
+  .dt_right {width: 250px; display:inline-block;text-align: right;}
+  .dt_input {width: 235px;padding-left:3px; display:inline-block;}
+  .table{dispaly: table;}
+  .table-tr {display: table-row; height: 32px;vertical-align: middle;}
+  .table-td {display: table-cell;height: 32px;vertical-align: middle;}
+  </style>
+</head>
+<body>
+<div id="wapper">
+<div id="topbar"></div>
+
+<div id="former">
+  <div class="h50"></div>
+  <div class="main pdall20">
+    <div class="bg-white center" id="sendList" style="width:450px;height:345px">
+      <div class="h40"></div>
+      <div class="title">顾问登录</div>
+      <div class="h30"></div>
+      <div class="table">
+      	<div class="table-tr">
+        	<label class="dt_left pdr10 f12 sp3 table-td">用户名</label><span class="dt_right table-td"><input class="dt_input" type="text" style="-webkit-box-shadow: 0 0 0 1000px #ffffff inset;height: 30px;line-height: 30px;" maxlength="11" placeholder ="注册手机号"/></span>
+      	</div>
+      </div>
+      <div class="h25"></div>
+      <div class="table">
+      	<div class="table-tr">
+        	<label class="dt_left pdr10 f12 sp3 table-td">密码</label><span class="dt_right table-td"><input class="dt_input" type="password" style="-webkit-box-shadow: 0 0 0 1000px #ffffff inset;height: 30px;line-height: 30px;"/></span>
+      	</div>
+      </div>
+      <div class="h10"></div>
+      <div>
+        <label class="dt_left"></label>
+        <span class="dt_right pdl10"><span class="f9 gone float-l red error_">账号或者密码错误!</span>
+        <a class="float-r color-focus forgetPw_ f9" style="" href="#">忘记密码</a>
+        </span>
+      </div>
+      <div class="h20"></div>
+      <div>
+        <span>
+          <label class="dt_left pdr15"></label><span><button type="submit" style="margin-left: -4px;"class="btn-focus pd30 h30 f15 loginSubmit_">登 录</button></span><span><span class="f9 grey2 pdl50 pdr10">没有账户?</span><span class="color-focus pointer register_ f9">申请注册</span></span>
+        </span>
+      </div>
+    </div>
+  </div>
+</div>
+<div id="bottombar"></div>
+<div class="gone">
+  <script type="text/javascript">var cnzz_protocol = (("https:" == document.location.protocol) ? " https://" : " http://");document.write(unescape("%3Cspan id='cnzz_stat_icon_1261795902'%3E%3C/span%3E%3Cscript src='" + cnzz_protocol + "s95.cnzz.com/z_stat.php%3Fid%3D1261795902%26online%3D2' type='text/javascript'%3E%3C/script%3E"));</script>
+</div>
+</div>
+</body>
+</html>
+
+<script>
+  $(document).ready(function(){
+    /***********此处编写js*************/
+    var gourl = null;
+    var ss = location.href.split("?==");
+    if(ss.length>1) gourl = ss[1];
+    
+    $(".forgetPw_").click(function(){
+        location.href = "user_password_forget.html";
+    });
+    $(".loginSubmit_").click(function(){
+        var sendList = $('#sendList').find('input');
+        var phone1 = $(sendList[0]).val();
+        var password = md5($(sendList[1]).val());
+        ajax_("HISService.y?cmd=login", "{a1:'"+password+"',a2:'"+phone1+"'}",function(ret0,html0){
+            if(ret0==1){
+                var js = JSON.parse(html0);
+                auid = js.auid;
+                ajax_("HISService.y?cmd=applyLogon", "{a1:'"+password+"',a2:'"+phone1+"',usid:''}",function(ret,html){
+                    if(ret==1){
+                        var js = JSON.parse(html);
+                        util.Cookie.set('hcdataAUID',js.user.auid,30);
+                        util.Cookie.set('hcdataMID',js.user.mid,30);
+                        util.Cookie.set('hcdataAMID',js.user.amid,30);
+                        util.Cookie.set('hcdataNickName',js.user.nickName,30);
+                        util.Cookie.set('hcdataFullName',js.user.fullName,30);
+                        util.Cookie.set('hcdataPhone',phone1,30);
+                        util.Cookie.set('hcdataMMGroup',js.user.mmGroup,30);
+                        util.Cookie.set('hcdataMMGroupDesc',js.user.mmGroupDesc,30);
+                        util.Cookie.set('hcdataFace',js.user.face,30);
+                        util.Cookie.set('hcdataPower',js.user.power,30);
+                        util.Cookie.set('hcdataUploadURL',js.server.LW_SERVER,30);
+                        util.Cookie.set('hcdataPIC_MAX_NUM',js.server.PIC_MAX_NUM,30);
+                        util.Cookie.set('hcdataAVI_MAX_NUM',js.server.AVI_MAX_NUM,30);
+                        util.Cookie.set('hcdataPIC_MAX_SIZE',js.server.PIC_MAX_SIZE,30);
+                        util.Cookie.set('hcdataAVI_MAX_SIZE',js.server.AVI_MAX_SIZE,30);
+                        util.Cookie.set('hcdataYOUKU_APPKEY',js.server.YOUKU_APPKEY,30);
+                        util.Cookie.set('hcdataYOUKU_SECRET',js.server.YOUKU_SECRET,30);
+                        util.Cookie.set('hcdataYOUKU_ACCESS_TOKEN',js.server.YOUKU_ACCESS_TOKEN,30);
+                        if(gourl==null) window.location.href = 'main.html';
+                        else window.location.href = gourl;
+                    }else{
+                        util.UI.err('用户名或者密码错误');
+                    }
+                });
+            }else{
+                $(".error_").removeClass("gone");
+            }
+        });
+    });
+    /* enter键进行登录 */
+    $(window).keypress(function(e){
+    	if(e.keyCode == 13){
+    		$('.loginSubmit_').click();
+    	}
+    })
+  
+    /**********************************/
+});
+</script>

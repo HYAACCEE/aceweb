@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+  <title>ACE Elite 管理在线</title>
+  <link rel="stylesheet" href="../doc/css/common.css" />
+  <link rel="stylesheet" href="../doc/css/styles_M.css" />
+  <link rel="stylesheet" href="../doc/js/layui/css/layui.css" />
+  <script src="../doc/js/jquery-2.1.4.min.js"></script>
+  <script src="../doc/js/layui/layui.js"></script>
+  <script src="../doc/js/laydate/laydate.js"></script>
+  <script src="../doc/js/common.js"></script>
+  <script src="../doc/js/myjs_M.js"></script>
+  
+	<link rel="stylesheet" href="../doc/js/autocomplete/style.css" />
+	<script src="../doc/js/autocomplete/jquery.autocomplete.js"></script>
+	<script src="../doc/js/autocomplete/autocomplete.js"></script>
+
+  <style>
+    .dt_left {width: 130px; display:inline-block;text-align: right; padding-right:10px}
+    .dt_right {width: 260px; display:inline-block;}
+    .dt_input {width: 230px; display:inline-block;}
+  </style>
+</head>
+<body>
+
+<div id="former">
+  <div class="main">
+    <form class="layui-form" action="">
+      <div class="bg-white pdall20">
+      <div class="title dt10">HR在线申请审核详情</div>
+      <div class="gone" id="hidata1">
+        <div class="debug bg-red">======================DEBUG=====================</div>
+      </div>
+      
+      <div id="hidata99">
+        <div class="layui-form-item">
+          <label class="layui-form-label">所在公司</label><input id="v_companyCheck" class="vv" type="hidden">
+          <div class="layui-inline">
+            <input class="radio" type="radio" name="radio_companyCheck" value="0" title="正确" lay-filter="radio_companyCheck" checked>
+            <input class="radio" type="radio" name="radio_companyCheck" value="1" title="需新增" lay-filter="radio_companyCheck">
+            <input class="radio" type="radio" name="radio_companyCheck" value="2" title="需更正" lay-filter="radio_companyCheck">
+            <div class="layui-inline">
+              <span class="gone" id="s_organName">请修改公司名称：<input class="autocomplete-company" type="text" id="organName" style="width:210px"></span>
+            </div>
+          </div>
+        </div> 
+        <div class="layui-form-item">
+          <label class="layui-form-label">审核结果</label><input id="code" class="vv notnull" type="hidden" value="1">
+          <div class="layui-inline">
+            <input class="radio" type="radio" name="radio_isPass" value="1" title="通过" lay-filter="radio_isPass" checked>
+            <input class="radio" type="radio" name="radio_isPass" value="0" title="不通过" lay-filter="radio_isPass">
+          </div>
+        </div>
+        
+        <div class="layui-form-item gone" id="unpassView_">
+          <label class="layui-form-label">不通过原因</label><input id="v_unpassReason" class="vv vvc" type="hidden">
+          <div class="layui-inline">
+            <input class="checkbox" name="checkbox" type="checkbox" value="手机号码有误" lay-filter="radio_unpass"/>手机号码有误<br/>
+            <input class="checkbox" name="checkbox" type="checkbox" value="非公司邮箱" lay-filter="radio_unpass" />非公司邮箱<br/>
+            <input class="checkbox" name="checkbox" type="checkbox" value="公司不存在" lay-filter="radio_unpass"/>公司不存在<br/>
+            <input class="checkbox" name="checkbox" type="checkbox" value="其他原因" lay-filter="radio_unpass"/>其他原因<br/>
+          </div>
+          <div> 
+            <span class="dt_left"></span>
+            <span class="dt_right"><textarea style="width:645px"/></textarea></span>
+          </div>
+        </div>
+      </div>
+      
+      <div class="layui-form-item center">
+        <div class="layui-input-block">
+          <button class="layui-btn submitCmt_" lay-submit>立即提交</button>
+        </div>  
+      </div>
+      
+    </div>
+    </form>
+  </div>
+</div>
+
+<div class="h100"></div>
+<div class="h100"></div>
+
+<script>
+var id = getUrlId();
+var form;
+$(document).ready(function(){
+  /***********此处编写js*************/
+  initForm(); //初始化Form
+  /**********************************/
+});
+//初始化Form
+function initForm(){  
+  ACECommon_ShowData("ComService.y?cmd=html", "{objectMode:'H00604-5'}", $("#hidata1"), 0, function(ret,html){
+      Form_InitActions();
+      ACECommon_ShowData("MMMService.y?cmd=infoHR", "{id:'"+id+"'}", null, 0, function(ret,html){
+          if(ret==1){
+            var ss = html.split("`");
+            var vv = $("#hidata1").find(".vv");
+            for(var i=0;i<vv.length;i++){
+              $(vv[i]).val(ss[i]);
+            }
+            if(ss[ss.length-1]=="0"){
+            	$("input[name='radio_companyCheck']").eq(0).attr("disabled",true);
+            	$("input[name='radio_companyCheck']").eq(1).attr("checked",true);
+            	$("#v_companyCheck").val("1");
+            }else{
+            	$("input[name='radio_companyCheck']").eq(1).attr("disabled",true);
+            }
+			$("#v_sex"+ss[3]).attr("checked","checked");
+            $("#organName").val($("#companyName").val());
+          }
+          form.render();
+      });
+  });
+}
+function Form_InitActions(){
+  autocomplete_Init();
+  
+  var checked = "";
+  layui.use(['form'], function(){
+    form = layui.form();
+    form.render();
+    form.on('radio(radio_companyCheck)', function(data){
+      if(data.value ==2){
+        $("#s_organName").show();
+      }else{
+        $("#s_organName").hide();
+      }
+      $("#v_companyCheck").val(data.value);
+    });
+        
+    form.on('checkbox(radio_unpass)', function(data){
+      if(data.elem.checked ==true){
+        checked += ","+(data.value);
+      }else{
+        checked = checked.replace(new RegExp(","+data.value, "g"),'');
+      }
+    });
+
+    form.on('radio(radio_isPass)', function(data){
+      if(data.value ==0){
+        $("#unpassView_").show();
+      }else{
+        $("#unpassView_").hide();
+      }
+      $("#code").val(data.value);
+    });
+    
+    //监听提交
+    $(".submitCmt_").click(function(e){
+      util.UI.confirm('确认提交吗？', function(){
+          $("#v_unpassReason").val(checked.substring(checked.length>0?1:0));
+          if($("#code").val()==1) $("#v_unpassReason").removeClass("notnull");
+          else $("#v_unpassReason").addClass("notnull");
+          ACECommon_FormSubmit(null, "MMMService.y?cmd=cmtHR", "{id:'"+id+"',mmAmid:'"+$("#mmAmid").val()+"',cmtResult:'"+$("#code").val()+"', organFlag:'"+$("#v_companyCheck").val()+"',organName:'"+$("#organName").val()+"'}", function(ret, html){
+              if(ret==1){
+	              parent.util.UI.msg(html);
+	              setTime = setInterval(function(){
+	                parent.util.UI.closeDialog();
+	                parent.reload();
+					      },2000);
+              }
+          }, $("#hidata99"));
+      });
+      return false;
+    });
+  });
+}
+</script>

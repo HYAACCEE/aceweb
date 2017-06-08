@@ -1,0 +1,125 @@
+<style>
+/* .dt_left {width:230px; display:inline-block;}
+.dt_right {width:180px; display:inline-block;} */
+table.dataDay tr th{width: 160px;padding-left: 0;}
+table.dataDay tr th:nth-child(1){width: 180px;padding-left: 10px;}
+table tr{border-bottom: 1px solid #eee;}
+</style>
+
+<div id="querybar">
+  <div class="main">
+    <div class="title">HR数据统计</div>
+    <div class="layui-inline">
+    	<div class="layui-input-inline">HR操作数据导出:</div>
+    	<div class="layui-input-inline">
+    		<input id="begin_" class="layui-input vv notnull" placeholder="请选择日期" autocomplete="off" required lay-verify="required" onclick="layui.laydate({elem: this, festival: true})">
+    	</div>
+    	——
+    	<div class="layui-input-inline">
+    		<input id="end_" class="layui-input vv notnull" placeholder="请选择日期" autocomplete="off" required lay-verify="required" onclick="layui.laydate({elem: this, festival: true})">
+    	</div>
+    	<div class="layui-input-inline">
+    		<a id="exportBrowse" class="layui-btn layui-btn-warm layui-btn-radius" target="_blank">导出浏览记录</a>
+    	</div>
+    	<div class="layui-input-inline">
+    		<a id="exportStore" class="layui-btn layui-btn-warm layui-btn-radius" target="_blank">导出收藏记录</a>
+    	</div>
+    	<div class="layui-input-inline">
+    		<a id="exportInvite" class="layui-btn layui-btn-warm layui-btn-radius" target="_blank">导出邀请面试记录</a>
+    	</div>
+    	<iframe id="ifile" style="display:none"></iframe>
+    </div>
+    <div class="f14 grey tab" id="hidata_condition" style="padding-top:20px;">
+      <div class="layui-inline pd20 thistab"><div class="layui-inline pointer dt10" data="1">日数据</div></div>
+      <div class="layui-inline pd20"><div class="layui-inline pointer dt10" data="2">周数据</div></div>
+      <div class="layui-inline pd20"><div class="layui-inline pointer dt10" data="3">月数据</div></div>
+    </div>
+  </div>
+</div>
+
+<div id="container">
+  <div class="main">
+    <div class="bg-white gone" id="hidata1">
+  </div>   
+          
+  
+    <div id="hidata_condition" class="gone">
+      <div class="debug bg-red full-widspan text-c">======================DEBUG=====================</div>
+    </div>
+  <div id="hidata1" class="dt10">
+    <div class="debug bg-red full-width text-c">======================DEBUG=====================</div>    
+    </div>
+    <div id="nodata" class="gone">
+      <div class="h60"></div>
+      <div class="h30"></div>
+      <div><img class="img100 bottom center" src="../doc/images/nodata.png"> </div>
+      <div class="pdall30 f16 center">列表为空</div>
+      <div class="h100"></div>
+      <div class="h60"></div>
+    </div>
+    
+    <div id="pages" class="text-c"></div>
+    <div><input type="hidden" id="hide"/></div>
+  </div>
+</div>
+
+<script>
+  var submk, curtab_data;
+  var flag = "";
+  var text = "";
+  var serverUrl = "";
+  $(document).ready(function(){
+    /***********此处编写js*************/
+    curtab_data = null;
+    ajax_("HIMService.y?cmd=getdownloadUrl","",function(ret,html){
+    	if(ret==1){
+    		serverUrl = html+"StatMService.r?";
+    	}
+    });
+    queryStatusList();
+    /**********************************/
+    $("#exportBrowse").click(function(){
+    	$(this).attr("href",serverUrl+"cmd=exportBrowse&begin="+$("#begin_").val()+"&end="+$("#end_").val());
+    })
+    
+    $("#exportStore").click(function(){
+    	$(this).attr("href",serverUrl+"cmd=exportStore&begin="+$("#begin_").val()+"&end="+$("#end_").val());
+    })
+    
+    $("#exportInvite").click(function(){
+    	$(this).attr("href",serverUrl+"cmd=exportInvite&begin="+$("#begin_").val()+"&end="+$("#end_").val());
+    })
+  });
+  
+   layui.use('laydate', function(){
+  });
+  //状态栏
+  function queryStatusList(){
+    $(".tab >div >div").click(function(){
+      curtab_data = $(this).attr("data");
+      $(this).parent().addClass("thistab").siblings().removeClass("thistab");
+      submk = $(this).attr("data");
+      flag = "";
+      page_query();
+    });
+    if(curtab_data) $(".tab >div >div[data='"+curtab_data+"']").click();
+    else $(".tab >div >div").eq(0).click();
+  }
+  function page_query(page){
+    var keyword = $(".keyword_").val();    
+    var pq = new PQuery("StatMService.y?cmd=HRDataCount",   
+             "{objectMode:'H00612-"+submk+"',queryMK:'11',submk:'"+submk+"'}",
+             $("#hidata1"), $("#nodata"));
+    pq.query(page, function(ret, html){
+        if(ret==1){
+          text = $("#hide").val();
+          My_InitActions(); //初始化按钮的控制
+        }
+    });
+  } 
+  function My_InitActions(pdiv){
+    var curdiv = pdiv || $("#hidata1");
+    DataLine_InitFuns(curdiv);
+    Pub_InitSlide(curdiv);
+  }
+</script>

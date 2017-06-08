@@ -1,0 +1,32 @@
+.nav {
+  background: rgba(80, 80, 80, 0.5);
+}
+.banner {
+  line-height: 400px;
+  background-image: url(../img/hei_02.png);
+  background-size: cover;
+  overflow: hidden;
+}
+.banner .bannerPic {
+  height: 400px;
+  background-image: url(../img/aboutHCBanner.png);
+  background-size: auto 400px;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+@media screen and (max-width: 940px) {
+  .banner {
+    width: 940px;
+  }
+  .banner .bannerPic {
+    background-size: auto 400px;
+    background-position: center;
+    background-repeat: no-repeat;
+  }
+  .about {
+    width: 940px;
+  }
+  .brand {
+    width: 940px;
+  }
+}

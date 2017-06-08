@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+  <title>ACE Elite 顾问在线</title>
+  <link rel="stylesheet" href="../doc/css/common.css?comcs000005" />
+  <link rel="stylesheet" href="../doc/css/styles_HC.css?hccs000001" />
+  <link rel="stylesheet" href="../doc/js/layui/css/layui.css" />
+  <script src="../doc/js/layui/layui.js"></script>
+<!--[if lt IE 9]>
+  <script src="http://libs.baidu.com/jquery/1.9.1/jquery.min.js"></script>
+<![endif]-->
+<!--[if gte IE 9]>
+  <script src="../doc/js/jquery-2.1.4.min.js"></script>
+<![endif]-->
+  <script src="../doc/js/jquery-2.1.4.min.js"></script>
+  
+  <script src="../doc/js/common.js?com00000027"></script>
+  <script src="../doc/js/myjs_HC.js?myhc00000015"></script>
+  <script src="../doc/js/Menu.js"></script>
+  
+  <link rel="stylesheet" href="../doc/js/jalendar/jalendar.css" />
+  <script src="../doc/js/jalendar/jalendar.js"></script>
+  
+  <style>
+  #box1{
+    background:#FFFFFF;
+    top:0;  
+    filter:alpha(Opacity=50);-moz-opacity:0.8;opacity: 0.9;
+    height: 84px;
+    margin: -10px 0 0 -10px; 
+    width: 598px;
+  }
+  .box_l {width: 65%;}
+  .box_r {width: 34%;}
+  .dt_left {width: 100px; display:inline-block; padding-right:10px;}
+  .limit_width1 {max-width: 310px;}
+  .limit_width1_short {max-width: 230px;}
+  .limit_width2 {max-width: 310px;}
+  .limit_width2_short {max-width: 210px;}
+	#v_hcclose {
+	  float: right;
+	  width: 15px;
+	  height: 15px;
+	  background: url(../doc/images/HC/close.png) no-repeat;
+	}
+	#v_hcclose:hover{
+	  float: right;
+	  width: 15px;
+	  height: 15px;
+	  background-image: url(../doc/images/HC/close1.png);
+	  background-size: 15px 15px;
+	}
+	.HC_jobInfo_{max-width:120px}
+	.HC_hrInfo_{max-width:100px}
+	.HC_jobInfo_:hover{color:#135475;filter:alpha(opacity=80);-moz-opacity:0.8;-khtml-opacity: 0.5;opacity: 0.8;max-width:120px}
+	.HC_hrInfo_:hover{color:#135475;filter:alpha(opacity=80);-moz-opacity:0.8;-khtml-opacity: 0.5;opacity: 0.8;max-width:100px }
+  </style>
+</head>
+<body>
+
+<!--[if IE 6]>
+<div id="kie-bar" class="kie-bar">
+目前您正在使用ie6浏览器，该浏览器已经过时了，为了更加安全和方便地进行团购，ACE推荐您使用以下浏览器：<a href="http://www.microsoft.com/china/windows/IE/upgrade/index.aspx" class="kie-setup-IE11"  target="_blank" title="免费升级至IE8浏览器">免费升级</a>或下载使用<a href="https://www.baidu.com/link?url=DGrSbAB7kYAWz-E-BFeSti8hug8_czxa90W-yJZysxqv1jw5yakyCw9ngg3zYHKAOau4dFYCjGFmDBaRdgzrVDZYY-iMHOK0AxysLb6XBzO&wd=&eqid=a5f2fea800020d3d000000045882b05c" class="kie-setup-chrome" target="_blank" title="谷歌浏览器">Chrome浏览器</a>，体验极速浏览体验！</div>
+<style>
+        .kie-bar {
+            height: 24px;
+            line-height: 1.8;
+            font-weight:normal;
+            text-align: center;
+            border-bottom:1px solid #fce4b5;
+            background-color:#FFFF9B;
+            color:#e27839;
+            position: relative;
+            font-size: 14px;
+            text-shadow:  0 0  1px #efefef;
+            padding: 5px 0;
+        }
+        .kie-bar a {
+            color:#08c;
+            text-decoration: none;
+        }
+    </style>
+<![endif]-->
+
+<div id="p_notice" class="gone" style="background: rgba(240,112,112,0.89);filter:progid:DXImageTransform.Microsoft.gradient(startColorstr=#e5F17070,endColorstr=#e5F17070);border-radius: 2px;height:30px">
+  <div class="dt5">
+    <div class="text-c">
+      <span id="hidata1" class="white gone">这里是测试广播，您好，您有新短消息，请注意查收！</span>
+      <span class="float-r pdr5"><img class="pointer closeNotice_" src="../doc/images/HC/close.png"/></span>
+    </div>
+  </div>
+</div>
+<div id="topbar"></div>
+<div id="container">
+  <div class="main clearfix">
+    <div class="h10"></div>
+    <div class="float-l box_l">
+      <div class="h30"></div>
+      <div class="clearfix dt10">
+        <span class="float-l f18 bold">待办事项</span>
+        <span class="float-r dt10 light-grey4 sortTab_">
+          <span class="pd20 f12 pointer" data="1"><img class="pd5" style="width:11px;height:9px" src="../doc/images/HC/sort.png" />时间</span>
+          <span class="pd20 f12 pointer" data="2"><img class="pd5" style="width:11px;height:9px" src="../doc/images/HC/sort.png" />公司</span>
+          <span class="pd20 f12 pointer" data="3"><img class="pd5" style="width:11px;height:9px" src="../doc/images/HC/sort.png" />候选人</span>
+        </span>
+      </div>
+
+      <div id="hidata2">
+        <div class="debug bg-red full-width text-c">======================DEBUG=====================</div>     
+      </div>
+    </div>
+     
+    <div class="float-r box_r">
+	    <div class="h100"></div>
+	    <div class="h25"></div>
+	    
+	    <div id="task_calendar" class="jalendar mid">
+	      <div id="hidata3" class="gone">
+	        <div class="debug bg-red full-width text-c">======================DEBUG=====================</div>      
+	      </div>
+	    </div>
+	    <div class="bg-white pd20 dt30">
+	      <div class="center dt2 nowrap f12 titleView_">
+	        <span class="pd10 dt5 pointer" data="1">今日新增</span>
+	        <span class="pd10 dt5 pointer" data="2">昨日新增</span>  
+	        <span class="pd15 dt5 pointer" data="3">本月新增</span> 
+	        <span class="pd20 dt5 pointer" data="9">所有</span> 
+	      </div>
+	      <div class="h1 bg-focus pd100"></div>
+	      <div class="h20"></div>
+	      
+	      <div id="hidata4" class="">
+	      <div class="debug bg-red full-width text-c">==========DEBUG=========</div>                   
+	      </div>
+	    </div>
+    </div>
+  </div>
+  <div class="h100"></div>
+</div>
+
+<ui><li id="L_layerDebug" style="display: none;"><a href="javascript:;" style="color: #01AAED;"><cite>在线调试</cite></a></li></ui>
+
+<div id="bottombar"></div>
+<div class="gone">
+  <script type="text/javascript">var cnzz_protocol = (("https:" == document.location.protocol) ? " https://" : " http://");document.write(unescape("%3Cspan id='cnzz_stat_icon_1261795902'%3E%3C/span%3E%3Cscript src='" + cnzz_protocol + "s95.cnzz.com/z_stat.php%3Fid%3D1261795902%26online%3D2' type='text/javascript'%3E%3C/script%3E"));</script>
+</div>
+</body>
+</html>
+
+<script src="../doc/js/cv_HC.js?cvhc00000014"></script>
+<script src="js/main.js"></script>
+<script>
+
+</script>
+
+<!--  script type="text/html" id="hi_HotRank">
+  <div class="title">热门排行榜</div>
+  <div mon="area=itemHot&s=<%=s%>&element_type=item" bn_box="itemHot&position" alog-alias="bainuo-list-hotRank" alog-group="bainuo-list-hotRank">
+    <%for(var i = 0, len = list.length; i < len; i++){ %>
+      <%var item = list[i]%>
+      <a class="w-good-item-tiny" href="<%=item.link%>" target="_blank" mon="element=<%=item.id%>&position=<%=i+1%>" data-item-st="<%=s%>">
+        <img class="good-tiny-img" src="<%-item.image%>" alt="<%=item.title%>"/>
+        <span class="good-content-tiny">
+          <span class="good-tiny-title"><%=item.title%></span>
+          <span class="sale-count">每天<span class="sale-num"><%=item.bought_weeekly%></span>人团购</span>
+          <ins class="current-pric">¥<%=item.current_price / 100%></ins>
+          <del class="original-pric" style="display:none">¥<%=item.market_price/ 100%></del>
+        </span>
+        <span class="good-item-rank"><em class="rank-num"><%=i+1%></em></span>
+      </a>
+    <% }%>
+  </div>
+</script-->

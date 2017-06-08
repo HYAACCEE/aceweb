@@ -1,0 +1,159 @@
+<link rel="stylesheet" href="../doc/js/autocomplete/style.css" />
+<script src="../doc/js/autocomplete/jquery.autocomplete.js"></script>
+<script src="../doc/js/autocomplete/autocomplete.js"></script>
+<style type="text/css">
+input{border-top-right-radius: 0;border-bottom-right-radius: 0;border-right: none;margin-top: -1px;}
+  	input:focus{border-right: none;}
+  	input{width: 273px;}
+  	.main span.searchBtn{padding-top: 7px;padding-bottom: 9px;}
+  	#container{box-sizing: border-box;}
+  	.hrListCon{width: 400px;min-height: 500px;}
+  	.hrListCon div{border-bottom: 1px solid #eee;}
+  	.hrListCon div:hover{border: 1px solid #ffa942;}
+  	.hrListCon div p{max-width: 300px;}
+  	.hrListCon div p img{padding-bottom: 2px;}
+  	.candidateList div.dt5{width: 400px;}
+  	.candidateList input{width: 479px;}
+  	.candidateListCon{width: 600px;min-height: 500px;}
+  	.candidateListCon div{border-bottom: 1px solid #eee;}
+  	.candidateListCon div:hover{border: 1px solid #ffa942;}
+  	.opaBtn{border: 1px solid #ffa942;border-radius: 2px;margin-top: 3px;}
+  	
+  	.includeBtn{position: relative;}
+  	.includeBtn .inputBtn{position: absolute;top: 0;right: 0;}
+  	.bgClick{background:wheat}
+</style>
+<div id="querybar">
+  <div class="main">
+<div class="dt10"><a class="grey-link" href="javascript:void(-1)" onclick="goback()">< 返回 </a></div>
+    <div class="title">新增特别推荐</div>
+    <div class="h20"></div>
+  </div>
+</div>
+
+<div id="container">
+  <div class="main clearfix" style="margin-bottom: 35px;">
+    <div class="hrList float-l mgr20">
+	    <div class="includeBtn"><input type="text" class="keyword_ autocomplete-addHR" style="width:380px;" placeholder="公司名/HR账户名称/邮箱/手机号"><span class="btn-focus pd20 h15 searchBtn inputBtn">搜索HR账户</span></div>
+    	<div class="hrListCon bg-white" id="hidata1">
+    		
+    	</div>
+    </div>
+
+	<div class="candidateList float-l">
+	    <div class="includeBtn"><input type="text" class="keyword_ candidate_" style="width: 580px;" placeholder="候选人姓名/当前公司/职位/编号"><span class="btn-focus pd20 searchBtn inputBtn" style="padding-top: 6px;">搜索候选人</span></div>
+    	<div class="candidateListCon bg-white" id="hidata2">
+    	</div>
+    </div>
+  </div>
+   <div id="nodata" class="gone">
+      <div class="h60"></div>
+      <div class="h30"></div>
+      <div><img class="img100 bottom center" src="../doc/images/nodata.png"> </div>
+      <div class="pdall30 f16 center">列表为空</div>
+      <div class="h100"></div>
+      <div class="h60"></div>
+    </div>
+</div>
+<input type="hidden" id="hidata">
+<script type="text/javascript">
+var amid = "";
+var aa = 0;
+$(document).ready(function(){
+	autocomplete_Init();
+	page_query();
+})
+
+function clickAddCandi(id){
+	ajax_("CandiListMService.y?cmd=clickAddCandi","{candId:'"+id+"',hrauid:'"+amid+"'}",function(ret,html){
+   			if(ret==1){
+   				aa = $(".bgClick").index();
+   				loadHRList();
+   				loadCandidate($(".bgClick"));
+   			}
+   		});
+}
+
+function clickAddHR(id){
+   		ajax_("CandiListMService.y?cmd=clickAddHR","{hrid:'"+id+"'}",function(ret,html){
+   			if(ret==1){
+   				reload();
+   			}
+   		});
+   }
+
+function page_query(page){
+    loadHRList();
+}
+
+function loadHRList($obj){
+ACECommon_ShowData("CandiListMService.y?cmd=specialCommandHRList",
+           "{objectMode:'H00611-4',queryMK:'4'}",
+           $("#hidata1"),$("nodata"),function(ret,html){
+		        if(ret==1){
+		          My_InitActions(); //初始化按钮的控制
+		        }
+           },function(ret,html){
+           		$("#hidata2").html("");
+           });
+		}
+  
+function My_InitActions(pdiv){
+    var curdiv = pdiv || $("#hidata1");
+    DataLine_InitFuns(curdiv);
+    Pub_InitSlide(curdiv);
+     $(".listContent").click(function(){
+    	loadCandidate($(this));
+    });
+    $(".delete_").click(function(){
+    	amid = $(this).parent().attr("data");
+    util.UI.confirm("确认删除？", function(){
+    	ACECommon_Data("CandiListMService.y?cmd=deleteHRFromNextWeek","{HRAuid:'"+amid+"'}",function(ret,html){
+  			if(ret==1){
+  				reload();
+  			}else{
+  				util.UI.err(html);
+  			}
+  		});
+    });
+   });
+    loadCandidate($("#hidata1 >div").eq(aa));
+} 
+function loadCandidate($obj){
+  		$obj.addClass("bgClick").siblings().removeClass("bgClick");
+		amid = $obj.attr("data");
+		$(".candidate_").addClass("autocomplete-Candidate");
+		autocomplete_Init();
+		$("#hidata").val(amid);
+		ACECommon_ShowData("CandiListMService.y?cmd=specialCommandCandidateList","{objectMode:'H00611-3',HRid:'"+amid+"',queryMK:'"+curtab_data+"'}",$("#hidata2"),$("nodata"),function(ret,html){
+			$(".showDetail_").click(function(){
+				var canauid = $(this).parent().parent().attr("data1");
+		    	showCandidateDetail(canauid);
+		    });
+		    
+		    $(".remove_").click(function(){
+		    	var canauid1 = $(this).parent().parent().attr("data1");
+				removeCandidateFromHR(canauid1)
+		    });
+		});
+  }
+
+function removeCandidateFromHR(id){
+	aa = $(".bgClick").index();
+	ACECommon_Data("CandiListMService.y?cmd=removeCandidateFromHR","{CandidateAuid:'"+id+"',id:'"+amid+"'}",function(ret,html){
+  			if(ret==1){
+  				util.UI.msg(html);
+  				loadHRList();
+  			}else{
+  				util.UI.err(html);
+  			}
+  		});
+}
+   
+function reload(){
+	to("candidate_better_add.html");
+}
+function goback(){
+  to("candidate_better_list.html");
+}
+</script>

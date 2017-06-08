@@ -1,0 +1,299 @@
+body {
+  background-color: #f5f3f0;
+}
+.bg-focus {
+  background-color: #FFA942;
+}
+.color-focus {
+  color: #ffa942 !important;
+}
+.color-error {
+  color: #f70709 !important;
+}
+
+
+.main {
+  width: 920px;
+  margin:0 auto;
+}
+#wapper {
+	position: relative;
+	height: auto;
+	min-height: 100%;
+}
+#topbar {
+  height: 70px;
+  background-color:#F7D930;
+}
+#topbar .main {
+  width: 1080px;
+}
+#topbar .logo {
+  width: 200px;
+  font-size: 30px;
+  line-height: 100%;
+  color: #202020;
+}
+
+#menubar {
+  height: 50px;
+  background-color: #666660;
+}
+
+#querybar {
+  height: 80px;
+}
+#querybar .title {text-align: center; font-size:16px; font-weight:bold; line-height:200%; color: #202020;}
+#querybar input, #querybar select {background: #fcfcf9;}
+
+#container {
+	min-height: 200px;
+  padding-bottom: 100px;
+}
+#container .title {text-align: center; font-size:18px; font-weight:bold; line-height:200%; color: #404020;}
+
+#former {
+  min-height: 200px;
+  padding-bottom: 100px;
+}
+#former .title {text-align: center; font-size:16px; line-height:200%; color: #FFA942;}
+
+#bottombar {
+  bottom: 0;
+  height: 100px;
+  width: 100%;
+  background-color: rgb(64,64,64);
+}
+#bottombar .footTop span{
+	color: #D2D2D2;
+}
+#bottombar .footTop span a{
+	color: #D2D2D2;
+	font-size: 14px;
+}
+#bottombar .footTop span a:hover{
+	color: #fff;
+}
+
+/* .footIcon{
+	padding-top: 20px;
+}
+.footIcon a {
+  display: inline-block;
+  margin-right: 50px;
+}
+.footIcon a:nth-child(2) {
+  height: 29px;
+  width: 29px;
+  background-image: url(../../index/img/footer_icon/wechat_i.png);
+  background-size: cover;
+  position: relative;
+}
+.footIcon a:nth-child(2):hover {
+  height: 29px;
+  width: 29px;
+  background: url(../../index/img/footer_icon/weixin_footer_hover.png);
+  background-size: cover;
+}
+.footIcon a:nth-child(2):hover div {
+  height: 160px;
+  width: 150px;
+  background: url(../../index/img/weixin_icon.png);
+  background-size: contain;
+  background-repeat: no-repeat;
+  position: absolute;
+  top: -160px;
+  left: 50%;
+  margin-left: -75px;
+}
+
+.footIcon a:nth-child(1) {
+  height: 29px;
+  width: 29px;
+  background-image: url(../../index/img/footer_icon/facebook_i.png);
+  background-size: contain;
+  background-repeat: no-repeat;
+}
+.footIcon a:nth-child(1):hover {
+  height: 29px;
+  width: 29px;
+  background-image: url(../../index/img/footer_icon/facebook_footer_hover.png);
+  background-size: contain;
+  background-repeat: no-repeat;
+}
+.footIcon a:nth-child(3) {
+  margin-right: 0;
+  height: 29px;
+  width: 29px;
+  background-image: url(../../index/img/footer_icon/linkedin_L_.png);
+  background-size: cover;
+}
+.footIcon a:nth-child(3):hover {
+  height: 29px;
+  width: 29px;
+  background-image: url(../../index/img/footer_icon/in_footer_hover.png);
+  background-size: cover;
+} */
+
+#bottombar .footBom{
+	color: rgb(162,162,162);
+	font-size: 12px;
+}
+
+.thistab {
+  color:#FFcc44;
+  border-bottom: 3px solid #FFcc44;
+}
+.thistab span {
+  color:#FFcc44;
+}
+.tab span:hover{
+  color:#FFcc44;
+}
+
+.cv-top {
+  height: 150px;
+  background: white;
+  padding: 25px;
+}
+.cv-left {
+  float: left;
+  width: 540px;
+  background: white;
+  padding: 30px;
+}
+.cv-right {
+  float: right;
+  width: 255px;
+  background: white;
+  padding: 20px;
+}
+.detail_ :hover {
+   color:#ffcc44;
+}
+
+/**************************** menu ********************************/
+.nav-main {cursor: pointer;}
+.menu {z-index: 999;}
+.menu a:link,
+.menu a:visited,
+.menu a:focus {
+  color:#e0e0d0;
+}
+.menu a:hover,
+.menu a:active {
+  color:#ffCC00;
+}
+
+.tab a:link,
+.tab a:visited,
+.tab a:focus {
+  color:#c0c0c0;
+}
+.tab a:hover,
+.tab a:active {
+  color:#e0e0e0;
+}
+
+/*图标向上旋转*/
+.hover-up{transition-duration:.5s;transform:rotate(180deg);-webkit-transform:rotate(180deg); }
+/*图标向下旋转*/
+.hover-down{transition-duration:.5s;transform:rotate(0);-webkit-transform:rotate(0)}
+/*隐藏盒子设置*/
+
+div.hidden-box{width:103px;position:absolute;display:none;}
+.hidden-box>p{list-style-type:none; color:#565656; cursor:pointer; padding-top:5px;padding-bottom:5px;background:#ffffff;}
+.hidden-box>p span{ line-height:35px; height:35px; font-weight:500}
+.hidden-box>p:hover{
+  background:#EDEDED;
+  color:#A0A0A0;
+}
+
+#box-4 p{box-shadow: -2px 2px 3px rgba(45,45,45,0.2);}
+#box-9 p{box-shadow: -2px 2px 3px rgba(45,45,45,0.2);}
+/*.hidden-box li:hover{background:#643519;color:#fff}*/
+
+/*隐藏盒子位置设置*/
+.hidden-loc-index{left:284px}
+.hidden-loc-us{left:417px}
+.hidden-loc-info{left:550px}
+.box04{left:683px}
+
+/*列表的hover状态*/
+.itemFooter .mark{
+	position: relative;
+}
+.itemFooter .mark div{
+	position: absolute;
+    top: 20px;
+    left: -20px;
+    padding: 1px 5px;
+    background-color: #efefef;
+    box-shadow: 2px 2px 2px rgba(45,45,45,0.4);
+    font-size: 10px;
+    opacity: 0;
+    color: #565656;
+}
+.itemFooter .mark:nth-of-type(1) div{
+	width: 48px;
+}
+.itemFooter .mark:nth-child(3) div{
+	width: 38px;
+	left: -6px;
+}
+.itemFooter .mark:nth-child(5) div{
+	width: 72px;
+}
+.itemFooter .mark:hover div{
+    animation: fade 1s linear forwards;
+    -webkit-animation: fade 1s linear forwards;  
+}
+.userGuide_:hover{opacity: 0.75;}
+/*动画效果*/
+@keyframes fade{
+	0% {opacity: 0;}
+    70% {opacity: 0;}
+    71% {opacity: 1;}
+    100% {opacity: 1;}
+}
+@-webkit-keyframes fade{
+	0% {opacity: 0;}
+    70% {opacity: 0;}
+    71% {opacity: 1;}
+    100% {opacity: 1;}
+}
+
+/* 日期控件 */
+.ui-widget.ui-widget-content{
+	width: 260px;
+	margin-top: 20px;
+}
+.ui-datepicker th{
+	color: #7a7a7a;
+	font-weight: normal;
+}
+
+/* 响应式 */
+@media screen and (max-width: 1080px) {
+  #topbar {
+    width: 1080px;
+  }
+  #bottombar {
+    width: 1080px;
+  }
+  #hidata1_notice {
+    width: 1080px;
+  }
+  #menubar{
+  	width: 1080px;
+  }
+  #container{
+  	width: 1080px;
+  	margin: 0 auto;
+  }
+}
+/* 返回顶部样式 */
+.backTop{width: 55px;height: 50px;position: fixed;left: 50%;bottom: 100px;margin-left: 500px;padding-top: 8px;}
+.backTop:hover{color: #ffa942;}
+.backTop i{height: 13px;width: 13px;border-top: 2px solid #ffa942;border-left: 2px solid #ffa942;margin: 0 auto;margin-bottom: -4px;transform: rotate(35deg) skew(-20deg);}
+/******************************************************************/

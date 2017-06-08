@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+  <title>ACE Elite 顾问在线</title>
+  <link rel="stylesheet" href="../doc/css/common.css?comcs000005" />
+  <link rel="stylesheet" href="../doc/css/styles_HC.css?hccs000001" />
+  <link rel="stylesheet" href="../doc/js/layui/css/layui.css" />
+  <!--[if IE 8]> 
+  	<script src="../doc/js/jquery-1.8.0.js"></script>
+  <![endif]--> 
+  <!--[if gte IE 8]> 
+  	<script src="../doc/js/jquery-2.1.4.min.js"></script>
+  <![endif]--> 
+  <script src="../doc/js/jquery-2.1.4.min.js"></script>
+  <script src="../doc/js/layui/layui.js"></script>
+  <script src="../doc/js/common.js"></script>
+  <script src="../doc/js/myjs_HC.js"></script>
+</head>
+<body class="bg-white">
+<div class="frozen">
+   
+  <div class="f18 center dt30 color-focus">面试反馈</div>
+  <div class="pdl20 bg-white" style="">
+      <span class="pdl20 f14">反馈结果：</span><input type="hidden" id="code">
+          <span class="pdl10 dark-grey"><input class="radio" type="radio" id="radio1" name="proinfo" value="330004"><label class="pdl5" for="radio1">进入下一轮面试</label></span>
+          <span class="pdl100 dark-grey" style="margin-left: 10px;"><input class="radio" type="radio" id="radio2" name="proinfo" value="330005"><label class="pdl5" for="radio2">offer</label></span>
+  
+    <div class="dt10 proinfo_ext_ gone" id="reasonView">
+      <span class="top pdl10 f14 black">未通过原因：</span>
+      <textarea class="bg-light-grey dark-grey notnull vvc" id="reason" style="width:260px"></textarea>
+    </div>
+  </div>
+      
+  <div class="h40"></div>
+  <div class="center pdl20">
+    <button class="btn-focus h40 text-c" style="width: 120px;" id="UI_Button_Ok">确定</button>
+    <span class="pdr40"></span>
+    <button class="btn-default h40 text-c mgl5" style="width: 120px;" id="UI_Button_Cancel">取消</button>
+  </div>
+  
+</div>
+</body>
+</html>
+<script>
+$(document).ready(function(){
+  /***********此处编写js*************/
+  var cid = getUrlCid();
+  var pcid = getUrlPcid();
+  var tid = getUrlTid();
+  $("#reason").val("空");
+   
+  $("#UI_Button_Ok").click(function(e){
+      $btn_ = $(this);     
+      var loadingIndex = util.UI.loading();
+      ACECommon_FormSubmit($btn_, "CandiProcessSService.y?cmd=doProcess", "{objectMode:'H00516',cid:'"+cid+"',pcid:'"+pcid+"',tid:'"+tid+"',process:'"+$("#code").val()+"'}", function(ret, html){
+          if(ret==1){
+            parent.util.UI.closeDialog();
+            parent.reload(tid, html);
+          }             
+            util.UI.closeLoading(loadingIndex);
+      });
+  });
+  
+  $("#radio1").click(function(e){
+      $("#code").val($(this).val());      
+      $("#reasonView").hide();
+      $("#reason").val("空");
+  });  
+  
+  $("#radio2").click(function(e){
+      $("#code").val($(this).val());
+      $("#reasonView").hide();
+      $("#reason").val("空");
+  });
+  $("#radio3").click(function(e){
+      $("#code").val($(this).val());
+      $("#reasonView").show();
+      $("#reason").val("");
+  });
+  $("#radio1").click();  
+  /**********************************/
+});
+</script>

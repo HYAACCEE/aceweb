@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+  <title>ACE Elite 管理在线</title>
+  <link rel="stylesheet" href="../doc/css/common.css" />
+  <link rel="stylesheet" href="../doc/css/styles_M.css" />
+  <link rel="stylesheet" href="../doc/js/layui/css/layui.css" />
+  <script src="../doc/js/jquery-2.1.4.min.js"></script>
+  <script src="../doc/js/layui/layui.js"></script>
+  <script src="../doc/js/laydate/laydate.js"></script>
+  <script src="../doc/js/common.js"></script>
+  <script src="../doc/js/myjs_M.js"></script>
+  <style>
+    .dt_left {width: 100px; display:inline-block;text-align: right;}
+    .dt_right {width: 260px; display:inline-block;}
+  </style>
+</head>
+<body>
+<div id="former">
+  <div class="main">
+    <form class="layui-form" action="">
+    <div class="bg-white pdall20">
+      <div class="title dt20">编辑公司</div>
+      <div class="gone" id="hidata1">
+        <div class="debug bg-red">======================DEBUG=====================</div>
+      </div>
+      </div>
+      
+      <div class="layui-form-item center">
+        <div class="layui-input-block">
+          <button class="layui-btn" lay-submit lay-filter="submit_">保存</button>
+          <button type="reset" class="layui-btn layui-btn-primary">重置</button>
+        </div>
+      </div>
+      
+    </div>
+    </form>
+  </div>
+</div>
+
+<div class="h100"></div>
+<div class="h100"></div>
+<div class="loading"></div>
+</body>
+</html>
+
+<script>
+var fullName = "";
+var shortName = "";
+var form;
+$(document).ready(function(){
+  /***********此处编写js*************/
+  initForm();
+  /**********************************/ 
+});
+
+function acceptArgs(){
+	var url = decodeURI(location.href);
+  	var args = url.split("fullName=")[1];
+    fullName = args.split("&shortName=")[0];
+  	shortName = args.split("&shortName=")[1];
+}
+//初始化Form
+function initForm(){  
+  ACECommon_ShowData("ComService.y?cmd=html", "{objectMode:'H00604-6,H00604-7'}", $("#hidata1"), 0, function(ret,html){
+    Form_InitActions();
+    acceptArgs();
+    if(shortName.length>0){
+	    ACECommon_ShowData("MMMService.y?cmd=infoCompany", "{fullName:'"+fullName+"',shortName:'"+shortName+"'}", null, 0, function(ret,html){
+	        if(ret==1){
+	          var ss = html.split("`");
+	          var vv = $("#hidata1").find(".vv");
+	          for(var i=0;i<vv.length;i++){
+	            $(vv[i]).val(ss[i]);
+	          }
+	          if(ss[ss.length-1]!=""){
+	          	$(".addr").append("<div class='layui-input-inline jtdz'><input class='layui-input vv' style='width: 342px' value='"+ss[ss.length-1]+"'></div>");
+	          }
+	          if(ss[ss.length-2]!=""){
+	          	$(".addr").append("<div class='layui-input-inline jtdz'><input class='layui-input vv' style='width: 342px' value='"+ss[ss.length-2]+"'></div>");
+	          }
+	          form.render();
+	           var pics = $(".uploadPic_");
+	           var tmp_pic;
+	           for(var i=0; i<pics.length; i++){
+	             tmp_pic = pics.eq(i).next().next().val();
+	             if(tmp_pic.length>0) pics.eq(i).find("img").attr("src", tmp_pic);
+	           }
+	        }
+	    });
+    }
+  });
+}  
+function Form_InitActions(){
+  layui.use(['form'], function(){
+    form = layui.form();
+    form.render();
+
+	$(".addNewAddress").click(function(){
+		if($(".addr").children().length<3){
+			$(".addr").append("<div class='layui-input-inline jtdz'><input class='layui-input vv' style='width: 342px'></div>");
+		}
+	})
+	
+    //监听提交
+    form.on('submit(submit_)', function(data){
+      if(!$("#uploadPic1")[0].files[0] && $("#v_pic1").val().length==0){
+        util.UI.err("公司LOGO不能为空！");
+        return false;
+      }
+      if(!$("#uploadPic2")[0].files[0] && $("#v_pic2").val().length==0){
+        util.UI.err("公司营业执照不能为空！");
+        return false;
+      }
+      util.UI.confirm('确认提交吗？', function(){
+          ajaxFile_("MMMService.y?cmd=uploadFile", "{file1:'$(\"#uploadPic1\")[0].files[0]',file2:'$(\"#uploadPic2\")[0].files[0]'}", function(html){
+              html = html.split("`");
+              if($("#uploadPic1")[0].files[0]) $("#v_pic1").val(html[0]);
+              if($("#uploadPic2")[0].files[0]) $("#v_pic2").val(html[1]);
+              ACECommon_FormSubmit(null, "MMMService.y?cmd=addCompany", "{shortName:'"+shortName+"'}", function(ret, html){
+                  if(ret==1){
+			              parent.util.UI.msg(html);
+	                  setTime = setInterval(function(){
+	                    parent.util.UI.closeDialog();
+	                    parent.reload();
+	                  },2000);
+                  }else{
+                     util.UI.err(html);
+                  }
+              });                 
+          });            
+      });
+      return false;
+    });
+  });
+  
+    
+  $(".uploadPic_").click(function(){
+      $this_ = $(this);
+      $this_.next().click();  //隐藏了input:file样式后，点击头像就可以本地上传
+      $this_.next().on("change",function(){
+          var objUrl = getLocalObjectURL(this.files[0]) ; //获取图片的路径，该路径不是图片在本地的路径
+          if (objUrl) {
+            $this_.find("img").attr("src", objUrl) ; //将图片路径存入src中，显示出图片
+          }
+      });
+  });
+  
+}
+</script>

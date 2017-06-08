@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+  <head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+  <title>ACE Elite 顾问在线</title>
+  <link rel="stylesheet" href="../doc/css/common.css" />
+  <link rel="stylesheet" href="../doc/css/styles_M.css" />
+  <link rel="stylesheet" href="../doc/js/layui/css/layui.css" />
+  <script src="../doc/js/jquery-2.1.4.min.js"></script>
+  <script src="../doc/js/layui/layui.js"></script>
+  <script src="../doc/js/common.js"></script>
+  <script src="../doc/js/myjs_M.js"></script>
+</head>
+<body class="bg-white">
+<div class="frozen">
+  <div class="full-width text-c center" style="background-color:#fdc54e;height:140px">
+    <div class="h5"></div><span class="vv gone" id="iconStr_"></span>
+    <img class="dt10 img50" src="../doc/images/HR/icon_touxiang.png"/>
+    <div class="f14">
+      <span class="vv"></span><span class="pd10 f12 vv"></span></span>
+    </div>
+    <div class="f9 f10 dt5 dark-grey center">
+      <span class="pd5 vv"></span><span class="pd5 vv"></span><span class="pd5 vv"></span><span class="pd5 vv"></span><span class="pd5 vv"></span><span class="pd5 vv"></span>
+    </div>
+    <div class="h5"></div>
+  </div>
+  <div class="bg-white center" style="width: 200px">
+    <div class="h10"></div>
+    <div class="dt10 emailView gone" id="email_">
+      <img class="" style="width: 18px;height:18px" src="../doc/images/HR/gw_email.png"/><span class="pdl10 vv" readonly></span>
+    </div>
+    <div class="dt10 phoneView gone" id="phone_">
+      <img class="" style="width: 18px;height:18px" src="../doc/images/HR/iPhone_icon.png"/><span class="pdl10 vv" readonly></span>
+    </div>
+    <div class="dt10 gone">
+      <img class="" style="width: 18px;height:18px" src="../doc/images/HR/gw_phones.png"/><span class="pdl10 vv" readonly></span>
+    </div>
+  </div>
+</div>
+</body>
+</html>
+<script>
+$(document).ready(function(){
+  /***********此处编写js*************/
+  
+  var cid = location.href.split("?")[1];
+
+  ACECommon_ShowData("CandiProcessMService.y?cmd=candidateInfo", "{candidateId:'"+cid+"'}", null, 0, function(ret, html){
+      if(ret==1){
+        var ss = html.split("`");
+        var vv = $(".vv");
+        for(var i=0;i<vv.length;i++){
+          $(vv[i]).html(ss[i]);
+          if(ss[9] == ""){
+            $(".emailView").hide();
+          }else{
+            $(".emailView").removeClass("gone");
+          }
+          if(ss[10] == ""){
+            $(".phoneView").hide();
+          }else{
+            $(".phoneView").removeClass("gone");
+          }
+        }
+        
+        
+         if($("#iconStr_").html()){
+          $("#icon_").attr("src",$("#iconStr_").html());
+         }else{
+          $("#icon_").attr("src","../doc/images/HR/icon_touxiang.png");
+         }
+      }
+  });
+  /**********************************/
+});
+</script>

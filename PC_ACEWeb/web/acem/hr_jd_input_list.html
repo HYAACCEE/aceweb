@@ -1,0 +1,59 @@
+<style>
+.dt_left {width: 280px; display:inline-block;}
+.dt_right {width: 140px; display:inline-block;}
+</style>
+<div id="querybar">
+  <div class="main dt30">
+    <div id="hidata_condition" class="float-l">
+      <div class="bold f18">在线职位录入</div>
+    </div>   
+  </div>
+</div>
+<div id="former">
+  <div class="main">
+    <div class="dt10">待录入(<span id="totalCount">0</span>)</div>
+    <div class="bg-white gone" id="hidata1">
+    </div>   
+          
+    <div id="nodata" class="gone">
+      <div class="h60"></div>
+      <div class="h30"></div>
+      <div><img class="img100 bottom center" src="../doc/images/nodata.png"> </div>
+      <div class="pdall30 f16 center">列表为空</div>
+      <div class="h100"></div>
+      <div class="h60"></div>
+    </div>
+    
+    <div id="pages" class="text-c"></div>
+  </div>
+</div>
+
+<script>
+  $(document).ready(function(){
+    /***********此处编写js*************/
+    page_query();
+    /**********************************/
+  });
+  function page_query(page){
+    var keyword = $(".keyword_").val();
+    var pq = new PQuery("JobMService.y?cmd=list",
+             "{objectMode:'H00604-4',queryMK:'2',keyword:'"+keyword+"'}",
+             $("#hidata1"), $("#nodata"));
+    pq.query(page, function(ret, html){
+        if(ret==1){
+          My_InitActions(); //初始化按钮的控制
+        }
+    });
+  }
+  function My_InitActions(pdiv){
+    var curdiv = pdiv || $("#hidata1");
+    DataLine_InitFuns(curdiv);
+    
+    $(".detail_").click(function(e){
+        e.stopPropagation();
+        onlog('点击[在线职位录入列表dataline]'+DATAID);
+        util.UI.html("hr_jd_input_detail.html?id="+DATAID, 0, 0);
+        //window.open("hr_jd_input_detail.html?id="+DATAID,"","width=0,height=0,top=0,left=0");
+    });
+  }
+</script>

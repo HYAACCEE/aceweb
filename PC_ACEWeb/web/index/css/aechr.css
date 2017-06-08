@@ -1,0 +1,190 @@
+/*public start*/
+.opacityHelf {
+  filter: alpha(opacity=80);
+  -moz-opacity: 0.8;
+  -khtml-opacity: 0.8;
+  opacity: 0.8;
+}
+/*public end*/
+/*vairable start*/
+.line {
+  height: 2px;
+  width: 20px;
+  background: #f7d930;
+  margin: 27px auto 0;
+  text-align: center;
+  margin-bottom: 62px;
+}
+/*vairable end*/
+.nav .navConRight font {
+  color: #fff;
+  font-size: 17px;
+  margin-left: 29px;
+  cursor: default;
+  display：inline-block;
+}
+.nav .navConRight font span {
+  display: inline-block;
+  height: 28px;
+  width: 28px;
+  background-image: url(../img/nav_icon/top_icon.png);
+  background-size: cover;
+  vertical-align: middle;
+  margin-right: 9px;
+  margin-top: -3px;
+}
+/*banner start*/
+.banner {
+  height: 400px;
+  width: 100%;
+  line-height: 400px;
+  background-image: url(../img/acehrHei.png);
+  background-repeat: repeat;
+  overflow: hidden;
+}
+.banner .bannerPic {
+  background-image: url(../img/acehrBanner.png);
+  background-size: auto 800px;
+  background-position: center 70%;
+  background-repeat: no-repeat;
+  text-align: center;
+}
+.banner .bannerPic span {
+  color: #FFFFFF;
+  font-size: 30px;
+  padding: 8px 15px;
+  border: 2px solid #fff;
+  background: rgba(0, 0, 0, 0.3);
+}
+/*banner end*/
+/*about start*/
+.about {
+  background: #fafafa;
+  padding-top: 54px;
+  padding-bottom: 32px;
+}
+.about .aboutShow .showLeft {
+  height: 300px;
+  width: 300px;
+  overflow: hidden;
+}
+.about .aboutShow .showRight {
+  height: 300px;
+  width: 900px;
+  background: #fff;
+  font-size: 14px;
+  padding: 0 81px;
+  margin-bottom: 75px;
+}
+.about .aboutShow .showRight p {
+  text-align: center;
+  font-size: 20px;
+  padding-top: 0;
+  color: #4f4f4f;
+  padding-top: 21px;
+}
+.about .aboutShow .showRight .showLine {
+  height: 2px;
+  width: 20px;
+  background: #f7d930;
+  margin: 27px auto 0;
+  text-align: center;
+  margin-bottom: 62px;
+  margin: 18px 0 12px;
+}
+.about .aboutShow .showRight .showSection {
+  line-height: 2;
+}
+.about .aboutWorth p {
+  text-align: center;
+  font-size: 20px;
+  padding-top: 0;
+  color: #4f4f4f;
+  color: #3e3e3e;
+}
+.about .aboutWorth .showLine {
+  height: 2px;
+  width: 20px;
+  background: #f7d930;
+  margin: 27px auto 0;
+  text-align: center;
+  margin-bottom: 62px;
+  margin-bottom: 98px;
+}
+.about .aboutWorth .worthCon .worthSection {
+  width: 50%;
+  position: relative;
+}
+.about .aboutWorth .worthCon .worthSection img {
+  width: 53px;
+  position: absolute;
+  top: -30px;
+  left: 62px;
+}
+.about .aboutWorth .worthCon .worthSection p {
+  font-size: 14px;
+  padding: 0 50px 0 100px;
+  margin-bottom: 68px;
+}
+/*about end*/
+/*brand start*/
+.brand {
+  height: 750px;
+  width: 100%;
+}
+.brand .brandTitle {
+  text-align: center;
+  font-size: 20px;
+  padding-top: 36px;
+  color: #4f4f4f;
+}
+.brand .brandLine {
+  height: 2px;
+  width: 20px;
+  background: #f7d930;
+  margin: 27px auto 0;
+  text-align: center;
+  margin-bottom: 62px;
+}
+/* .brand .brandCon span {
+  display: inline-block;
+  width: 19.6%;
+  text-align: center;
+}
+.brand .brandCon span img {
+  height: 50px;
+  margin-bottom: 40px;
+} */
+/*brand end*/
+/*media start*/
+@media screen and (max-width: 1366px) {
+  .about .aboutShow .showLeft {
+    height: 300px;
+    width: 300px;
+    overflow: hidden;
+  }
+  .about .aboutShow .showRight {
+    height: 300px;
+    width: 640px;
+    background: #fff;
+    font-size: 14px;
+  }
+  .brand{height: 680px;}
+  .brand img{height: 380px;}
+}
+@media screen and (max-width: 940px) {
+  .banner {
+    width: 940px;
+    height: 620px;
+  }
+  .banner .bannerPic {
+    background-size: auto 800px;
+    background-position: center 70%;
+    background-repeat: no-repeat;
+  }
+  .about {
+    width: 940px;
+  }
+  .brand img{height: 320px;}
+}
+/*media end*/

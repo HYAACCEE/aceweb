@@ -1,0 +1,142 @@
+<style>
+.dt_left {width:230px; display:inline-block;}
+.dt_right {width:180px; display:inline-block;}
+table.hrCoun tbody tr th.opa1{width: 40px;padding-left:0;padding-right: 10px;}
+table.hrCoun tbody tr th:nth-child(2){width: 100px;}
+table.jobAccount tbody tr th:nth-child(1){width: 200px;}
+table.jobAccount tbody tr th:nth-child(2){width: 200px;}
+table.companyAccount tbody tr th:nth-child(1){width: 230px;}
+table.companyAccount tbody tr th:nth-child(2){width: 80px;}
+table.companyAccount tbody tr th:nth-child(3){width: 80px;}
+table.companyAccount tbody tr th:nth-child(4){width: 80px;}
+table.stat_candi tbody tr th:nth-child(3){width: 60px;}
+table.stat_candi tbody tr th:nth-child(4){width: 43px;}
+table.stat_candi tbody tr th:nth-child(5){width: 57px;}
+table.stat_candi tbody tr th:nth-child(6){width: 40px;}
+.act{color: #FFAA00;}
+.blo{color: #3897FF;}
+.bla{color: #4700A7;}
+.ina{color: #35B102;}
+.bgcol{background-color: red;}
+.companyDetail_:hover {color:#ffa942;}
+</style>
+
+<div id="querybar">
+  <div class="main">
+    <div class="title">客户</div>
+    <div class="f14 grey tab" id="hidata_condition">
+      <div class="layui-inline pd20 thistab"><div class="layui-inline pointer dt10" data="2">公司</div></div>
+      <div class="layui-inline pd20"><div class="layui-inline pointer dt10" data="3">HR账户</div></div>
+      <div class="layui-inline pd20"><div class="layui-inline pointer dt10" data="4">职位</div></div>
+    </div>
+    <div class="h5"></div>
+    <div class="dt5">
+      <span><input type="text" class="keyword_" placeholder="按名称搜索" size="80"></span><span class="btn-focus pd20 dt8 mgl10 pointer">搜索</span>
+    </div>
+    
+    
+    <div class="f14 grey tab gone" id="hidata_condition2">
+      <div class="layui-inline pd20"><div class="layui-inline dt10">搜索到候选人(<span id="totalCount">0</span>)</div></div>
+    </div>
+  </div>
+</div>
+
+<div id="container">
+  <div class="main">
+    <div class="bg-white gone" id="hidata1">
+  </div>   
+          
+  
+    <div id="hidata_condition" class="gone">
+      <div class="debug bg-red full-widspan text-c">======================DEBUG=====================</div>
+    </div>
+  <div id="hidata" class="dt10">
+    <div class="debug bg-red full-width text-c">======================DEBUG=====================</div>    
+    </div>
+    <div id="nodata" class="gone">
+      <div class="h60"></div>
+      <div class="h30"></div>
+      <div><img class="img100 bottom center" src="../doc/images/nodata.png"> </div>
+      <div class="pdall30 f16 center">列表为空</div>
+      <div class="h100"></div>
+      <div class="h60"></div>
+    </div>
+    
+    <div id="pages" class="text-c"></div>
+    <div><input type="hidden" id="hide"/></div>
+  </div>
+</div>
+
+<script>
+  var submk, curtab_data;
+  var flag = "";
+  var text = "";
+  $(document).ready(function(){
+    /***********此处编写js*************/
+    curtab_data = null;
+    queryStatusList();
+    /**********************************/
+    $(".keyword_").keydown(function(e){
+        if(e.keyCode==13) $(".btn-focus").click();
+    });
+  });
+  //状态栏
+  function queryStatusList(){
+    $(".tab >div >div").click(function(){
+      curtab_data = $(this).attr("data");
+      $(this).parent().addClass("thistab").siblings().removeClass("thistab");
+      submk = $(this).attr("data");
+      flag = "";
+      page_query();
+    });
+    if(curtab_data) $(".tab >div >div[data='"+curtab_data+"']").click();
+    else $(".tab >div >div").eq(0).click();
+  }
+  function page_query(page){
+    var keyword = $(".keyword_").val();    
+    var pq = new PQuery("StatMService.y?cmd=statCompany",   
+             "{objectMode:'H00607-"+submk+"',queryMK:'11',submk:'"+submk+"',keyword:'"+keyword+"',order:'"+flag+"'}",
+             $("#hidata1"), $("#nodata"));
+    pq.query(page, function(ret, html){
+        if(ret==1){
+          text = $("#hide").val();
+          My_InitActions(); //初始化按钮的控制
+        }
+    });
+  } 
+  function My_InitActions(pdiv){
+    var curdiv = pdiv || $("#hidata1");
+    DataLine_InitFuns(curdiv);
+    Pub_InitSlide(curdiv);
+    var title = $("#hide").val()
+ 	if(title.length>0){
+      $("th[title="+title+"]").attr("style","background-color: #eee");
+      console.log($("th[title="+title+"]").attr("style"));
+ 	}
+    
+     //升序排序
+   $(".triangle-up").click(function(page){
+    	var pa = $(this).parent();
+    	flag = pa.attr("title")+" asc";
+    	$("#hide").val(pa.parent().attr("title"));
+    	page_query();
+    });
+    //降序排序
+     $(".triangle-down").click(function(page){
+    	var pa = $(this).parent();
+    	flag = pa.attr("title")+" desc";
+    	$("#hide").val(pa.parent().attr("title"));
+    	page_query();
+    });
+    
+    $(".click_").click(function(e){
+   	  var urlCid = $(this).attr("data");	
+   	  e.stopPropagation();
+      window.open("stat_company_detail.html?id="+urlCid,"","width=0,height=0,top=0,left=0");
+   }); 
+   
+   $(".btn-focus").click(function(){
+   		page_query();
+   })
+  }
+</script>

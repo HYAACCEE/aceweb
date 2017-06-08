@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+  <title>ACE Elite 管理在线</title>
+  <link rel="stylesheet" href="../doc/css/common.css" />
+  <link rel="stylesheet" href="../doc/css/styles_M.css" />
+  <link rel="stylesheet" href="../doc/js/layui/css/layui.css" />
+  <script src="../doc/js/jquery-2.1.4.min.js"></script>
+  <script src="../doc/js/layui/layui.js"></script>
+  <script src="../doc/js/laydate/laydate.js"></script>
+  <script src="../doc/js/common.js"></script>
+  <script src="../doc/js/myjs_M.js"></script>
+
+  <script src="../doc/js/calendar-select.js?cal00000004"></script>
+  <link rel="stylesheet" href="../doc/js/autocomplete/style.css" />
+  <script src="../doc/js/autocomplete/jquery.autocomplete.js"></script>
+  <script src="../doc/js/autocomplete/autocomplete.js"></script>
+  
+  <link rel="stylesheet" href="../doc/selector/css.css" />
+  <script src="../doc/selector/selector.js"></script>
+  <script src="../doc/selector/drag.js"></script>
+  <script src="../doc/selector/city_arr.js"></script>
+  <script src="../doc/selector/nationality_arr.js"></script>
+  <script src="../doc/selector/funtype_arr.js"></script>
+  <script src="../doc/selector/industry_arr.js"></script>
+  <script src="../doc/selector/major_arr.js"></script>
+  <script src="../doc/selector/drag.js"></script>
+  <script src="../doc/selector/school_arr.js"></script>
+  <style>
+    .dt_left {width: 100px; display:inline-block; text-align: right; padding-right:10px; border:0px solid red;}
+    .dt_right {width: 280px; display:inline-block;border:0px solid green;}
+    .dt_input1 {width: 257px;}
+    .dt_input2 {width: 98px;}
+    .dt_input3 {width: 66px;}
+    .dt_phone1 {width: 50px;}
+    .dt_phone2 {width: 170px;}
+    .dt_textarea {width:656px; height:200px;}
+    
+    .textareaWidth{width:656px;} /* 作废 */
+  </style>
+</head>
+<body>
+    
+<div class="pd100 dt20"><span class="bold pd20 f18">简历更新审核</span></div>
+<div id="container">
+  <div class="main">
+    <div class="content pdall30 bg-white clearfix">
+      <div id="hidata00">
+	      <fieldset class="layui-elem-field layui-field-title">
+	        <legend><span class="pdl5 bg-focus"></span><span class="bold pd10 f14">基本信息</span></legend>
+	      </fieldset>
+	     
+	      <form id="hidata1_form">
+	      <div class="gone" id="hidata1"><!-- 基本信息 -->
+	        <div class="debug bg-red full-width text-c">======================DEBUG=====================</div>
+	        <div class="hidata_subform">
+	        </div>
+	      </div>
+	      </form>       
+	      
+	      <form id="hidata3_form">
+	      <div class="h20"></div>
+	      <fieldset class="layui-elem-field layui-field-title">
+	        <legend><span class="pdl5 bg-focus"></span><span class="bold pd10 f14">教育背景</span></legend>
+	      </fieldset>
+	      <div class="gone" id="hidata3"><!-- 基本信息 -->
+	      </div>
+	      <span class="dt_left dt10"></span>
+	      <span class="dt_right"><a class="link pointer addmore_" data="3">+新的教育经历</a></span>
+	      </form>
+	        
+	      <form id="hidata4_form">
+	      <div class="h20"></div>  
+	      <div class="pd30 dt10"><span class="pdl5 bg-focus"></span><span class="bold pd10 f14">培训经历</span></div>
+	      <div class="gone" id="hidata4"><!-- 培训经历 -->
+	      </div>
+	      <span class="dt_left dt10"></span>
+	      <span class="dt_right"><a class="link pointer addmore_" data="4">+新的培训经历</a></span>
+	      </form>
+	
+	      <form id="hidata5_form">
+	      <div class="h20"></div>
+	      <div class="pd30 dt10"><span class="pdl5 bg-focus"></span><span class="bold pd10 f14">获得证书</span></div>
+	      <div class="gone" id="hidata5"><!-- 获得证书 -->
+	      </div>
+	      <span class="dt_left dt10"></span>
+	      <span class="dt_right"><a class="link pointer addmore_" data="5">+新的证书名称</a></span>
+	      </form>
+	
+	      <form id="hidata7_form">
+	      <div class="h15"></div>
+	      <div class="pd30 dt10"><span class="pdl5 bg-focus"></span><span class="bold pd10 f14">工作经验</span></div>
+	      <div class="gone" id="hidata7"><!-- 工作经验 -->
+	      </div>
+	      <span class="dt_left dt10"></span>
+	      <span class="dt_right"><a class="link pointer addmore_" data="7">+新的工作经验</a></span>
+	      </form>
+	                
+	      <form id="hidata8_form">
+	      <div class="h20"></div>
+	      <div class="pd30 dt10"><span class="pdl5 bg-focus"></span><span class="bold pd10 f14">项目经验</span></div>  
+	      <div class="gone" id="hidata8"><!-- 项目经验 -->
+	      </div>
+	      <span class="dt_left dt10"></span>
+	      <span class="dt_right"><a class="link pointer addmore_" data="8">+新的项目经验</a></span>
+	      </form>
+      </div>
+        
+      <form class="layui-form" action="">
+      <div class="pdall10"><span class="pdl5 bg-focus"></span><span class="bold pd10 f14">审核信息</span></div>
+      <div id="hidata99">
+        <div class="layui-form-item">
+          <label class="layui-form-label">审核结果</label><input id="code" class="notnull" type="hidden" value="220007">
+          <div class="layui-inline">
+            <input class="radio" type="radio" name="radio_unpass" value="220007" title="通过" lay-filter="radio_unpass" checked>
+            <input class="radio" type="radio" name="radio_unpass" value="220047" title="不通过" lay-filter="radio_unpass">
+          </div>
+        </div>
+        
+        <div class="layui-form-item gone" id="unpassView_">
+          <label class="layui-form-label top">不通过原因</label><input id="v_unpassReason" class="vv vvc" type="hidden">
+          <div class="layui-inline">
+            <div class="layui-line dt5"><input type="checkbox" value="更新信息有误" lay-filter="radio_unpass"/>更新信息有误</div>
+            <div class="layui-line dt5"><input type="checkbox" value="其他原因" lay-filter="radio_unpass"/>其他原因</div>
+          </div>
+          <div> 
+            <span class="dt_left"></span>
+            <span class="dt_right"><textarea class="vv" name="vvn" id="otherReason" style="width:645px"/></textarea></span>
+          </div>
+        </div>
+      </div>
+      </form>
+  
+      <div class="h50"></div>           
+      <div class="center">
+        <button class="btn-focus pd30 submitCmt_">提交</button>
+      </div>
+      <div class="h50"></div>
+    </div>
+  </div>
+</div>
+
+<div id="hidata_result">
+<input type=hidden class="vv" id="v_result">
+</div>
+
+<!-- for selector start -->
+<div id="maskLayer" style="display:none">
+<iframe id="maskLayer_iframe" frameBorder=0 scrolling=no style="filter:alpha(opacity=50)"></iframe>
+<div id="alphadiv" style="filter:alpha(opacity=50);-moz-opacity:0.5;opacity:0.5"></div>
+  <div id="drag">
+    <h3 id="drag_h"></h3>
+    <div id="drag_con"></div><!-- drag_con end -->
+  </div>
+</div><!-- maskLayer end -->
+</div>
+<!-- alpha div end -->
+<div id="sublist" style="display:none"></div>
+<!-- for selector end -->
+
+<div class="h100"></div>
+<div id="bottombar"></div>
+</body>
+</html>
+
+<script src="../doc/js/cv_edit.js?170000000001"></script>
+<script>
+var M0 = "M";
+var loadingIndex;
+
+var checked = "";
+layui.use(['form'], function(){
+  var form = layui.form();
+  form.render();
+  
+  form.on('checkbox(radio_unpass)', function(data){
+    if(data.elem.checked ==true){
+      checked += "<br>"+(data.value);
+    }else{
+      checked = checked.replace(new RegExp("<br>"+data.value, "g"),'');
+    }
+  });
+
+  form.on('radio(radio_unpass)', function(data){
+    if(data.value == 220007){
+      $("#unpassView_").hide();
+    }else{
+      $("#unpassView_").show();
+    }
+    $("#code").val(data.value);
+  });
+	//监听提交
+	$(".submitCmt_").click(function(e){
+	  $btn_ = $(this);
+	  util.UI.confirm('确认提交吗？', function(){
+          if($("#otherReason").val()==""){
+          }else{
+              checked += "<br>"+$("#otherReason").val();
+          }
+        $("#v_unpassReason").val(checked.substring(checked.length>0?"<br>".length:0));
+        if($("#code").val()==220007) $("#v_unpassReason").removeClass("notnull");
+        else $("#v_unpassReason").addClass("notnull");
+        save();
+	  });
+	  return false;
+	});
+});
+function submitCommplete(){
+  if(submitFlag == MAX_INDEX-2 && successFlag == submitFlag){
+    ajax_("Candi"+M0+"Service.y?cmd=cvUpdate", "{cid:'"+cid+"'}", function(){
+      ajax_("Candi"+M0+"Service.y?cmd=cvCommitCheck", "{cid:'"+cid+"'}", function(ret, html){
+        util.UI.closeLoading(loadingIndex); //关闭loading
+          if(ret==1){
+		        ACECommon_FormSubmit($btn_, "CandiProcessMService.y?cmd=doProcess", "{cid:'"+cid+"',process:'"+$("#code").val()+"'}", function(ret, html){
+		            if(ret==1){
+		               parent.util.UI.msg(html);
+		                parent.util.UI.closeDialog();
+		                parent.reload();
+		            }else{
+		              util.UI.warning(html, function(){
+		                parent.util.UI.closeDialog();
+		                parent.reload();
+		              });
+		            }
+		        }, $("#hidata99"));
+          }else{
+            layer.alert(html, {
+              title: '提交不成功'
+            });
+          }
+      });
+    });
+  }else if(submitFlag == MAX_INDEX-2){
+    util.UI.closeLoading(loadingIndex); //关闭loading
+  }
+}
+</script>

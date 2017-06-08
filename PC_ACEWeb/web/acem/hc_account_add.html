@@ -1,0 +1,135 @@
+<link rel="stylesheet" href="../doc/js/autocomplete/style.css" />
+<script src="../doc/js/autocomplete/jquery.autocomplete.js"></script>
+<script src="../doc/js/autocomplete/autocomplete.js"></script>
+
+<style>
+.dt_left {width:100px; display:inline-block; text-align:right;}
+.dt_right {width:260px; display:inline-block;}
+.dt_input1 {width:30px;}
+.dt_input2 {width:220px;}
+</style>
+
+<div id="former">
+  <div class="main">
+    <form class="layui-form" action="">
+    <div class="bg-white pdall20">
+      <div class="title dt10 ellipsis" style="width:140px;">新增顾问账户</div>
+      <div class="layui-form-item">
+        <label class="layui-form-label"><i class="x"></i>顾问类型</label><input class="vv" type="hidden" id="v_hcstyle" value="1">
+        <div class="layui-input-block">
+          <input type="radio" name="radio_hcstyle" value="1" title="猎头公司" lay-filter="radio_hcstyle" checked>
+          <input type="radio" name="radio_hcstyle" value="0" title="Freelancer" lay-filter="radio_hcstyle">
+        </div>
+      </div>       
+      <div class="gone" id="hidata1">
+        <div class="debug bg-red">======================DEBUG=====================</div>
+      </div>
+      
+      <div class="layui-form-item center">
+        <div class="layui-input-block">
+          <button class="layui-btn" lay-submit lay-filter="submit_">立即提交</button>
+          <button type="reset" class="layui-btn layui-btn-primary">重置</button>
+        </div>
+      </div>
+      
+    </div>
+    </form>
+  </div>
+</div>
+
+<script src="../doc/js/ace-validate.js"></script>
+<script src="../doc/js/uploadfile.js?uf0000006"></script>
+<script>
+$(document).ready(function(){
+  /***********此处编写js*************/ 
+  initForm(); //初始化Form
+  /**********************************/
+});
+//初始化Form
+function initForm(type){
+  var type = type || 1;
+  var objectModel;
+  if(type == 1){
+      objectModel = "H00603-5,H00603-6";
+  }else{
+      objectModel = "H00603-7,H00603-8"; 
+  }  
+  ACECommon_ShowData("ComService.y?cmd=html", "{objectMode:'"+objectModel+"'}", $("#hidata1"), 0, function(ret,html){
+      Form_InitActions();
+  });
+}  
+function Form_InitActions(){
+  autocomplete_Init();
+  initUpload();
+  
+  $(".uploadPic_").click(function(){
+      $this_ = $(this);
+      $this_.next().click();  //隐藏了input:file样式后，点击头像就可以本地上传
+      $this_.next().on("change",function(){
+          var objUrl = getLocalObjectURL(this.files[0]) ; //获取图片的路径，该路径不是图片在本地的路径
+          if (objUrl) {
+            $this_.find("img").attr("src", objUrl) ; //将图片路径存入src中，显示出图片
+          }
+      });
+  });
+  
+  layui.use(['form'], function(){
+    var form = layui.form();
+    form.render();
+    
+    form.on('radio(radio_sex)', function(data){
+      $("#v_sex").val(data.value);
+    });
+    form.on('radio(radio_hcstyle)', function(data){
+      $("#v_hcstyle").val(data.value);
+      initForm(data.value);
+    }); 
+    //监听提交
+    form.on('submit(submit_)', function(data){
+      util.UI.confirm('确认提交吗？', function(){
+          ajaxFile_("MMMService.y?cmd=uploadFile", "{fileNum:'"+$(".uploadFile_").length+"'}" , function(html){
+              html = html.split("`");
+              for(var m=0;m<html.length;m++){
+                if($("#uploadFile"+(m+1))[0].files[0]){
+                  if(html[m].indexOf("222")==0){
+                    util.UI.err("第"+(m+1)+"个文件："+html[m]);
+                    return false;
+                  }else{
+                    $(".vvf").eq(m).val(html[m]);
+                  }
+                }
+              }
+              ACECommon_FormSubmit(null, "MMMService.y?cmd=addHC", "", function(ret, html){
+                  if(ret==1){
+                    util.UI.msg(html);
+                    reload();
+                  }else{
+                    util.UI.err(html);
+                  }
+              });
+          });
+      });
+      return false;
+    });
+  });
+}
+function checkIsPhone() {
+  var mobile = $.trim($("#phone").val());   
+  var isPhone = /^(?:(?:0\d{2,3})-)?(?:\d{7,8})(-(?:\d{3,}))?$/; 
+  //如果为0开头则验证固定电话号码  
+  if (mobile.substring(0, 1) == 0) {  
+      if (!isPhone.test(mobile)) {
+          $("#phoneMsg").html("<font color='red'>座机号码格式不正确！请重新输入！</font>");
+          $("#phone").focus();  
+          return false;  
+      }  
+  }
+  $("#phoneMsg").html("");
+  return true;  
+}
+function reload(){
+  initForm($("#v_hcstyle").val());
+}
+  
+
+</script>

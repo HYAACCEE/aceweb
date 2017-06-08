@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+  <title>ACE Elite 顾问在线</title>
+  <link rel="stylesheet" href="../doc/css/common.css?comcs000005" />
+  <link rel="stylesheet" href="../doc/css/styles_HC.css?hccs000001" />
+  <link rel="stylesheet" href="../doc/js/layui/css/layui.css" />
+  <!--[if IE 8]> 
+  	<script src="../doc/js/jquery-1.8.0.js"></script>
+  <![endif]--> 
+  <!--[if gte IE 8]> 
+  	<script src="../doc/js/jquery-2.1.4.min.js"></script>
+  <![endif]--> 
+  <script src="../doc/js/jquery-2.1.4.min.js"></script>
+  <script src="../doc/js/layui/layui.js"></script>
+  <script src="../doc/js/common.js"></script>
+  <script src="../doc/js/myjs_HC.js"></script>
+  <script src="../doc/js/Menu.js"></script>
+  <style>
+  .dt_left {width: 90px; display:inline-block;text-align: right;padding-right:15px}
+  .dt_right {width: 253px; display:inline-block;}
+  .dt_input1 {width: 230px;}
+  </style>
+</head>
+<body>
+
+<div id="topbar"></div>
+<div class="h50"></div>
+<div id="former">
+  <div class="main display-table">
+    <div class="center bg-white pd50">
+    
+      <div id="hidata1" class="hidata gone">
+      </div>
+      
+      <div id="hidata2" class="hidata gone">     
+        <div class="title dt30">身份验证</div>
+        <div class="pdl80 text-c"><input class="vv" type="hidden" id="v_hctype" value="1">
+          <span class="pdr50 pdl10 titlecss"><input class="radio proinfo_" type="radio" id="rp1" name="proinfo" value="1" checked><label class="pdl10" for="rp1" style="letter-spacing:1px">我在猎头公司</label></span>
+        <span class="titlecss"><input class="radio proinfo_" type="radio" id="rp2" name="proinfo" value="0"><label class="pdl10" for="rp2" style="letter-spacing:1px">我是自由职业</label></span>
+        </div>
+        <div id="hidata2-1" class="gone"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="h100"></div>
+<div id="bottombar"></div>
+<div class="gone">
+  <script type="text/javascript">var cnzz_protocol = (("https:" == document.location.protocol) ? " https://" : " http://");document.write(unescape("%3Cspan id='cnzz_stat_icon_1261795902'%3E%3C/span%3E%3Cscript src='" + cnzz_protocol + "s95.cnzz.com/z_stat.php%3Fid%3D1261795902%26online%3D2' type='text/javascript'%3E%3C/script%3E"));</script>
+</div>
+</body>
+</html>
+
+<script src="../doc/js/ace-validate.js"></script>
+<script src="../doc/js/uploadfile.js?uf0000006"></script>
+<script>
+  var code = null;
+  var setTime = null;
+  var MAX_TIME = 60;
+  var time = MAX_TIME;
+  $(document).ready(function(){
+    /***********此处编写js*************/
+    initForm_1(); //初始化Form
+    /**********************************/
+  });
+  //初始化Form
+  function initForm_1(){  
+    ACECommon_ShowData("ComService.y?cmd=html", "{objectMode:'H00201-1'}", $("#hidata1"), 1, function(ret,html){
+        Form_InitActions_1($("#hidata1"));
+    });     
+  }
+  function Form_InitActions_1($thisdiv){
+    //setDisable($thisdiv.find(".nextregister_"), true);
+    
+    $thisdiv.find(":radio").click(function(e){
+        $thisdiv.find("#v_sex").val($(this).val());
+    });
+    $thisdiv.find(".radio")[0].click();
+    
+    //校验手机号
+    var $mobile = $thisdiv.find("#mobile");
+    var $tipMobile = $thisdiv.find("#tipMobile");
+    $mobile.on("keydown", function(){
+        $tipMobile.html("");
+        $thisdiv.find("#code1").val("");
+    });
+    $mobile.on("keyup", function(){
+        setDisable($thisdiv.find("#btn_vericode"), !checkAccountMobile($(this), $tipMobile, false, function(result){
+            setDisable($thisdiv.find("#btn_vericode"), !result);
+        }));
+    });
+    $mobile.on("blur", function(){
+        checkAccountMobile($(this), $tipMobile, true);
+    });
+    //校验密码
+    $("#pas1").on("keydown", function() {
+        $("#pas1Tip").html(""); 
+    });
+    $("#pas1").on("blur", function(){//用户密码确认框失去焦点触发验证事件
+        var pass = $(this).val();
+        if (!isPassword(pass)){
+          $("#pas1Tip").html("<span class=\"f9 red\">密码必须6到12位</span>");
+        }else{
+          $("#pas1Tip").html(""); 
+        }
+    });
+    $("#pas2").on("keydown", function() {
+        $("#pas2Tip").html(""); 
+    });
+    $("#pas2").on("keyup", function(){//用户密码确认框失去焦点触发验证事件
+        if(!$(this).val || $(this).val() != $("#pas1").val() ) { //此处验证和上面一样 
+            $("#pas2TipView").show();
+            $("#pas2Tip").html("<span class=\"f10 red\">密码输入不一致</span>");
+        } else {
+          if (isPassword($("#pas1").val())){
+           // setDisable($thisdiv.find(".nextregister_"), false);
+            $("#pas2Tip").html(""); 
+          }
+        }  
+    });
+    
+    //验证码
+    var $btn_vericode = $thisdiv.find("#btn_vericode");
+    $btn_vericode.addClass("btnDefult");
+    $btn_vericode.val("发送验证码");
+    $btn_vericode.click(function(e){
+        //setDisable($thisdiv.find(".nextregister_"), true);
+        ajax_("HISService.y?cmd=sendCodeToPhone", "{seq:'138010',phone:'"+$mobile.val()+"'}",function(ret,html){
+            if(ret==1){
+              code = html;
+              util.UI.msg("验证码已发送，请查收");             
+            }   
+        });
+        $mobile.attr("disabled", true);
+        setDisable($btn_vericode, true);
+        setTime = setInterval(function(){
+            if(time==0){
+              setDisable($btn_vericode, false); 
+              $btn_vericode.html("重新发送");
+              $mobile.removeAttr("disabled");
+              clearInterval(setTime);
+              time = MAX_TIME;
+              return;
+            }
+            $btn_vericode.html(time+" S");
+            time--;
+         },1000);
+    });
+    
+    $(".protocal_").click(function(e){
+        window.open("../aceprotocol.html");
+    });
+
+    //提交
+    $thisdiv.find(".nextregister_").click(function(e){
+        $this_ = $(this);
+        setDisable($this_, !checkAccountMobile($mobile, $tipMobile, true, function(result){
+            setDisable($this_, !result);
+            if(!result) return false;
+            
+		        if($("#code1").val() != code){
+		          util.UI.err("验证码不正确");
+		          return;
+		        }        
+		        if($("#pas1").val() != $("#pas2").val()) { //此处验证和上面一样            
+		            util.UI.err("密码输入不一致");
+		            return;
+		        }
+		        $btn = $(this);
+		        var loadingIndex = util.UI.loading();
+		        ACECommon_Submit("HISService.y?cmd=registCheckFirst", "", function(ret, html){
+		            util.UI.closeLoading(loadingIndex);
+		            initForm_2();
+		        }, {'div':$thisdiv, 'btn': $btn});
+            
+        }));
+    })
+    
+  }
+  function initForm_2(){
+    $(".hidata").hide();
+    $("#hidata2").show();
+    
+    $("#rp1").click(function(e){
+        $("#hidata2-0").hide();
+        $("#v_hctype").val($(this).val());
+        ACECommon_ShowData("ComService.y?cmd=html", "{objectMode:'H00201-2'}", $("#hidata2-1"), 0, function(ret,html){
+            Form_InitActions_2($("#hidata2"));
+        });
+        
+    });  
+    $("#rp2").click(function(e){
+        $("#hidata2-1").hide();
+        $("#v_hctype").val($(this).val());
+        ACECommon_ShowData("ComService.y?cmd=html", "{objectMode:'H00201-3'}", $("#hidata2-1"), 0, function(ret,html){
+            Form_InitActions_2($("#hidata2"));
+        });
+    });
+    $("#rp1").click();
+  }
+     
+  function Form_InitActions_2($thisdiv){
+   initUpload();
+    // 校验邮箱
+    var $email = $thisdiv.find("#email");
+    var $tipEmail = $thisdiv.find("#tipEmail");
+    $email.on("keydown", function(){
+        $tipEmail.html("");
+    });
+    $email.on("blur", function(){
+        setDisable($thisdiv.find(".submitRegister_"), !checkAccountEmail($(this), $tipEmail, function(result){
+            setDisable($thisdiv.find(".submitRegister_"), !result);
+        }));
+    });
+    
+    // 校验身份证号
+    var $cardno = $thisdiv.find("#cardno");
+    var $tipCardno = $thisdiv.find("#tipCardno");
+    $cardno.on("keydown", function(){
+        $tipCardno.html("");
+    });
+    $cardno.on("blur", function(){
+        setDisable($thisdiv.find(".submitRegister_"), !checkAccountCardno($(this), $tipCardno, function(result){
+            setDisable($thisdiv.find(".submitRegister_"), !result);
+        }));
+    });
+    
+    //提交
+    $thisdiv.find(".submitRegister_").click(function(e) {
+        $this_ = $(this);
+        $btn_ = $(this);
+        var temp = $("#v_hctype").val();
+        if($btn_) $btn_.attr("disabled", "disabled");
+        var loadingIndex = util.UI.loading();
+        ajaxFile_("MMSService.y?cmd=uploadFile", "{fileNum:'"+$(".uploadFile_").length+"'}" , function(html){
+            html = html.split("`");
+            for(var m=0;m<html.length;m++){
+              if($("#uploadFile"+(m+1))[0].files[0]){
+                if(html[m].indexOf("222")==0){
+                  util.UI.err("第"+(m+1)+"个文件："+html[m]);
+                  
+                  if($btn_) $btn_.removeAttr("disabled");
+                  util.UI.closeLoading(loadingIndex);
+                  return false;
+                }else{
+                  $(".vvf").eq(m).val(html[m]);
+                }
+              }
+            }
+            ACECommon_FormSubmit($btn_, "MMSService.y?cmd=registNewUser", "", function(ret, html){
+                util.UI.closeLoading(loadingIndex);
+                if(ret==1){
+                  location.href = "user_register_success.html";
+                }else{
+                  util.UI.err(html);
+                }
+            });
+        });
+    });
+
+  }
+</script>

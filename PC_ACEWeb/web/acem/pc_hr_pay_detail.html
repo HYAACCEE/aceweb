@@ -1,0 +1,124 @@
+<div id="querybar">
+  <div class="main">
+    <div class="dt10"><a class="grey-link" href="javascript:void(-1)" onclick="goback()">< 返回 </a></div>
+    <div class="title">付款</div>
+    <div class="dt5" id="hidata_condition">
+    </div>   
+  </div>
+</div>
+<div id="former">
+  <div class="main">
+    <div class="bg-white pdall20">
+      <div class="" id="hidata1">
+        <div class="debug bg-red text-c">======================DEBUG=====================</div>
+      </div>
+      
+      <div class="line"></div>
+      <div class="h20"></div>
+      
+      <form class="layui-form" action="">
+			<div class="layui-form-item" id="hidata99">
+			  <div class="layui-inline">
+			    <label class="layui-form-label">费用金额</label>
+			    <div class="layui-input-inline" style="width:220px">
+			      <input class="layui-input vv" placeholder="请输入费用金额" autocomplete="off" required lay-verify="number" id="v_money">
+		      </div>
+           <label class="layui-form-label" style="width:1px">RMB</label>
+		    </div>
+		    <div class="layui-inline">
+		      <label class="layui-form-label">付款状态</label>
+		      <div class="layui-input-inline">
+		        <input class="layui-input vv" placeholder="请输入付款状态" autocomplete="off" required lay-verify="required" id="v_paystatus">
+		      </div>
+		     </div>
+      </div>
+      </form>
+			
+	    <div id="hidata99">
+	      <div class="layui-form-item center">
+	        <div class="layui-input-block gone">
+	          <button class="layui-btn submit_"></button>
+	        </div>
+	      </div>
+	    </div>
+      
+    </div>
+  </div>
+</div>
+</body>
+
+<script>
+var id = $("#detail_id").val();;
+$(document).ready(function(){
+  /***********此处编写js*************/
+  initForm(); //初始化Form
+  /**********************************/
+});
+
+//初始化Form
+function initForm(){  
+  ACECommon_ShowData("ComService.y?cmd=html", "{objectMode:'H00605-3'}", $("#hidata1"), 0, function(ret,html){
+      Form_InitActions();
+      ACECommon_ShowData("BillMService.y?cmd=candiInfoForPay", "{id:'"+id+"'}", null, 0, function(ret,html){
+          if(ret==1){
+            var ss = html.split("`");
+            var vv = $(".vv");
+            for(var i=0;i<vv.length;i++){
+              $(vv[i]).val(ss[i]);
+            }
+            if(ss[ss.length-1].length>0){
+              $(".submit_").parent().show();
+              $(".submit_").html(ss[ss.length-1]);
+              $(".submit_").addClass(ss[ss.length-2]);
+              Double_click();
+            }
+          }
+      });
+  });
+}
+
+function Double_click(){
+	$(".M_Pay2M_").click(function(e){
+    e.stopPropagation();
+    onlog('点击[付款到平台]按钮'+id);
+    util.UI.confirm("您确认付款到平台吗？", function(){
+        ajax_("CandiProcessMService.y?cmd=doProcess", "{process:'550002', cid:'"+$("#v_cid").val()+"', pcid:'"+id+"'}", function(ret, html){
+             if(ret==1){
+               util.UI.msg(html);
+               goback();
+             }else{
+               util.UI.err(html);
+             }
+        });
+    });
+  });
+  $(".M_Pay2HC_").click(function(e){
+    e.stopPropagation();
+    onlog('点击[付款到顾问]按钮'+id);
+    util.UI.confirm("您确认付款到顾问吗？", function(){
+        ajax_("CandiProcessMService.y?cmd=doProcess", "{process:'550005', cid:'"+$("#v_cid").val()+"', pcid:'"+id+"'}", function(ret, html){
+             if(ret==1){
+               util.UI.msg(html);
+               goback();
+             }else{
+               util.UI.err(html);
+             }
+        });
+    });
+  });
+}
+function Form_InitActions(){
+  layui.use(['form', 'laydate'], function(){
+    var form = layui.form(),
+    laydate = layui.laydate;
+    form.render();
+    //$("#hidata1").find("input").attr("disabled",true);
+    //$("#hidata1").find("textarea").attr("disabled",true);
+    //$("#hidata1").find("select").attr("disabled",true);
+    
+  });
+}
+function goback(){
+  to('pc_pay_list.html');
+}
+</script>

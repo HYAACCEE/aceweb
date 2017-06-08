@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+  <title>ACE Elite 顾问在线</title>
+  <link rel="stylesheet" href="../doc/css/common.css?comcs000005" />
+  <link rel="stylesheet" href="../doc/css/styles_HC.css?hccs000001" />
+  <link rel="stylesheet" href="../doc/js/layui/css/layui.css" />
+  <!--[if IE 8]> 
+  	<script src="../doc/js/jquery-1.8.0.js"></script>
+  <![endif]--> 
+  <!--[if gte IE 8]> 
+  	<script src="../doc/js/jquery-2.1.4.min.js"></script>
+  <![endif]--> 
+  <script src="../doc/js/jquery-2.1.4.min.js"></script>
+  <script src="../doc/js/layui/layui.js"></script>
+  <script src="../doc/js/laydate/laydate.js"></script>
+  <script src="../doc/js/common.js"></script>
+  <script src="../doc/js/myjs_HC.js"></script>
+  <style>
+    .dt_left { width: 80px; display: inline-block; text-align: right; padding-right: 5px;}
+    .dt_input { width: 230px;}
+  </style>
+</head>
+<body class="bg-white">
+<div class="frozen">
+
+  <div class="dt15 f18 center color-focus" style="margin-bottom: -5px;margin-top: 10px;">顾问面试</div>
+  <div class="bg-white pdl50">
+    <div class="dt10 gone dark-grey">
+      <span class="dt_left f14">候选人:</span>
+      <input class="dt_input dark-grey no-border vv" readonly>
+    </div>
+    <div class="dt15 dark-grey">
+      <span class="dt_left f14">面试时间：</span>
+      <input class="laydate-icon notnull vv" id="ivTime" style="width:260px" onclick="laydate({istime: true, format: 'YYYY-MM-DD hh:mm', min: laydate.now(-100), max: laydate.now(+7)})">
+    </div>
+    <div class="dt15 dark-grey">
+      <span class="dt_left top f14">面试地点：</span>
+      <textarea class="dt_input bg-light-grey dark-grey notnull address vv vvc" style="width: 270px;"></textarea>
+    </div>
+  </div>
+  <div class="h20"></div>
+  <div class="center">
+    <button class="btn-focus text-c h40 mgl5" style="width: 120px;" id="UI_Button_Ok">确定</button>
+    <span class="pdl30"></span>
+    <button class="btn-default text-c pd30 mgl5 h40" style="width: 120px;" id="UI_Button_Cancel">取消</button>
+  </div>
+  
+</div>
+</body>
+</html>
+
+<script>
+$(document).ready(function(){
+  /***********此处编写js*************/
+  var cid = getUrlCid();
+  var pcid = getUrlPcid();
+  var tid = getUrlTid();
+  /*
+  ACECommon_ShowData("CandiProcessSService.y?cmd=ivInfo", "{cid:'"+cid+"',ivMK:'HC'}", null, 0, function(ret, html){
+      if(ret==1){
+        var ss = html.split("`");
+        var vv = $(".vv");
+        for(var i=0;i<vv.length;i++){
+          $(vv[i]).val(ss[i]);
+        }
+      }
+  });*/
+   
+  $("#UI_Button_Ok").click(function(e){
+  	  /* console.log($('.address')[0].value.length); */
+  	  if($('.address')[0].value.length > 100){
+  	  	util.UI.err("面试地点过长！");
+        return;
+  	  }
+      $btn_ = $(this);     
+      var loadingIndex = util.UI.loading();
+      ACECommon_FormSubmit($btn_, "CandiProcessSService.y?cmd=doProcess", "{process:'220003',cid:'"+cid+"',pcid:'"+pcid+"',tid:'"+tid+"',noticeTime:'"+$("#ivTime").val()+"'}", function(ret, html){
+          if(ret==1){
+            parent.util.UI.closeDialog();
+            parent.reload(tid, html);
+          }             
+          util.UI.closeLoading(loadingIndex);
+      });
+  });
+  /**********************************/
+});
+</script>

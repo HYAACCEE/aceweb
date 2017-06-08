@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+  <title>ACE Elite HR在线</title>
+  <link rel="stylesheet" href="../doc/css/common.css?comcs000005" />
+  <link rel="stylesheet" href="../doc/css/styles_HR.css?hrcs000001" />
+  <link rel="stylesheet" href="../doc/js/layui/css/layui.css" />
+  <!--[if IE 8]> 
+  	<script src="../doc/js/jquery-1.8.0.js"></script>
+  <![endif]--> 
+  <!--[if gte IE 8]> 
+  	<script src="../doc/js/jquery-2.1.4.min.js"></script>
+  <![endif]--> 
+  <script src="../doc/js/jquery-2.1.4.min.js"></script>
+  <script src="../doc/js/layui/layui.js"></script>
+  <script src="../doc/js/common.js?com00000027"></script>
+  <script src="../doc/js/myjs_HR.js?myhr00000017"></script>
+  <script src="../doc/js/Menu.js?mn00000004"></script>
+  
+  <link rel="stylesheet" href="../doc/js/autocomplete/style.css" />
+  <script src="../doc/js/autocomplete/jquery.autocomplete.js"></script>
+  <script src="../doc/js/autocomplete/autocomplete.js?ac000001"></script>
+  
+  <style>
+    .detail_ :hover {color:#ffcc44;}
+    .promp img{margin-top: -10px;margin-right: 10px;}
+    .prompting{width: 300px;height: 34px;margin-right: 70px;position: relative;padding: 8px;line-height: 19px;margin-top: -10px;}
+    .prompting:after{content: "";width: 10px;height: 10px;background: #fff;position: absolute;right: -5px;top: 22px;transform: rotate(45deg);-ms-transform:rotate(45deg);-moz-transform:rotate(45deg);-webkit-transform:rotate(45deg);-o-transform:rotate(45deg); }
+    .jobView {position: relative}
+    .jobViewImg {position: absolute ;top: 0;right: 5px}
+    
+    .nextBtn{width: 65px;height: 60px;box-sizing: border-box;}
+  	.nextQuare{height: 12px;width: 12px;border-top: 1px solid #ffa942;border-right: 1px solid #ffa942;transform: rotate(51deg) skew(17deg);margin-top: 23px;}
+  	.preQuare{height: 12px;width: 12px;border-top: 1px solid #ffa942;border-left: 1px solid #ffa942;transform: rotate(-51deg) skew(-17deg);margin-top: 23px;}
+    #prevBtn{position: fixed;top: 5px;left: 50%;margin-left: -550px;z-index: 198910151;padding-left: 8px;}
+  	#nextBtn{position: fixed;top: 5px;right: 50%;margin-right: -550px;z-index: 198910151;padding-left: 8px;}
+  	.noClick1{color: #d2d2d2;cursor: default;border-top: 1px solid #d2d2d2;border-right: 1px solid #d2d2d2;}
+  	.noClick2{color: #d2d2d2;cursor: default;border-top: 1px solid #d2d2d2;border-left: 1px solid #d2d2d2;}
+  	.closeShade{position: fixed;top: 5px;right: 0;z-index: 198910151;}
+  	.dt12{padding-top: 12px;}
+  </style>
+</head>
+<body>
+<div id="p_notice" class="gone" style="background: rgba(240,112,112,0.89);filter:progid:DXImageTransform.Microsoft.gradient(startColorstr=#e5F17070,endColorstr=#e5F17070);border-radius: 2px;height:30px">
+  <div class="dt5">
+    <div class="text-c">
+      <span class="white gone" id="hidata_notice">这里是测试广播，您好，您有新短消息，请注意查收！</span>
+      <span class="float-r pdr5"><img class="pointer closeNotice_" src="../doc/images/HC/close.png"/></span>
+    </div>
+  </div>
+</div>
+
+<div id="topbar"></div>
+<div id="menubar">
+  <div class="main">
+    <div class="float-r dt10 privateButton" style="width:140px">
+      <button class="btn-focus h30 f12 pd20 ellipsis showMore_" style="height:auto;max-width: 140px;"><br></button>
+    </div>
+  </div>
+</div>
+<form class="layui-form">
+  <div class="h1"></div>
+  <div id="hidata_condition" class="main dt30">
+    <div class="debug bg-red full-width text-c">======================DEBUG=====================</div>    
+  
+  </div>
+</form>
+<div id="container">
+  <div class="main clearfix">
+    <div class="h10"></div>  
+    <div id="hidata1">
+      <div class="debug bg-red full-width text-c">======================DEBUG=====================</div>
+	  </div>
+    <div id="nodata" class="gone">
+      <div class="h60"></div>
+      <div class="h30"></div>
+      <div><img class="img100 bottom center" src="../doc/images/nodata.png"> </div>
+      <div class="pdall30 f16 center">列表为空</div>
+      <div class="h100"></div>
+      <div class="h100"></div>
+      <div class="h100"></div>
+    </div>
+    <div id="pages" class="text-c"></div>
+  </div>
+</div>
+<!-- for selector start -->
+<div id="maskLayer" style="display:none">
+  <iframe id="maskLayer_iframe" frameBorder=0 scrolling=no style="filter:alpha(opacity=50)"></iframe>
+  <div id="alphadiv" style="filter:alpha(opacity=50);-moz-opacity:0.5;background:rgba(100,100,100,0.5)">
+    <div id="drag">
+      <h3 id="drag_h"></h3>
+      <div id="drag_con"></div><!-- drag_con end -->
+    </div>
+  </div>
+</div>
+<div id="sublist" style="display:none"></div>
+<!-- for selector end -->
+
+<div id="bottombar"></div>
+
+<div class="float-l bg-white nextBtn pointer gone" id="prevBtn"><span class="inline-block preQuare float-l"></span><p class="f12 inline-block dt12 float-l">上一个<br>候选人</p></div>
+<div class="float-r bg-white nextBtn pointer gone" id="nextBtn"><p class="f12 inline-block dt12 float-l">下一个<br>候选人</p><span class="inline-block nextQuare float-l"></span></div>
+<div class="closeShade gone pd5 pointer"><img src="../doc/images/HR/X.png" style="width: 20px;"></div>
+</body>
+</html>
+
+<script type="text/javascript" src="../doc/js/cv_HR.js?cvhr000022"></script>
+<script>
+  var status = 1;
+  var job = "", city = ""; 
+  $(document).ready(function(){
+    /***********此处编写js*************/
+    isMainPag = 1;
+    $("#hidata1").html('');    
+    $(".closeNotice_").click(function(){
+        ajax_("MainBService.y?cmd=closeTopNotice", "", function(ret, html){
+            if(ret==1){
+                $("#p_notice").hide();
+                util.Cookie.set('hcdataNoticeShow', 0, 30);       
+            }
+          });
+    });
+    /**********************************/
+    //console.log($(".layui-layer-content iframe").attr("src"))
+    
+    $(".detail_ span").click(function(){
+    	alert(123)
+    })
+  });  
+  function init(){
+    initCondition(); //初始化Condito
+    showInterst();
+    queryNoticeList(); //通知
+  }
+  function reload(){
+    showInterst();
+  } 
+  //初始化Conditon
+  function initCondition(){
+    ACECommon_ShowData("ComService.y?cmd=html", "{objectMode:'H00102-2'}", $("#hidata_condition"), 0, function(ret,html){
+        Condition_InitActions();
+        queryList();
+    });
+  }
+	//通知列表
+	function queryNoticeList(){
+	  if(noticeShow==1){
+	    ACECommon_ShowData("MainBService.y?cmd=listNotice", "{objectMode:'H00109-1'}", $("#hidata_notice"), 0, function(ret,html){
+	        if(noticeShow==1) $("#p_notice").show();
+	    });  
+	  }
+	}  
+  function showInterst(){
+    ACECommon_ShowData("MainBService.y?cmd=selectedInterest", "{a:''}", $(".showMore_"), 0, function(ret,html){
+    		if(html == ""){
+    			$(".showMore_").html("<span class='f14'>私人订制</span><br>"+html);
+    			$(".showMore_").css("height","30px");
+    			$(".privateButton").removeClass("dt5").addClass("dt10");
+    		}else{
+    			$(".showMore_").css("height","auto");
+    			$(".showMore_").html("<span class='f14'>私人订制</span><br>"+html);
+    			$(".privateButton").removeClass("dt10").addClass("dt5");
+    			console.log($(".privateButton"))
+    		}
+    },function(ret,html){
+          $(".showMore_").html("<span class='f14'>私人订制</span>");
+          $(".showMore_").css("height","30px");
+          $(".privateButton").removeClass("dt5").addClass("dt10");
+    });
+  }
+  function Condition_InitActions(){
+    autocomplete_Init();
+
+    $("#jobImage").click(function(){
+      $(".job_")[0].focus();
+    }); 
+    $("#cityImage").click(function(){
+      $(".city_")[0].focus();
+    });
+    $(".showMore_").click(function(){
+        util.UI.html("hrdialog_show_interest.html", 450, 300, "");
+    });
+  }
+  var pq;
+  function queryList(){
+    PQuery.PAGE_ROW = 10;
+    if(pq) pq.page = -1;
+    pq = new PQuery("CandiListBService.y?cmd=listPub", "{objectMode:'H00102-1',keyword:'',job:'"+job+"',city:'"+city+"'}", $("#hidata1"), $("#nodata"), 1);
+    page_query();
+  }
+  function page_query(page){
+    pq.prependFlag = 0;
+    pq.query(page, function(ret, html){
+      if(ret==1){
+        var $thisdiv = pq.dataDiv.find(".flow:last");
+        CV_InitActions($thisdiv);
+      }
+    }, 0, 0);
+  }
+	function urlCid(){
+	  return URL_SPLITER_CID + DATAID;
+	}
+	
+	var shadeHtmlPageID = null;
+  var curClickDIV, prevDIV, nextDIV;
+  var curCid, prevCid, nextCid;
+	$("#nextBtn").click(function(e){//点击下一个
+	  if(nextCid){
+		  prevDIV = curClickDIV;
+		  curClickDIV = nextDIV;
+		  nextDIV = curClickDIV.next().next();
+		  DATAID = curClickDIV.attr('data');
+      //eval("window.frames['"+shadeHtmlPageID+"'].nextClick(DATAID)");
+      eval("window.frames['"+shadeHtmlPageID+"'].location.href = 'candidate_detail_cv.html?nw=1&'+urlCid()");
+	    checkCidNext();
+	  }
+	});
+  $("#prevBtn").click(function(e){//点击上一个
+    if(prevCid){
+	    nextDIV = curClickDIV;
+	    curClickDIV = prevDIV;
+	    prevDIV = curClickDIV.prev().prev();
+      DATAID = curClickDIV.attr('data');
+      //eval("window.frames['"+shadeHtmlPageID+"'].nextClick(DATAID)");
+      eval("window.frames['"+shadeHtmlPageID+"'].location.href = 'candidate_detail_cv.html?nw=1&'+urlCid()");
+	    checkCidNext();
+	  }
+  });
+  function thisCidClick(){//查看当前一个
+    prevDIV = curClickDIV.prev().prev();
+    curClickDIV = curClickDIV;
+    nextDIV = curClickDIV.next().next();
+    checkCidNext();
+  }
+  function checkCidNext(){
+    if(prevDIV.html()==undefined){ prevDIV = curClickDIV.parent().prev(".flow").find("div:last").prev(); }
+    if(nextDIV.html()==undefined){ nextDIV = curClickDIV.parent().next(".flow").find("div:first"); }
+    
+    nextCid = nextDIV.attr('data');
+    if(nextCid == "undefined" || nextCid==null){
+      nextCid = null;
+      $("#nextBtn").css("color","#d2d2d2").css("cursor","default");
+      $(".nextQuare").css("border-top","1px solid #d2d2d2").css("border-right","1px solid #d2d2d2");
+      $("#nextBtn p").hover(function(){$(this).css("color","#d2d2d2");},function(){$(this).css("color","");})
+    }else{
+      $("#nextBtn").css("color","#565656").css("cursor","pointer");
+      $("#nextBtn p").hover(function(){$(this).css("color","#ffa942");},function(){$(this).css("color","#565656");});
+      $(".nextQuare").css("border-top","1px solid #ffa942").css("border-right","1px solid #ffa942");
+    }
+    //若再下一个为空，则加载更多
+    if(nextCid != "undefined" && nextCid!=null){
+      var nextCid2 = nextDIV.next().next().attr('data');
+      if(nextCid2 == "undefined" || nextCid2==null){
+        if(pq.page>0 && pq.page < pq.pages+1){
+          if(pq.waitingFlag == 0){
+            pq.page++;
+            pq.page_query(pq.page);
+          }
+        }
+      }
+    }
+    
+    prevCid = prevDIV.attr('data');
+    if(prevCid == "undefined" || prevCid==null){
+      prevCid = null;
+      $("#prevBtn").css("color","#d2d2d2").css("cursor","default");
+      $(".preQuare").css("border-top","1px solid #d2d2d2").css("border-left","1px solid #d2d2d2");
+      $("#prevBtn p").hover(function(){$(this).css("color","#d2d2d2");},function(){$(this).css("color","");})
+    }else{
+      $("#prevBtn").css("color","#565656").css("cursor","pointer");
+      $("#prevBtn p").hover(function(){$(this).css("color","#ffa942");},function(){$(this).css("color","#565656");});
+      $(".preQuare").css("border-top","1px solid #ffa942").css("border-left","1px solid #ffa942");
+    }
+   
+  }
+  function showShade(){
+    $(".nextBtn").show();
+    $(".closeShade").show();
+  }
+  function closeShade(){
+    $(".nextBtn").hide();
+    $(".closeShade").hide();
+  }
+  $(".closeShade").click(function(){
+  	util.UI.closeDialog();
+  })
+  $(".closeShade img").hover(function(){
+  	$(".closeShade img").attr("src","../doc/images/HR/hover.png")
+  },function(){
+  	$(".closeShade img").attr("src","../doc/images/HR/X.png")
+  })
+</script>

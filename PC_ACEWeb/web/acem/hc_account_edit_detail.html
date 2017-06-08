@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+  <title>ACE Elite 管理在线</title>
+  <link rel="stylesheet" href="../doc/css/common.css" />
+  <link rel="stylesheet" href="../doc/css/styles_M.css" />
+  <link rel="stylesheet" href="../doc/js/layui/css/layui.css" />
+  <script src="../doc/js/jquery-2.1.4.min.js"></script>
+  <script src="../doc/js/layui/layui.js"></script>
+  <script src="../doc/js/laydate/laydate.js"></script>
+  <script src="../doc/js/common.js"></script>
+  <script src="../doc/js/myjs_M.js"></script>
+  
+  <link rel="stylesheet" href="../doc/js/autocomplete/style.css" />
+  <script src="../doc/js/autocomplete/jquery.autocomplete.js"></script>
+  <script src="../doc/js/autocomplete/autocomplete.js"></script>
+
+  <style>
+    .dt_left {width: 130px; display:inline-block;text-align: right; padding-right:10px}
+    .dt_right {width: 260px; display:inline-block;}
+    .dt_input {width: 230px; display:inline-block;}
+  </style>
+</head>
+<body>
+
+<div id="former">
+  <div class="main">
+    <form class="layui-form" action="">
+      <div class="bg-white pdall20">
+      <div class="title dt10">顾问账号更新</div>
+      <input class="vv" type="hidden" id="v_hcstyle"/>
+      <div class="gone" id="hidata1">
+        <div class="debug bg-red">======================DEBUG=====================</div>
+      </div>
+
+      <div class="h10"></div>
+      <div class="layui-form-item center">
+        <div class="layui-input-block">
+          <button class="layui-btn" lay-submit lay-filter="submit_">立即提交</button>
+        </div>
+  
+      </div>
+    </div>
+    </form>
+  </div>
+</div>
+
+<div class="h100"></div>
+<div class="h100"></div>
+
+<script src="../doc/js/uploadfile.js?uf0000006"></script>
+<script>
+var id = getUrlId();
+$(document).ready(function(){
+  /***********此处编写js*************/
+  initForm(); //初始化Form
+  /**********************************/
+});
+
+//初始化Form
+function initForm(){  
+  ACECommon_ShowData("MMMService.y?cmd=infoHC", "{id:'"+id+"'}", null, 0, function(ret,html){
+      var hcStyle = html.substring(0,1);
+      var objectMode = hcStyle==1 ? "H00603-5,H00603-6" : "H00603-7,H00603-8";
+      ACECommon_ShowData("ComService.y?cmd=html", "{objectMode:'"+objectMode+"'}", $("#hidata1"), 0, function(ret0,html0){
+          Form_InitActions();
+          if(ret==1){
+            var ss = html.split("`");
+            var vv = $(".vv");
+            for(var i=0;i<vv.length;i++){
+              $(vv[i]).val(ss[i]);
+            }
+            
+            $("#v_sex").next().children(":radio[value='"+$("#v_sex").val()+"']").attr("checked",true);
+              var vvf = $(".vvf");
+              var tmp_pic;
+              for(var i=0; i<vvf.length; i++){
+                tmp_pic = vvf.eq(i).prev().find("#uploadFile_show");
+                if(vvf.eq(i).val().length>0) tmp_pic.attr("src", vvf.eq(i).val());
+              }
+          }
+      });
+  });
+} 
+function Form_InitActions(){
+  autocomplete_Init();
+  initUpload();
+  
+  var checked = [];
+  layui.use(['form'], function(){
+    var form = layui.form();
+    form.render();
+    
+    form.on('radio(radio_sex)', function(data){
+      $("#v_sex").val(data.value);
+    });
+    
+    form.verify({
+			fullName: function(value){
+				if(!new RegExp("^[a-zA-Z0-9_\u4e00-\u9fa5\\s·]+$").test(value)){
+				return '姓名不能有特殊字符';
+				}
+				if(/(^\_)|(\__)|(\_+$)/.test(value)){
+				return '姓名首尾不能出现下划线\'_\'';
+				}
+				if(/^\d+\d+\d$/.test(value)){
+				return '姓名不能全为数字';
+				}
+			}
+		});
+
+    //监听提交
+    form.on('submit(submit_)', function(data){
+      util.UI.confirm('确认提交吗？', function(){
+          ajaxFile_("MMMService.y?cmd=uploadFile", "{fileNum:'"+$(".upload_").length+"'}", function(html){
+              html = html.split("`");
+              for(var m=0;m<html.length;m++){
+                if($("#uploadFile"+(m+1))[0].files[0]){
+	                if(html[m].indexOf("222")==0){
+	                  util.UI.err("第"+(m+1)+"个文件："+html[m]);
+	                  return false;
+	                }else{
+	                  $(".vvf").eq(m).val(html[m]);
+	                }
+                }
+              }   
+              ACECommon_FormSubmit(null, "MMMService.y?cmd=editHC", "{id:'"+id+"'}", function(ret, html){
+                  if(ret==1){
+                    parent.util.UI.msg(html);
+                    setTime = setInterval(function(){
+		                  parent.util.UI.closeDialog();
+		                  parent.reload();
+		                },2000);
+                  }else{
+                    util.UI.err(html);
+                  }
+              });          
+          });            
+      });
+      return false;
+    });
+  });
+  
+  $(".uploadPic_").click(function(){
+      $this_ = $(this);
+      $this_.next().click();  //隐藏了input:file样式后，点击头像就可以本地上传
+      $this_.next().on("change",function(){
+          var objUrl = getLocalObjectURL(this.files[0]) ; //获取图片的路径，该路径不是图片在本地的路径
+          if (objUrl) {
+            $this_.find("img").attr("src", objUrl); //将图片路径存入src中，显示出图片
+          }
+      });
+  });      
+}
+</script>

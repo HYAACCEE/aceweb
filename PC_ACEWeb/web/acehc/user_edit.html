@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html>
+<head>
+ <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+  <title>ACE Elite 顾问在线</title>
+  <link rel="stylesheet" href="../doc/css/common.css?comcs000005" />
+  <link rel="stylesheet" href="../doc/css/styles_HC.css?hccs000001" />
+  <link rel="stylesheet" href="../doc/js/layui/css/layui.css" />
+  <!--[if IE 8]> 
+  	<script src="../doc/js/jquery-1.8.0.js"></script>
+  <![endif]--> 
+  <!--[if gte IE 8]> 
+  	<script src="../doc/js/jquery-2.1.4.min.js"></script>
+  <![endif]--> 
+  <script src="../doc/js/jquery-2.1.4.min.js"></script>
+  <script src="../doc/js/layui/layui.js"></script>
+  <script src="../doc/js/common.js"></script>
+  <script src="../doc/js/myjs_HC.js"></script>
+  <script src="../doc/js/Menu.js"></script>
+  <style>
+   .dt_left {width: 120px; display:inline-block;text-align: right;padding-right:15px}
+  .dt_input {width: 230px;}
+  </style> 
+</head>
+<body>
+
+<div id="topbar"></div>
+
+<div id="menubar">
+  <div class="main">
+    <div class="h2"></div>
+    <div class="float-l f14 dt3 tab userTab"></div>
+  </div>
+</div>
+
+<div class="h50"></div>
+
+<div id="container">
+  <div class="main">
+      <div class="center bg-white dt30 gone"  style="width:450px" id="hidata1">
+       </div>
+  </div>
+  <div class="h100"></div>
+</div>
+
+<div id="bottombar"></div>
+<div class="gone">
+  <script type="text/javascript">var cnzz_protocol = (("https:" == document.location.protocol) ? " https://" : " http://");document.write(unescape("%3Cspan id='cnzz_stat_icon_1261795902'%3E%3C/span%3E%3Cscript src='" + cnzz_protocol + "s95.cnzz.com/z_stat.php%3Fid%3D1261795902%26online%3D2' type='text/javascript'%3E%3C/script%3E"));</script>
+</div>
+</body>
+</html>
+
+<script>
+  var code = null;
+  $(document).ready(function(){
+    /***********此处编写js*************/
+    initForm(); //初始化Form
+    /**********************************/
+  });
+  //初始化Form
+  function initForm(){  
+    ACECommon_ShowData("ComService.y?cmd=html", "{objectMode:'H00204'}", $("#hidata1"), 1, function(ret,html){
+        ACECommon_ShowData("UserSService.y?cmd=userInfo", "{userAuid:'"+auid+"'}", null, 1, function(ret,html){
+            Form_InitActions();
+            if(ret==1){
+              var ss = html.split("`");
+              var vv = $(".vv");
+              for(var i=0;i<vv.length;i++){
+                $(vv[i]).val(ss[i]);
+              }
+              $("#radio"+$("#v_sex").val()).click();
+            }                     
+          });
+      }); 
+  }  
+  function Form_InitActions(){
+    $(":radio").click(function(e){
+      $("#v_sex").val($(this).val());
+    });
+    $(".radio")[0].click();
+    
+    $(".save_").click(function(e){    
+        $btn_ = $(this);
+        ACECommon_FormSubmit($btn_, "UserSService.y?cmd=edit", "", function(ret, html){
+            if(ret==1){
+              util.UI.msg("操作成功!");
+              util.Cookie.set('hcdataNickName', $("#nikename_").val(),30);
+              location.reload();
+            }else{
+                 util.UI.err(html);
+            }
+        });
+    })
+   };
+     
+</script>

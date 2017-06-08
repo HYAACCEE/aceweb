@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+  <title>ACE Elite HR在线</title>
+  <link rel="stylesheet" type="text/css" href="../doc/css/common.css" />
+  <link rel="stylesheet" type="text/css" href="../doc/css/styles_HR.css" />
+  <link rel="stylesheet" type="text/css" href="../doc/jquery-ui-1.12.1/jquery-ui.css">
+  <script type="text/javascript" src="../doc/js/jquery-2.1.1.min.js"></script>
+  <script type="text/javascript" src="../doc/jquery-ui-1.12.1/jquery-ui.js"></script>
+  <script type="text/javascript" src="../doc/js/common.js"></script>
+  <script type="text/javascript" src="../doc/js/Menu.js"></script>
+  <script type="text/javascript" src="../doc/js/myjs_HR.js"></script>
+</head>
+<body>
+  <div id="topbar"></div>
+  <div id="querybar"></div>
+   
+     <div id="container">
+     <div class="main display-table bg-white">
+         <div class="h50"></div>
+          <div class="h50"></div>
+       <div><img class="center" style="width:58px;height:48px" src="../doc/images/error.png"></div>
+       <div class="pdall30 f18 center">对不起，你访问的页面没有找到！</div>
+       <div class="color-focus pointer center goBackHome_"><< 返回首页</div>
+            <div class="h50"></div>
+             <div class="h50"></div>
+             <div class="h50"></div>
+       </div>
+     </div>
+	</body>
+</html>
+<script>
+$(document).ready(function(){
+  /***********此处编写js*************/
+    $(".goBackHome_").click(function(){
+        location.href = "main.html";
+    });
+  /*********************************/
+});
+</script>

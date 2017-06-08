@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+  <title>ACE Elite HR在线</title>
+  <link rel="stylesheet" href="../doc/css/common.css?comcs000005" />
+  <link rel="stylesheet" href="../doc/css/styles_HR.css?hrcs000001" />
+  <link rel="stylesheet" href="../doc/js/layui/css/layui.css" />
+  <!--[if IE 8]> 
+    <script src="../doc/js/jquery-1.8.0.js"></script>
+  <![endif]--> 
+  <!--[if gte IE 8]> 
+    <script src="../doc/js/jquery-2.1.4.min.js"></script>
+  <![endif]--> 
+  <script src="../doc/js/jquery-2.1.4.min.js"></script>
+  <script src="../doc/js/layui/layui.js"></script>
+  <script src="../doc/js/common.js?com00000027"></script>
+  <script src="../doc/js/myjs_HR.js?myhr00000017"></script>
+  <script src="../doc/js/Menu.js"></script>
+  <link rel="stylesheet" href="../doc/js/autocomplete/style.css" />
+  <script src="../doc/js/autocomplete/jquery.autocomplete.js"></script>
+  <script src="../doc/js/autocomplete/autocomplete.js"></script>  
+  <style>
+  .searchDiv {width:300px; height: 31px;padding: 2px;display:black ;font-size: 14px;border:solid 1px #ccc;border-radius:1px;margin-bottom: 28px;background-color: #fcfcf9;display: inline-block;}
+  .consultantView_:hover{background-color: rgba(254,228,166,0.8)!important;filter:Alpha(opacity=80); background:#FEE4A6;}
+  .detailBtn{background-image:url(../doc/images/HR/showDetail.png);width: 18px;height: 14px;position: absolute;right: 10px;bottom: 0;background-size: contain;}
+  .detailBtn:hover{background-image:url(../doc/images/HR/xia_icon.png);}
+  .smallView_{margin-left: -1px;padding-top: 5px;border-color: #979797;border-bottom: none;}
+  .smallView_ span{font-size: 14px;font-weight: normal;}
+  .bigView_{margin-left: -1px;border-color: #979797;background-position: -5px -5px;border-bottom: none;}
+  .jobView {position: relative}
+  .jobViewImg {position: absolute ;top: 0;right: 5px}
+  </style>
+</head>
+<body>
+<div id="topbar"></div>
+<div id="menubar">
+  <div class="main">
+    <div class="dt15 float-l white f14">已收藏的候选人</div>
+  </div>
+</div>
+
+<div id="querybar">
+  <div class="main dt20">
+  
+    <form class="layui-form" action="">
+      <div class="float-l pdr20" id="hidata_condition">
+      </div>
+      <div id="searchView" class="searchDiv">
+        <span><input type="text" class="h30 keyword_" style="width:240px;border-style: none;" placeholder="搜索" style="line-height: 30px;"></span>
+        <img class="float-r dt5 pd5" width="14" src="../doc/images/search.png" />
+      </div>
+    </form>  
+  </div>
+</div>
+<div id="container">
+  <div class="main">   
+    <div id="hidata1" class="gone">
+      <div class="debug bg-red full-width text-c">======================DEBUG=====================</div>    
+    </div>
+    <div id="nodata" class="gone">
+      <div class="h60"></div>
+      <div class="h30"></div>
+      <div><img class="img100 bottom center" src="../doc/images/nodata.png"> </div>
+      <div class="pdall30 f16 center">流程为空</div>
+      <div class="h100"></div>
+      <div class="h100"></div>
+      <div class="h100"></div>  
+    </div>
+    <div id="pages" class="text-c"></div>
+  </div>
+</div>
+  
+<div class="float pointer HR_hcInfo_ consultantView_ gone" style="width:110px;height:90px;background-color: #FEE4A6;">
+  <div class="center">
+    <div class="dt10"><img class="raduis hunterFace_" style="width:46px;height:46px" src=""></div>
+    <div><span class="center hunterName_">Eastwood</span></div>
+  </div>
+</div>
+
+<div id="bottombar"></div>
+<div class="gone">
+  <script type="text/javascript">var cnzz_protocol = (("https:" == document.location.protocol) ? " https://" : " http://");document.write(unescape("%3Cspan id='cnzz_stat_icon_1261795902'%3E%3C/span%3E%3Cscript src='" + cnzz_protocol + "s95.cnzz.com/z_stat.php%3Fid%3D1261795902%26online%3D2' type='text/javascript'%3E%3C/script%3E"));</script>
+</div>
+</body>
+</html>
+
+<script type="text/javascript" src="../doc/js/cv_HR.js?cvhr000022"></script>
+<script>
+  var queryMK = 2;
+  var status, job = "";
+  $(document).ready(function(){
+    /***********此处编写js*************/
+    initCondition();
+    /**********************************/    
+  });
+  function reload(){
+    initCondition()
+  }
+  //初始化Conditon
+  function initCondition(){
+     ACECommon_ShowData("ComService.y?cmd=html", "{objectMode:'H00106-2'}", $("#hidata_condition"), 0, function(ret,html){
+         Condition_InitActions();
+         queryList();
+     });
+  }
+  function Condition_InitActions(){    
+    autocomplete_Init();
+    $("#jobImage").click(function(){
+      $(".job_")[0].focus()
+    });  
+    $(".keyword_").keyup(function(){
+        queryList();
+    });
+  }
+  
+  var pq;
+  function queryList(){
+    var keyword = $('.keyword_').val();
+    pq = new PQuery("CandiListBService.y?cmd=list", "{objectMode:'H00106-1,H00106-3',queryMK:'2',status:'"+status+"',job:'"+job+"',keyword:'"+keyword+"'}", $("#hidata1"), $("#nodata"));
+    page_query();
+  }  
+  function page_query(page){
+    pq.query(page, function(ret, html){
+        if(ret==1){
+          CV_InitActions();
+          $(".consultantViewL_").hide();
+        }
+    });
+  }
+  
+  function showSuccess(html){
+    util.UI.html("hrdialog_invite_success.html?"+html, 460, 300);
+  }
+</script>

@@ -1,0 +1,99 @@
+<style>
+.dt_left {width:230px; display:inline-block;}
+.dt_right {width:180px; display:inline-block;}
+</style>
+
+<div id="querybar">
+  <div class="main">
+    <div class="title">候选人列表</div>
+    <div class="dt5">
+      <span><input type="text" class="keyword_" placeholder="候选人姓名/公司名称/职位" size="80"></span><span class="btn-focus pd20 dt8 mgl10">搜索</span>
+    </div>
+    <div class="h5"></div>
+    <div class="f14 grey tab gone" id="hidata_condition">
+      <div class="layui-inline pd20 thistab"><div class="layui-inline pointer dt10" data="1">待审核顾问面评  (99)</div></div>
+      <div class="layui-inline pd20"><div class="layui-inline pointer dt10" data="2">待审核Acitive申请  (99)</div></div>
+    </div>
+    
+    <div class="f14 grey tab gone" id="hidata_condition2">
+      <div class="layui-inline pd20"><div class="layui-inline dt10">搜索到候选人(<span id="totalCount">0</span>)</div></div>
+    </div>
+  </div>
+</div>
+
+<div id="container">
+  <div class="main">
+    <div class="bg-white gone" id="hidata1">
+    </div>   
+          
+    <div id="nodata" class="gone">
+      <div class="h60"></div>
+      <div class="h30"></div>
+      <div><img class="img100 bottom center" src="../doc/images/nodata.png"> </div>
+      <div class="pdall30 f16 center">列表为空</div>
+      <div class="h100"></div>
+      <div class="h60"></div>
+    </div>
+    
+    <div id="pages" class="text-c"></div>
+  </div>
+</div>
+
+<script>
+  var submk, curtab_data;
+  $(document).ready(function(){
+    /***********此处编写js*************/
+    curtab_data = null;
+    queryStatusList();
+     
+    $(".keyword_").keyup(function(){
+        if($(this).val().length>0){
+          $("#hidata_condition").hide();
+          $("#hidata_condition2").show();
+          submk = $(".tab >div >div").eq(3).attr("data");
+        }else{
+          $("#hidata_condition").show();
+          $("#hidata_condition2").hide();
+          submk = $(".tab >div >div").eq(0).click();
+        }
+        page_query();
+    });
+    /**********************************/
+  });
+  //状态栏
+  function queryStatusList(){
+    ACECommon_ShowData("CandiListMService.y?cmd=statusList", "{objectMode:'H00602-2'}", $("#hidata_condition"), 1, function(ret,html){
+        $(".tab >div >div").click(function(){
+          curtab_data = $(this).attr("data");
+          $(this).parent().addClass("thistab").siblings().removeClass("thistab");
+          submk = $(this).attr("data");
+          page_query();
+        });
+        if(curtab_data) $(".tab >div >div[data='"+curtab_data+"']").click();
+        else $(".tab >div >div").eq(0).click();
+    });   
+  }
+  function page_query(page){
+    var keyword = $(".keyword_").val();    
+    var pq = new PQuery("CandiListMService.y?cmd=list",
+             "{objectMode:'H00602-1',queryMK:'777777',submk:'"+submk+"',keyword:'"+keyword+"'}",
+             $("#hidata1"), $("#nodata"));
+    pq.query(page, function(ret, html){
+        if(ret==1){
+          My_InitActions(); //初始化按钮的控制
+        }
+    });
+  }
+  function My_InitActions(pdiv){
+    var curdiv = pdiv || $("#hidata1");
+    DataLine_InitFuns(curdiv);
+    Pub_InitSlide(curdiv);
+    
+    $(".M_detail_").click(function(e){
+        e.stopPropagation();
+        onlog('点击候选人TEST名单[查看详情]'+DATAID);
+        //util.UI.html("candidate_detail_cv.html?"+urlCid(), 0, 0);
+        window.open("candidate_detail_cv.html?"+urlCid(),"","width=0,height=0,top=0,left=0");
+    });
+  }
+</script>

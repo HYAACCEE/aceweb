@@ -1,0 +1,106 @@
+<style>
+.dt_left {width:80px; display:inline-block;}
+.dt_right {width:240px; display:inline-block;}
+</style>
+
+<div id="querybar">
+  <div class="main">
+    <div class="title">黑名单</div>
+    <div class="dt5" id="hidata_condition">
+      <div>
+        <span><input class="keyword_" placeholder="候选人姓名/公司名称/职位" style="width:400px;"></span><span class="btn-focus pd20 dt10 mgl10">搜索</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div id="container">
+  <div class="main">
+    <div class="dt10">候选人黑名单</div>
+    <div class="bg-white gone" id="hidata1">
+      <div class="pdall15 clearfix bg-white btn-slide box-link dataline_" id="li-111" data="125354232366">
+        <span class="pd10"><img class="middle" src="../doc/images/M/face_c_s.png"></span>
+        <span class="dt_left pointer ">Linda Li</span>
+        <span class="sp1">上海智库信息科技有限公司 | 销售经理</span>
+        <span class="float-r">
+          <span class="inline-block pd10 dt1 btn-focus">移出黑名单</span>
+        </span>
+        <span class="float-r pd20">
+          <span class="pd5">拉黑于<span>2016.12.29 23:01</span><img class="arrow middle dt5 pd5" style="width:13px;height:7px" src="../doc/images/arrow.png"></span>
+         </span>
+      </div>
+      <div class="gone" id="box-111">
+                这个是测试
+      </div>
+      <div class="line"></div>
+      
+      <div class="pdall15 bg-white dataline_" data="125354232366">
+        <span class="pd10"><img class="middle" src="../doc/images/M/face_c_s.png"></span>
+        <span class="dt_left pointer ">Sally Wang</span>
+        <span class="sp1">上海智库信息科技有限公司 | 销售经理</span>
+        <span class="float-r">
+          <span class="inline-block pd10 dt1 btn-focus">移出黑名单</span>
+        </span>
+        <span class="float-r pd20">
+          <span class="pd5">拉黑于<span>2016.12.29 23:01</span><img class="arrow middle dt5 pd5" style="width:13px;height:7px" src="../doc/images/arrow.png"></span>
+         </span>
+      </div>
+      <div class="line"></div>
+      
+      <div class="pdall15 bg-white dataline_" data="125354232366">
+        <span class="pd10"><img class="middle" src="../doc/images/M/face_c_s.png"></span>
+        <span class="dt_left pointer ">李大志</span>
+        <span class="sp1">上海智库信息科技有限公司 | 销售经理</span>
+        <span class="float-r">
+          <span class="inline-block pd10 dt1 btn-focus">移出黑名单</span>
+        </span>
+        <span class="float-r pd20">
+          <span class="pd5">拉黑于<span>2016.12.29 23:01</span><img class="arrow middle dt5 pd5" style="width:13px;height:7px" src="../doc/images/arrow.png"></span>
+         </span>
+      </div>
+      <div class="line"></div>
+    
+    </div>   
+          
+    <div id="nodata" class="gone">
+      <div class="h60"></div>
+      <div class="h30"></div>
+      <div><img class="img100 bottom center" src="../doc/images/nodata.png"> </div>
+      <div class="pdall30 f16 center">列表为空</div>
+      <div class="h100"></div>
+      <div class="h60"></div>
+    </div>
+    
+    <div id="pages" class="text-c"></div>
+  </div>
+</div>
+
+<script src="../doc/js/cv_M.js"></script>
+<script>
+  $(document).ready(function(){
+    /***********此处编写js*************/
+    page_query();
+    /**********************************/
+  });
+  function page_query(page){
+    var keyword = "";    
+    var pq = new PQuery("CandiListMService.y?cmd=list",
+             "{objectMode:'H00602-3',queryMK:'4',keyword:'"+keyword+"'}",
+             $("#hidata1"), $("#nodata"));
+    pq.query(page, function(ret, html){
+        if(ret==1){
+          My_InitActions(); //初始化按钮的控制
+        }
+    });
+  }
+  function My_InitActions(pdiv){
+    var curdiv = pdiv || $("#hidata1");
+    DataLine_InitFuns(curdiv);
+    Pub_InitSlide(curdiv);
+    
+    $(".detail_").click(function(e){
+        e.stopPropagation();
+        onlog('点击[黑名单dataline]'+DATAID);
+    });
+  }
+</script>

@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<!--meta http-equiv="Refresh" content= "0; URL=acehr/candidate_list.html"/-->
+	<title>联系我们 </title>
+	<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+	<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+	<link rel="stylesheet" type="text/css" href="index/css/common.css" />
+	<link rel="stylesheet" type="text/css" href="index/css/navFooter.css"/>
+	<link rel="stylesheet" type="text/css" href="index/css/acecontact.css"/>
+    <script src="doc/js/jquery-2.1.4.min.js"></script>
+    <script src="doc/js/layui/layui.js"></script>
+	<script type="text/javascript" src="index/js/common.js"></script>
+</head>
+
+<body>
+	<!-- nav start -->
+	<div class="nav">
+		<div class="navCon mauto">
+			<div class="navConRight float-r">
+				<font><span></span>400-920-8380</font>
+			</div>
+			
+			<div class="navConLeft">
+				<a href="ace.html" style="color: #fff;">
+				<img src="index/img/nav_icon/ace_logo.png" class="float-l"/>
+				100%活跃猎头库-专注于零售及奢侈品行业
+				</a>
+			</div>
+		</div>
+	</div>
+	<!-- nav end -->
+	
+	<!-- banner start -->
+	<div class="banner">
+		<div class="bannerPic">
+			<div class="bannerCon text-c ">
+				<span>Ace是全球范围内首家百分百活跃零售及奢侈品行业猎头库</span>
+			</div>
+		</div>
+	</div>
+	<!-- banner end -->
+	
+	<!-- contact start -->
+	<div class="contact">
+		<div class="contactTitle">
+			联系我们
+		</div>
+		
+		<div class="contactLine"></div>
+		
+		<div class="contactCon mauto">
+			<div class="contactLeft float-l">
+				<div class="contactSection">
+					<img src="index/img/icon/dianhua_icon.png" class="float-l" />
+					<p>我们的热线：</p>
+					<div>400-920-8380</div>
+				</div>
+				<div class="clearfix"></div>
+				
+				<div class="contactSection">
+					<img src="index/img/icon/email_icon.png" class="float-l" />
+					<p>我们的邮箱：</p>
+					<div>info@ace-elite.com</div>
+				</div>
+			</div>
+			
+			<div class="contactRight float-l">
+				<div class="attention">如果您有业务需求，请填写一下表格，我们会尽快与您取得联系！谢谢!</div>
+				
+				<form action="" id="hidata1" class="layui-form">
+					<input type="text" placeholder="姓名" class="vv" id="name_"/>
+					<input type="email"placeholder="邮箱" class="vv" id="email_"/> 
+					<input type="text" placeholder="电话" class="vv" id="phone_"/>
+					<input type="text" placeholder="职位" class="vv" id="job_"/>
+					<input type="text" placeholder="公司" class="vv" id="company_"/>
+					<textarea name="" rows="" cols="" placeholder="您的业务需求" id="problem_"class="vv"/></textarea>
+					<div class="sub" lay-submit lay-filter="submit_">提交</div>
+				</form>
+			</div>
+		</div>
+		
+		<div class="clearfix"></div>
+	<!-- contact end -->
+	
+	<!-- footer start -->
+	<div class="footer">
+		<div class="footerTop">
+       <a href="acehr.html">关于ACE</a>
+       <a href="acecontact.html">联系ACE</a>
+       <a href="aceprotocol.html">用户协议</a>
+     </div>
+     
+     <div class="footerIcon">
+       <a href="javascript: void(0);"></a>
+       <a href="javascript: void(0);"><div></div></a>
+       <a href="javascript: void(0);"></a>
+     </div>
+     
+     <div class="footerAuthentic">
+                  沪ICP备17013902号 © 2017 ACE
+      </div>
+      <div style="display:none; color:#444444">
+        <script type="text/javascript">var cnzz_protocol = (("https:" == document.location.protocol) ? " https://" : " http://");document.write(unescape("%3Cspan id='cnzz_stat_icon_1261795902'%3E%3C/span%3E%3Cscript src='" + cnzz_protocol + "s95.cnzz.com/z_stat.php%3Fid%3D1261795902%26online%3D2' type='text/javascript'%3E%3C/script%3E"));</script>
+      </div>
+	</div>
+	<!-- footer end -->
+	
+</body>
+	
+</html>
+<script>
+$(document).ready(function(){
+  /***********此处编写js*************/
+  layui.use(['form'], function(){
+    var form = layui.form();
+     form.render();
+    form.on('submit(submit_)', function(data){
+	      ajax("HIMService.y?cmd=contact","{name:'"+$("#name_").val()+"',email:'"+$("#email_").val()+"',phone:'"+$("#phone_").val()+"',job:'"+$("#job_").val()+"',company:'"+$("#company_").val()+"',problem:'"+$("#problem_").val()+"'}",function(){
+	      
+	      })
+	      return false;
+    });
+  });
+});	
+</script>

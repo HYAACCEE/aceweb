@@ -1,0 +1,582 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+  <title>ACE Elite HR在线</title>
+  <link rel="stylesheet" href="../doc/css/common.css?comcs000005" />
+  <link rel="stylesheet" href="../doc/css/styles_HR.css?hrcs000001" />
+  <link rel="stylesheet" href="../doc/js/layui/css/layui.css" />
+  <!--[if IE 8]> 
+  	<script src="../doc/js/jquery-1.8.0.js"></script>
+  <![endif]--> 
+  <!--[if gte IE 8]> 
+  	<script src="../doc/js/jquery-2.1.4.min.js"></script>
+  <![endif]--> 
+  <script src="../doc/js/jquery-2.1.4.min.js"></script>
+  <script src="../doc/js/layui/layui.js"></script>
+  <script src="../doc/js/laydate/laydate.js"></script>
+  <script src="../doc/js/common.js"></script>
+  <script src="../doc/js/myjs_HR.js"></script>
+  <script src="../doc/js/Menu.js"></script>
+
+	<link rel="stylesheet" href="../doc/js/autocomplete/style.css" />
+	<script src="../doc/js/autocomplete/jquery.autocomplete.js"></script>
+	<script src="../doc/js/autocomplete/autocomplete.js"></script>  
+  <link rel="stylesheet" type="text/css" href="../doc/selector/css.css" />
+  <script type="text/javascript" src="../doc/selector/selector.js"></script>
+  <script type="text/javascript" src="../doc/selector/drag.js"></script>
+  <script type="text/javascript" src="../doc/selector/city_arr.js"></script>
+  <script type="text/javascript" src="../doc/selector/nationality_arr.js"></script>
+  <script type="text/javascript" src="../doc/selector/funtype_arr.js"></script>
+  <script type="text/javascript" src="../doc/selector/skilltype_arr.js"></script>
+  <script type="text/javascript" src="../doc/selector/industry_arr.js"></script>
+  <script type="text/javascript" src="../doc/selector/major_arr.js"></script>
+  <script type="text/javascript" src="../doc/selector/drag.js"></script>
+  <script type="text/javascript" src="../doc/selector/school_arr.js"></script>
+
+  <style>
+  .dt_left {width: 90px; display:inline-block;text-align: right;padding-right:15px}
+  .dt_right {width: 253px; display:inline-block;}
+  .dt_input1 {width: 230px;}
+  .dt_input {width: 230px;}
+  .changeEmail_:hover{opacity: 0.8;filter:alpha(opacity=80);}
+  </style>
+</head>
+<body>
+
+<div id="topbar"></div>
+<div class="h50"></div>
+
+<div id="former">
+  <div class="main">
+    <div class="center bg-white pdall20" style="min-width:450px; min-height:300px;">
+    
+      <div id="hidata00" class="hidata gone">
+      
+          <div class="pd20 dt30 title color-focus">邀请码</div>
+          <div class="h20"></div>
+          <div class="layui-inline">
+            <label class="layui-form-label dt_left f12 sp3 pdr10">邀请码</label>
+            <div class="layui-input-inline">
+              <input class="layui-input vv notnull" placeholder="请输入6位邀请码" style="width:280px;"><!-- AH555A220 -->
+            </div>
+          </div>
+          <div class="h40"></div> 
+          <div class="pdl20">
+            <span class="pdl50"></span>
+            <button class="btn-focus h35 next_" style="width: 98px;">下一步</button>
+            <span class="pdl40"></span>
+            <button class="btn-default h35 noinvitecode_" style="width: 100px;margin-left: 50px;">没有邀请码</button>           
+            </div>
+          <div class="h30"></div> 
+      
+      </div>
+      
+      
+      <div id="hidata01" class="hidata gone">
+      
+        <div class="title">请留下您的联系信息,我们的工作人员会主动与您联系.</div>
+        <div class="h40"></div>
+        <div class="pd10">
+          <label class="f12 dt_left"><i class="x"></i>姓名</label><input class="dt_input vv notnull" maxlength="30">
+        </div>
+        <div class="h20"></div>
+        <div class="">
+          <span class="dt_left f12 sp3 pdl3"><i class="x"></i>称谓</span><input type="hidden" class="vv notnull" id="v_sex" value="132001" size="7">
+          <span class="dt_right">
+          <input class="radio" type="radio" id="sex1" name="sex" value="132001"><label class="f12 sp1 mgl5" for="sex1">男士</label><span class="pdl100"></span>
+          <input class="radio" type="radio" id="sex2" name="sex" value="132002"><label class="f12 sp1 mgl5" for="sex2">女士</span>
+          </span>
+        </div>
+        <div class="h5"></div>
+        <div class="pd5 dt10">
+          <span class="dt_left f12 sp3"><i class="x"></i>手机</span>
+          <span class="dt_right"><input class="dt_input vv notnull" id="mobile" maxlength="20"/></span><br>
+          <span class="" id="moileMsgView"><span class="dt_left"></span><span class="f10" id="tipMobile"></span></span>
+        </div>     
+        <div class="pd5">
+         <span class="dt_left f12 sp3"><i class="x"></i>所在公司</span>
+         <span class="dt_right"><input class="dt_input autocomplete-company vv notnull" maxlength="50"></span>
+        </div>
+        <div class="h5"></div>     
+        <div class="pd5 dt20">
+         <span class="dt_left f12 sp3"><i class="x"></i>当前职位</span>
+         <span class="dt_right"><input class="dt_input vv notnull" maxlength="30"></span>
+        </div>
+        <div class="pdl10 dt20">
+          <button type="" class="btn-focus pd40 center h35 submit_">提交</button>
+        </div>
+        <div class="h30"></div>
+      
+      </div>
+      
+      
+      <div id="success01" class="hidata gone">
+      
+        <div class="dt20 pd40">
+          <div class="center"><img class="img70" src="../doc/images/success.png"></div>
+          <div class="f22 center dt10 pd20">申 请 提 交 成 功！</div>
+        </div>
+        <span class="f14 center">我们工作人员会在1个工作日内联系您</span>
+        <div class="h30"></div>
+        <span class="center"><button class="btn-default pd30 f14 returnHRHome_">返回首页</button></span>
+        <div class="h30"></div>
+        
+      </div>
+      
+      <div id="hidata11">
+    
+	      <div id="hidata1" class="hidata gone"></div>
+	      <div id="hidata2" class="hidata gone"></div>
+	      
+	      <div id="hidata3" class="hidata gone">
+	      
+		      <div class="title pointer bold color-focus pdall20">验证公司邮箱</div>
+		      <div>
+		        <span><span class="dt_left f12 sp3"><i class="x"></i>公司邮箱</span></span><label class="labelName"></label><input class="dt_right vv notnull" id="email" maxlength="50"><br>
+		        <span class="dt_left" style="height:20px"></span><span class="text-c f12 color-error top" id="tipEmail"></span>
+		      </div>
+		      <div>
+		        <span class="dt_left f12 sp3"><i class="x"></i>职位</span><label class="labelName"></label><input class="dt_right vv notnull" id="job" maxlength="50">
+		      </div>
+		      <div class="h20"></div>
+		      <div class="pdr20">
+		        <span  class="dt_left f12 sp3">座机</span><label class="labelName"></label><input class="dt_right vv" id="phone" maxlength="40">
+		      </div>
+		      <div class="h40"></div>
+		      <div class="text-c">
+		        <button class="btn-focus pd50 h30 submit_">下一步</button>
+		      </div>  
+		      <div class="h30"></div>
+	      
+	      </div>
+	      
+	    </div>
+      
+      <div id="hidata4_1" class="hidata gone pd100">
+      
+        <div class="dt20 pd40 center">
+          <span><img class="img70" src="../doc/images/success.png"></span>
+          <span class="f22 bold pd20">申 请 提 交 成 功！</span>
+        </div>
+        <div class="dt10 grey f14">
+          <div>我们已向您的邮箱:<span class="pd5 black" id="cur_email">xxxxxxxxxxx@xxx.com</span>发送了一封激活邮件,</div>
+          <div class="dt5">请登录邮箱进行激活</div>
+        </div>
+        <div class="dt20 grey f12">
+          <ul>
+            <li class="dt5">如果您未收到激活邮件,请检查您的<span class="black">垃圾邮箱</span></li>
+            <li class="dt5">邮箱输入错误？ <span class="color-focus pointer changeEmail_">变更验证邮箱</span></li>
+          </ul>
+        </div>
+        <div class="h20"></div>
+        <div class="dt10 center">
+          <button class="btn-focus pd30 h40 f14 returnMain_">返回首页</button>
+          <span class="pd20"></span>
+          <button class="btn-default h40 f14 btn-disabled again_" style="width:110px">重新发送(5)</button>
+        </div>
+        
+      </div>
+      
+      <div id="hidata4_2" class="hidata gone pd100">
+      
+        <div class="dt20 pd40 center">
+          <span><img class="img70" src="../doc/images/success.png"></span>
+          <span class="f22 bold pd20">申 请 提 交 成 功！</span>
+        </div>
+        <div class="dt10 grey f14">
+          <div>我们已向您的邮箱:<span class="pd5 black" id="cur_email">xxxxxxxxxxx@xxx.com</span>发送了一封激活邮件,</div>
+          <div class="dt5">请登录邮箱进行激活</div>
+        </div>
+        <div class="dt20 grey f12">
+          <ul>
+            <li class="dt5">如果您未收到激活邮件,请检查您的<span class="black">垃圾邮箱</span></li>
+          </ul>
+        </div>
+        <div class="h20"></div>
+        <div class="dt10 center">
+          <button class="btn-focus pd30 h40 f14 returnMain_">返回首页</button>
+          <span class="pd20"></span>
+          <button class="btn-default h40 f14 btn-disabled again_" style="width:110px">重新发送(5)</button>
+        </div>
+             
+      </div>
+      
+    </div>
+  </div>
+</div>
+
+<!-- for selector start -->
+<div id="maskLayer" style="display:none">
+<iframe id="maskLayer_iframe" frameBorder=0 scrolling=no style="filter:alpha(opacity=50)"></iframe>
+<div id="alphadiv" style="filter:alpha(opacity=50);-moz-opacity:0.5;opacity:0.5"></div>
+  <div id="drag">
+    <h3 id="drag_h"></h3>
+    <div id="drag_con"></div><!-- drag_con end -->
+  </div>
+</div><!-- maskLayer end -->
+</div>
+<!-- alpha div end -->
+<div id="sublist" style="display:none"></div>
+<!-- for selector end -->
+
+<div class="h100"></div>
+<div id="bottombar"></div>
+<div class="gone">
+  <script type="text/javascript">var cnzz_protocol = (("https:" == document.location.protocol) ? " https://" : " http://");document.write(unescape("%3Cspan id='cnzz_stat_icon_1261795902'%3E%3C/span%3E%3Cscript src='" + cnzz_protocol + "s95.cnzz.com/z_stat.php%3Fid%3D1261795902%26online%3D2' type='text/javascript'%3E%3C/script%3E"));</script>
+</div>
+</body>
+</html>
+
+<script type="text/javascript" src="../doc/js/ace-validate.js"></script>
+
+<script type="text/javascript"> 
+  var code = null;
+  var setTime = null;
+  var MAX_TIME = 60;
+  var time = MAX_TIME;
+  var newMMFlag = -1;
+
+  $(document).ready(function(){
+    /***********此处编写js*************/
+    initForm_00();
+    
+    $(".returnHRHome_").click(function(){
+        location.href = "index.html";
+    });
+    $(".protocal_").click(function(e){
+        window.open("../aceprotocol.html");
+    });
+    /**********************************/
+  }); 
+
+  function initForm_00(){
+    $(".hidata").hide();
+    $("#hidata00").show();
+    Form_InitActions_00();
+  }
+  function Form_InitActions_00(){
+    $(".next_").click(function(e){ 
+        $btn_ = $(this);
+        var loadingIndex = util.UI.loading();
+        ACECommon_Submit("HIBService.y?cmd=checkInviteCode", "{url:'"+location.href.split("/user_register")[0]+"'}", function(ret, html){
+            util.UI.closeLoading(loadingIndex);
+            if(ret==1){
+              if(html==''){
+                initForm_1();
+                
+              }else if(html.length>10){
+                var js = JSON.parse(html);
+                auid = js.user.auid;
+                mid = js.user.mid;
+                amid = js.user.amid;
+                
+                initForm_4_2(js.user.email); //邀请码为主邀请码时，直接跳转到 验证邮箱成功页面
+              }
+            }else{
+              util.UI.err(html);
+            }
+        }, {'div': $("#hidata00"), 'btn': $btn_});        
+    });  
+     
+    $(".noinvitecode_").click(function(e){ 
+        initForm_01();
+    });                   
+  }
+    
+  function initForm_01(){
+    $(".hidata").hide();
+    $("#hidata01").show();
+    Form_InitActions_01();
+  }
+  function Form_InitActions_01(){
+    var checkOk = false;
+    var $thisdiv = $("#hidata01");
+    var $RvalueObj = $thisdiv.find("#v_sex");
+    $thisdiv.find(":radio").click(function(e){
+      $RvalueObj.val($(this).val());
+    });
+    $thisdiv.find(":radio").eq(0).click();
+    
+    //校验手机号
+    var $mobile = $thisdiv.find("#mobile");
+    var $tipMobile = $thisdiv.find("#tipMobile");
+    $mobile.on("keydown", function(){
+        $tipMobile.html("");
+    });
+    $mobile.on("keyup", function(){
+        checkAccountMobile($(this), $tipMobile, false, function(result){
+        });
+    });
+    $mobile.on("blur", function(){
+        checkAccountMobile($(this), $tipMobile, true);
+    });
+    
+    $thisdiv.find(".submit_").click(function(e){
+        $btn_ = $(this);
+        checkAccountMobile($mobile, $tipMobile, true, function(result){
+            if(!result){
+              return false;
+            }
+		        ACECommon_Submit("MMBService.y?cmd=registNewUser", "{registMode:'0'}", function(ret, html){
+		            if(ret==1){
+		              success_01();
+		            }else{
+		              util.UI.err(html);
+		            }
+		        }, {'div':$thisdiv, 'btn':$btn_});
+        });
+    })
+  }
+  
+  function success_01(){
+    $(".hidata").hide();
+    $("#success01").show();
+  }
+ 
+  //注册第一步：身份信息
+  function initForm_1(){
+    $(".hidata").hide();
+    ACECommon_ShowData("ComService.y?cmd=html", "{objectMode:'H00202'}", $("#hidata1"), 1, function(ret,html){
+      Form_InitActions_1($("#hidata1"));
+    });       
+  }
+  function Form_InitActions_1($thisdiv){
+    autocomplete_Init();
+  
+    setDisable($(".sendVerify_"), true);
+
+    $thisdiv.find(":radio").click(function(e){
+      $thisdiv.find("#v_sex").val($(this).val());
+    });
+    $thisdiv.find(".radio").eq(0).click();
+        
+    //校验手机号
+    var $mobile = $thisdiv.find("#mobile");
+    var $tipMobile = $thisdiv.find("#tipMobile");
+    $mobile.on("keydown", function(){
+        $tipMobile.html("");
+        $("#code1").val("");
+    });
+    $mobile.on("keyup", function(){
+        setDisable($thisdiv.find("#btn_vericode"), !checkAccountMobile($(this), $tipMobile, false, function(result){
+            setDisable($thisdiv.find("#btn_vericode"), !result);
+        }));
+    });
+    $mobile.on("blur", function(){
+        checkAccountMobile($(this), $tipMobile, true);
+    });
+    
+    //校验密码
+    $("#pas1").on("keydown", function() {
+        $("#pas1Tip").html(""); 
+    });
+    $("#pas1").on("blur", function(){//用户密码确认框失去焦点触发验证事件
+        var pass = $(this).val();
+        if (!isPassword(pass)){
+          $("#pas1Tip").html("<span class=\"f9 red\">密码必须6到12位</span>");
+        }else{
+          $("#pas1Tip").html(""); 
+        }
+    });
+    $("#pas2").on("keydown", function() {
+        $("#pas2Tip").html(""); 
+    });
+    $("#pas2").on("keyup", function(){//用户密码确认框失去焦点触发验证事件
+        if(!$(this).val || $(this).val() != $("#pas1").val() ) { //此处验证和上面一样 
+            $("#pas2TipView").show();
+            $("#pas2Tip").html("<span class=\"f10 red\">密码输入不一致</span>");
+        } else {
+          if (isPassword($("#pas1").val())){
+           // setDisable($thisdiv.find(".nextregister_"), false); 2017-4-23 by linda
+            $("#pas2Tip").html(""); 
+          }
+        }  
+    });
+    
+    //验证码
+    var $btn_vericode = $thisdiv.find("#btn_vericode");
+    $btn_vericode.addClass("btnDefult");
+    $btn_vericode.val("发送验证码");
+    $btn_vericode.click(function(e){
+        //setDisable($thisdiv.find(".nextregister_"), true);2017-4-23 by linda
+        ajax_("HISService.y?cmd=sendCodeToPhone", "{seq:'138010',phone:'"+$mobile.val()+"'}",function(ret,html){
+            if(ret==1){
+              code = html;
+              util.UI.msg("验证码已发送，请查收");             
+            }   
+        });
+        $mobile.attr("disabled",true);
+        setDisable($btn_vericode, true);
+        setTime = setInterval(function(){
+            if(time==0){
+              setDisable($btn_vericode, false); 
+              $btn_vericode.html("重新发送");
+              $mobile.removeAttr("disabled");
+              clearInterval(setTime);
+              time = MAX_TIME;
+              return;
+            }
+            $btn_vericode.html(time+" S");
+            time--;
+         },1000);
+    });
+    
+    $(".protocal_").click(function(e){
+        window.open("../aceprotocol.html");
+    });
+     
+    //提交
+    $thisdiv.find(".nextregister_").click(function(e){
+        $this_ = $(this);
+
+        setDisable($this_, !checkAccountMobile($mobile, $tipMobile, true, function(result){
+            setDisable($this_, !result);
+            if(!result) return false;
+            
+            if($("#code1").val() != code){
+              util.UI.err("验证码不正确");
+              return;
+            }        
+            if($("#pas1").val() != $("#pas2").val()) { //此处验证和上面一样            
+                util.UI.err("密码输入不一致");
+                return;
+            }
+            $btn = $(this);
+            var loadingIndex = util.UI.loading();
+            ACECommon_Submit("MMBService.y?cmd=registCheckMM", "{companyName:'"+$("#company").val()+"'}", function(ret, html){
+                util.UI.closeLoading(loadingIndex);
+                if(ret==1){
+                  if(html.length==''){ //公司名不存在
+                    newMMFlag = 1;
+                    initForm_2();
+	                }else{
+                    newMMFlag = 0;
+                    initForm_3();
+	                }
+	              }
+            }, {'div':$thisdiv, 'btn': $btn});
+            
+        }));
+    });
+  }
+    
+  //注册第二步：公司信息
+  function initForm_2(){
+    $(".hidata").hide();
+    ACECommon_ShowData("ComService.y?cmd=html", "{objectMode:'H00203'}", $("#hidata2"), 0, function(ret,html){
+        Form_InitActions_2($("#hidata2"));
+    });
+  }  
+  function Form_InitActions_2($thisdiv){
+    $(".next_").click(function(e) {      
+        $btn_ = $(this);
+        var loadingIndex = util.UI.loading();
+        ACECommon_Submit("HIBService.y?cmd=registCheckFirst", "", function(ret, html){
+            util.UI.closeLoading(loadingIndex);
+            if(ret==1){
+              initForm_3();
+            }else{
+              util.UI.err(html);
+            }
+        }, {'div':$thisdiv, 'btn': $btn});
+    });    
+  }
+  
+  //注册第三步：邮箱信息
+  function initForm_3(){
+    $(".hidata").hide();
+    $("#hidata3").show();
+    Form_InitActions_3($("#hidata3"));
+  }
+  
+  function Form_InitActions_3($thisdiv){
+    // 校验邮箱
+    var $email = $thisdiv.find("#email");
+    var $tipEmail = $thisdiv.find("#tipEmail");
+    $email.on("keydown", function(){
+        $tipEmail.html("");
+    });
+    $email.on("blur", function(){
+        setDisable($thisdiv.find(".submit_"), !checkAccountEmail($(this), $tipEmail, function(result){
+            setDisable($thisdiv.find(".submit_"), !result);
+        }));
+    });
+    
+    $thisdiv.find(".submit_").click(function(e){
+        $btn_ = $(this);
+        checkAccountEmail($email, $tipEmail, function(result){
+            setDisable($btn_, !result);
+            if(!result) return false;
+        
+		        var loadingIndex = util.UI.loading();
+		        ACECommon_Submit("MMBService.y?cmd=registNewUser", "{registMode:'1', newMMFlag:'"+newMMFlag+"', url:'"+location.href.split("/user_register")[0]+"',email:'"+$thisdiv.find("#email").val()+"'}", function(ret, html){
+		            util.UI.closeLoading(loadingIndex);
+		            if(ret==1){
+                  auid = html;
+		              //location.href = "user_register_success.html";
+		              initForm_4_1($("#email").val());
+		            }else{
+		              util.UI.err(html);
+		            }
+		        }, {'div':$("#hidata11"), 'btn': $btn});
+           
+        });
+    });
+  }  
+  
+  //初始化Form
+  function initForm_4_1(cEmail){
+    $(".hidata").hide();
+    $("#hidata4_1").show();
+    $("#hidata4_1").find("#cur_email").html(cEmail);
+    Form_InitActions_4($("#hidata4_1"));
+  }
+  
+  //邀请码为主邀请码时，直接跳转到 验证邮箱成功页面
+  function initForm_4_2(cEmail){
+    $(".hidata").hide();
+    $("#hidata4_2").show();
+    $("#hidata4_2").find("#cur_email").html(cEmail);
+    Form_InitActions_4($("#hidata4_2"));
+  }
+  
+  function Form_InitActions_4($thisdiv){
+    resend();
+
+    $thisdiv.find(".again_").click(function(e){
+      if(!$(this).hasClass("btn-disabled")){
+        resend();
+        ajax_("HIBService.y?cmd=verifyEmail", "{url:'"+location.href.split("/user_register")[0]+"',email:'"+$thisdiv.find("#cur_email").html()+"'}", function(ret, html){
+           if(ret==1){
+           }else{
+             util.UI.err(html);
+           }       
+        });
+      }
+    });
+    $thisdiv.find(".changeEmail_").click(function(e){
+        e.stopPropagation();
+        util.UI.html("hrdialog_user_register_changeemail.html?"+auid, 400, 270, function(){});
+    });
+  }
+  function resend(){
+    // 重复发送邮件
+    var i = 59;
+    var setTime;
+    $(".again_").addClass("btn-disabled");
+    $(".again_").removeClass("pointer");
+    setTime = setInterval(function(){
+        $(".again_").html("重新发送" + "("+i--+")");
+        if(i <= 0) {
+          $(".again_").html("重新发送");
+          $(".again_").removeClass("btn-disabled");
+          $(".again_").addClass("pointer");
+          clearInterval(setTime);
+          return;
+        }
+    },1000);
+  }
+
+</script>

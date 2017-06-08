@@ -1,0 +1,152 @@
+<link rel="stylesheet" href="../doc/js/autocomplete/style.css" />
+<script src="../doc/js/autocomplete/jquery.autocomplete.js"></script>
+<script src="../doc/js/autocomplete/autocomplete.js"></script>
+<script type="text/javascript" src="../doc/js/ace-validate.js"></script>
+<style>
+.dt_left {width: 100px; display:inline-block;text-align: right;padding-right:10px}
+.dt_right {width: 260px; display:inline-block;}
+.dt_input {width: 230px; display:inline-block;}
+</style>
+
+<div id="former">
+  <div class="main">
+    <form class="layui-form" action="">
+    <div class="bg-white pdall20">
+      <div class="title color-focus f18 dt20">新增HR账户</div>
+      
+      <div class="gone">
+	    <div class="layui-input-inline float-r">
+        <input type=hidden id="v10"/>
+         <a class="pointer pdr5 uploadFile_" href="javascript:void(-1)">
+           <img style="width:11px;height:11px" src="../doc/images/HC/add_plus.png" />
+           <span class="pd5">导入HR账户</span>
+           <span id="file" class="pd10 grey"></span>
+         </a>
+         <br/>
+         <input id="uploadfile" type="file" style="display: none"/>
+	    </div>
+	    
+	    <div class="layui-input-inline float-r">
+        <input type=hidden id="v11"/>
+         <a class="pointer pdr5 uploadFile1_" href="javascript:void(-1)">
+           <img style="width:11px;height:11px" src="../doc/images/HC/add_plus.png" />
+           <span class="pd5">导入新增HR账户</span>
+           <span id="file1" class="pd10 grey"></span>
+         </a>
+         <br/>
+         <input id="uploadfile1" type="file" style="display: none"/>
+	    </div>
+	    </div>
+    
+      <div class="gone" id="hidata1">
+      <div class="debug bg-red text-c">======================DEBUG=====================</div>
+      </div>
+
+      <div class="layui-form-item center">
+        <div class="layui-input-block">
+          <button type="button" class="layui-btn" lay-filter="submit_" lay-submit="">立即提交</button>
+          <button type="reset" class="layui-btn layui-btn-primary">重置</button>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>
+
+<script type="text/javascript" src="../doc/js/ace-validate.js"></script>
+<script>
+$(document).ready(function(){
+  /***********此处编写js*************/  
+  initForm(); //初始化Form
+  initUpload();//////////////////////////////////////
+  /**********************************/
+});
+//初始化Form
+function initForm(){  
+  ACECommon_ShowData("ComService.y?cmd=html", "{objectMode:'H00604-5'}", $("#hidata1"), 0, function(ret,html){
+      Form_InitActions();
+  });
+}
+
+function Form_InitActions(){
+  autocomplete_Init();
+
+  layui.use(['form'], function(){
+    var form = layui.form();
+    form.render();
+    
+    form.verify({
+	    mobile: function(value){
+		  if(value==''){
+			    return "手机号码不能为空！";
+			  }else if(value.length!=11){
+			    return "手机号码格式不正确！";
+			  }else if (!isMobile(value)){
+			    return "手机号码格式0000不正确！";
+			  }else{
+			   checkAccountMobile($("#mobile"), $("#checkPhone"), true);
+			  }
+	    }
+	    ,content: function(value){
+	      layedit.sync(editIndex);
+	    }
+	  });
+	  
+/*     var $tipMobile = $("#checkPhone");
+    mobile.on("blur", function(){
+        alert("测试");
+        checkAccountMobile($(this), $tipMobile, true);
+    }); */
+	  
+    form.on('radio(radio_sex)', function(data){
+      $("#v_sex").val(data.value);
+    });
+    //监听提交
+  //  $(".submit_").click(function(e){
+     form.on('submit(submit_)', function(e){  
+      ajax_("HIMService.y?cmd=registCheckPhoneEmail", "{userGroup:'2', phone:'"+$("#mobile").val()+"',email:'"+$("#email").val()+"'}",function(ret, html){
+          if(ret==2) return util.UI.err(html);
+		      util.UI.confirm('确认提交吗？', function(){
+		         ACECommon_FormSubmit(null, "MMMService.y?cmd=addHR", "", function(ret, html){
+		             if(ret==1){
+		               util.UI.msg(html);
+		               initForm();
+		             }else{
+		               util.UI.err(html);
+		             }
+		         });
+		      });
+      });
+    });
+  });
+}
+
+function initUpload(){
+  //选择文件
+  $(".uploadFile_").click(function(){
+      $("#uploadfile").click();
+      $("#uploadfile").on("change",function(){
+          $("#file").html(this.files[0].name);
+          attachName = this.files[0].name;
+      util.UI.confirm('确认提交吗？', function(){
+        ajaxFile_("MMMService.y?cmd=importHR", "{file1:'$(\"#uploadfile\")[0].files[0]'}", function(html){
+                html = html.split("`");
+                $("#v11").val(html[0]);
+        });   
+      });
+   });
+  });
+  $(".uploadFile1_").click(function(){
+      $("#uploadfile1").click();
+      $("#uploadfile1").on("change",function(){
+          $("#file1").html(this.files[0].name);
+          attachName = this.files[0].name;
+      util.UI.confirm('确认提交吗？', function(){
+        ajaxFile_("MMMService.y?cmd=insertHR", "{file1:'$(\"#uploadfile1\")[0].files[0]'}", function(html){
+                html = html.split("`");
+                $("#v10").val(html[0]);
+        });   
+      });
+   });
+  });  
+}
+</script>

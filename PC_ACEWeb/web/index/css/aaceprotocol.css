@@ -1,0 +1,122 @@
+/*public start*/
+.opacityHelf {
+  filter: alpha(opacity=80);
+  -moz-opacity: 0.8;
+  -khtml-opacity: 0.8;
+  opacity: 0.8;
+}
+/*public end*/
+/*vairable start*/
+.line {
+  height: 2px;
+  width: 20px;
+  background: #f7d930;
+  margin: 27px auto 0;
+  text-align: center;
+  margin-bottom: 62px;
+}
+.section {
+  color: #3F3F3F;
+  font-size: 16px;
+}
+.section img {
+  height: 70px;
+  margin-right: 16px;
+}
+.section p {
+  padding-top: 4px;
+  margin-bottom: 23px;
+}
+.section div {
+  font-size: 18px;
+}
+/*vairable end*/
+.nav .navConRight font {
+  font-size: 17px;
+  margin-left: 29px;
+  cursor: default;
+  display：inline-block;
+}
+.nav .navConRight font span {
+  display: inline-block;
+  height: 28px;
+  width: 28px;
+  background-image: url(../img/nav_icon/top_icon.png);
+  background-size: cover;
+  vertical-align: middle;
+  margin-right: 9px;
+  margin-top: -3px;
+}
+/*banner start*/
+.banner {
+  height: 400px;
+  width: 100%;
+  line-height: 400px;
+  background-image: url(../img/protocol.jpg);
+  background-size: auto 600px;
+  background-position: center center;
+  background-repeat: no-repeat;
+  overflow: hidden;
+}
+.banner .bannerCon {
+  color: #3f3f3f;
+  font-size: 52px;
+}
+/*banner end*/
+/*protocol start*/
+.protocol {
+  background: #fafafa;
+  padding-bottom: 26px;
+}
+.protocol .protocolCon {
+  background: #fff;
+  padding: 33px 50px;
+}
+.protocol .protocolCon h1 {
+  font-size: 20px;
+  color: #3f3f3f;
+  margin-bottom: 28px;
+}
+.protocol .protocolCon hr {
+  color: #F7D930;
+}
+.protocol .protocolCon .line {
+  height: 3px;
+  width: 100%;
+  background: #F7D930;
+  margin-bottom: 26px;
+}
+.protocol .protocolCon .section h3 {
+  font-size: 14px;
+  color: #464646;
+  margin-bottom: 20px;
+}
+.protocol .protocolCon .section div {
+  font-size: 14px;
+}
+.protocol .protocolCon .section .sectionLeft {
+  color: #252525;
+}
+.protocol .protocolCon .section .sectionright {
+  padding-left: 14px;
+  margin-top: -2px;
+  margin-bottom: 20px;
+  color: #252525;
+}
+.protocol .protocolCon .section .sectionItem {
+  margin: 20px 0;
+}
+/*protocol end*/
+/*media start*/
+@media screen and (max-width: 940px) {
+  .banner {
+    width: 940px;
+  }
+  .banner .bannerPic {
+    background-size: auto 600px;
+  }
+  .protocol {
+    width: 940px;
+  }
+}
+/*media end*/

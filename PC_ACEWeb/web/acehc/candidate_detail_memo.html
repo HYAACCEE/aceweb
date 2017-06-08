@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+  <title>ACE Elite 顾问在线</title>
+  <link rel="stylesheet" href="../doc/css/common.css?comcs000005" />
+  <link rel="stylesheet" href="../doc/css/styles_HC.css?hccs000001" />
+  <link rel="stylesheet" href="../doc/js/layui/css/layui.css" />
+  <!--[if IE 8]> 
+    <script src="../doc/js/jquery-1.8.0.js"></script>
+  <![endif]--> 
+  <!--[if gte IE 8]> 
+    <script src="../doc/js/jquery-2.1.4.min.js"></script>
+  <![endif]--> 
+  <script src="../doc/js/jquery-2.1.4.min.js"></script>
+  <script src="../doc/js/layui/layui.js"></script>
+  <script src="../doc/js/common.js"></script>
+  <script src="../doc/js/myjs_HC.js"></script>
+  <script src="../doc/js/Menu.js"></script>
+  <style>
+  .dt_top2 {width: 720px; display:inline-block;}
+    .goBack{line-height: 50px;width: 40px;}
+    .goBack span{width: 7px;height: 7px;border-bottom: 1px solid #ffa942;border-left: 1px solid #ffa942;transform: rotate(45deg);margin-right: 2px;}
+    .thistab {color:#ffa942;border-bottom: 3px solid #ffa942;}
+	.thistab span {color:#ffa942;}
+	.tab span:hover{color:#ffa942;}
+  </style>
+</head>
+<body>
+ 
+<div id="topbar"></div>
+<div class="h50 main">
+  <div class="color-focus goBack pointer"><span class="inline-block"></span>返回</div>
+</div>
+   
+<div id="container">
+  <div class="main">
+  
+    <div class="cv-top clearfix">
+      <div id="hidata_top" class="gone">
+        <div class="debug bg-red full-width text-c">======================DEBUG=====================</div>
+      </div>
+    </div>
+    
+    <div class="h10"></div>
+    <div class="bold f16 dark-grey tab mycandidateCVTab display-td middle"></div>
+
+    <div class="clearfix pd30 bg-white dt30">
+      <div class="debug bg-red full-width text-c">======================DEBUG=====================</div>
+      <textarea class="layui-textarea pd10 vv" id="memoText_" placeholder="请输入备忘录内容" rows="5" cols="100" autocomplete="off" lay-verify=""></textarea><span></span>
+      <div class="dt15"><button class="btn-focus h25 pd20 saveMemoBtn btn-disabled">保存</button><span class="f12 pdl60 grey bottom">*备忘录保存后无法删除/修改</span></div>
+      <div class="h15"></div>
+      <div class="h20 gone" id="allMemo_" style="background-color:#fafaf9"><div class="bg-focus inline-block h20 float-l" style="width: 4px;"></div><div class="pd10 inline-block bold" style="line-height: 20px;">所有备忘录</div></div>
+      <div id="hidata1" class="dt10 gone">
+        <div>
+          <div class="dt15"><img style="width: 14px;height: 13px;margin-top:-6px" src="../doc/images/HC/memoIcon.png"><span class="bold f14 pd10">5.12.2017  12:39</span></div>
+          <div><p style="line-height: 20px">So strongly and metaphysically did I conceive of my situation then, that while earnestly watching his motions, I seemed distinctly to perceive that my own individuality was now merged in a joint stock company of two; that my free will had received a mortal wound; and that another's mistake or misfortune might plunge innocent me into unmerited disaster and death. Therefore, I saw that here was a sort of interregnum in Providence; for its even-handed equity never could have so gross an injustice. </p></div>
+          <div class="dt10" style="border-top: 1px dashed#C5C5C5;margin:10px 0px;height: 1px;line-height: 1px;"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="h100"></div>
+</div>    
+   
+<div id="bottombar"></div>
+<div class="gone">
+  <script type="text/javascript">var cnzz_protocol = (("https:" == document.location.protocol) ? " https://" : " http://");document.write(unescape("%3Cspan id='cnzz_stat_icon_1261795902'%3E%3C/span%3E%3Cscript src='" + cnzz_protocol + "s95.cnzz.com/z_stat.php%3Fid%3D1261795902%26online%3D2' type='text/javascript'%3E%3C/script%3E"));</script>
+</div>
+</body>
+</html>
+
+<script type="text/javascript" src="../doc/js/cv_HC.js?cvhc00000014"></script>
+<script>
+  var curtAuid;
+  var memoText;
+  $(document).ready(function(){
+    /***********此处编写js*************/
+    
+    curtAuid = util.Cookie.get('curtAuid');//取出auid
+    if(CID == curtAuid){ //跟当前候选人对比,一样的话就取出存储的备忘录
+        memoText = util.Cookie.get('memoText');
+        $("#memoText_").val(memoText);
+        $(".saveMemoBtn").removeAttr("disabled");  
+        $(".saveMemoBtn").removeClass("btn-disabled");
+    }else{
+        $(".saveMemoBtn").attr("disabled",true);
+    }
+    CV_Detail_Top(); //简历-基本详情
+    initCondition();
+	  $("#memoText_").on("blur", function(){
+        if($("#memoText_").val() == ""){
+          $(".saveMemoBtn").attr("disabled",true);
+          $(".saveMemoBtn").addClass("btn-disabled");
+        }else{
+          $(".saveMemoBtn").removeAttr("disabled");  
+          $(".saveMemoBtn").removeClass("btn-disabled");
+          var $this = $(this);
+          strLenCalc($this, $this.next(), "4000");
+        }
+	  });
+	  $("#memoText_").on("keyup", function(){
+	      if($("#memoText_").val() == ""){
+          $(".saveMemoBtn").attr("disabled",true);
+          $(".saveMemoBtn").addClass("btn-disabled");
+	      }else{
+          $(".saveMemoBtn").removeAttr("disabled");  
+          $(".saveMemoBtn").removeClass("btn-disabled");
+          var $this = $(this);
+          strLenCalc($this, $this.next(), "4000");
+	      }
+	  });
+	  $(".goBack").click(function(){  
+      var curtHtml = util.Cookie.get('curtHtml');//存储当前HTML
+	    go(curtHtml);
+	  });
+	  $(".saveMemoBtn").click(function(){
+	      ACECommon_Submit("CandiDetailSService.y?cmd=addCandidataMemo", "{cid:'"+CID+"'}",function(ret,html){
+            $(".saveMemoBtn").attr("disabled",true);
+            $(".saveMemoBtn").addClass("btn-disabled");
+            $("#memoText_").val("");
+            $("#memoText_").next().html("");
+            initCondition();
+         });
+  });    
+    /**********************************/
+  });
+  
+  //备忘录-condition
+  function initCondition(){
+    ACECommon_ShowData("CandiDetailSService.y?cmd=detailMemo", "{objectMode:'H00528-1', cid:'"+CID+"'}", $("#hidata1"), 0, function(ret,html){
+        if(html == ""){
+          $("#allMemo_").hide();
+        }else{
+          $("#allMemo_").show();
+        }
+    });
+  }  
+  //判断字数限制
+function strLenCalc(obj, checklen, maxlen){
+  var v = obj.val(), charlen = 0, maxlen = !maxlen ? 200 : maxlen, curlen = maxlen, len = v.length; 
+  for(var i = 0; i < v.length; i++){ 
+    if(v.charCodeAt(i) < 0 || v.charCodeAt(i) > 255) { 
+      curlen -= 1; 
+    }
+  }
+  util.Cookie.set('curtAuid',CID,30);
+  util.Cookie.set('memoText',obj.val(),30);
+  
+  if(curlen >= len){
+    $(checklen).html("还可输入 <strong>"+Math.floor((curlen-len)/2)+"</strong> 个字").css('color', ''); 
+  }else{
+    $(checklen).html("已经超过 <strong>"+Math.ceil((len-curlen)/2)+"</strong> 个字").css('color', '#FF0000'); 
+  } 
+}
+</script>

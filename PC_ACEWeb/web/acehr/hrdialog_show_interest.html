@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+  <title>选择面试职位</title>
+  <link rel="stylesheet" href="../doc/css/common.css?comcs000005" />
+  <link rel="stylesheet" href="../doc/css/styles_HR.css?hrcs000001" />
+  <link rel="stylesheet" href="../doc/js/layui/css/layui.css" />
+  <!--[if IE 8]> 
+  	<script src="../doc/js/jquery-1.8.0.js"></script>
+  <![endif]--> 
+  <!--[if gte IE 8]> 
+  	<script src="../doc/js/jquery-2.1.4.min.js"></script>
+  <![endif]--> 
+  <script src="../doc/js/jquery-2.1.4.min.js"></script>
+  <script src="../doc/js/layui/layui.js"></script>
+  <script src="../doc/js/laydate/laydate.js"></script>
+  <script src="../doc/js/common.js"></script>
+  <script src="../doc/js/myjs_HR.js"></script>
+  <style>
+    .dt_left {width:100px; display:inline-block;padding-right: 40px;}
+  </style>
+</head>
+<body class="bg-white">
+<div class="frozen">
+  <div class="f18 center dt20 color-focus">您希望下周精选候选人有更多的:</div>
+  <div class="pd10 bg-white">
+    <div class="gone" id="hidata1">
+    </div>
+  </div>
+  <div class="h10"></div>
+  <div>
+    <span class="pdl80"></span>
+    <span class="pdl10"><span>
+    <button class="btn-focus h30 pd40" id="UI_Button_Ok">确定</button>
+    <span class="pd20"></span>
+    <button class="btn-default h30 pd40" id="UI_Button_Cancel">取消</button>
+  </div>
+  
+</div>
+</body>
+</html>
+<script>
+$(document).ready(function(){
+  /***********此处编写js*************/
+  var cid = getUrlCid();
+  var pcid = getUrlPcid();
+  var tid = getUrlTid();
+  initCondition();
+  $("#UI_Button_Ok").click(function(e){
+      var checked = [];
+      $('input:checkbox:checked').each(function() {
+          checked.push($(this).val());
+      });
+      $("#v_type").val(checked);
+      $btn_ = $(this);
+      var loadingIndex = util.UI.loading();
+      ACECommon_FormSubmit($btn_, "MainBService.y?cmd=interest", "{aaa:''}", function(ret, html){
+          if(ret==1){
+          parent.util.UI.closeDialog();
+          parent.util.UI.msg(html);
+          parent.reload();
+          }             
+          util.UI.closeLoading(loadingIndex);
+      });
+  });
+  /**********************************/
+});
+  function init(){
+  	showInterst();
+  }
+  function cur_dataid(){
+    return DATAID; //已在dataline_.honver函数中赋值
+  }
+  function initCondition(){
+    ACECommon_ShowData("ComService.y?cmd=html", "{objectMode:'H00102-3'}", $("#hidata1"), 0, function(ret,html){
+        showInterst();
+    });
+  }
+  function showInterst(){
+      ACECommon_ShowData("MainBService.y?cmd=selectedInterest", "{a:''}", $(".showMore_"), 0, function(ret,html){
+          var ss = html.split("|");
+          //console.log(String($('input').eq('1').val())==String(ss[0]))
+          $('input').each(function(index) {
+	          //console.log(index)
+	          ss.map(function(item){
+	            //console.log($('input').eq(index).val()==item)
+	             if($('input').eq(index).val()==item.trim().slice(0,4)){
+	             	//console.log($('input').eq(index).val()==item)
+	                $('input').eq(index).attr('checked','checked');
+	             }
+	          })
+	      });
+          
+      },function(ret,html){
+          $(".showMore_").hide();
+      });
+  }
+</script>

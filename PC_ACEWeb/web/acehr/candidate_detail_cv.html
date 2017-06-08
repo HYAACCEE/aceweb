@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+  <title>ACE Elite HR在线</title>
+  <link rel="stylesheet" href="../doc/css/common.css?comcs000005" />
+  <link rel="stylesheet" href="../doc/css/styles_HR.css?hrcs000001" />
+  <link rel="stylesheet" href="../doc/js/layui/css/layui.css" />
+  <!--[if IE 8]> 
+  	<script src="../doc/js/jquery-1.8.0.js"></script>
+  <![endif]--> 
+  <!--[if gte IE 8]> 
+  	<script src="../doc/js/jquery-2.1.4.min.js"></script>
+  <![endif]--> 
+  <script src="../doc/js/jquery-2.1.4.min.js"></script>
+  <script src="../doc/js/layui/layui.js"></script>
+  <script src="../doc/js/common.js?com00000027"></script>
+  <script src="../doc/js/myjs_HR.js?myhr00000017"></script>
+  <script src="../doc/js/Menu.js"></script>
+  <style>
+    .similarCandidate_detail_:hover{color:#ffcc44;}
+    .candidateDetail_:hover {color:#ffcc44;}
+    .dt_left {width: 160px; display:inline-block;}
+    .dt_top2 {width: 720px; display:inline-block;}
+    .dt_right {width: 340px; height:auto; display:inline-block;}
+    .pdt10{padding-top: 5px;}
+    .concern_tip{width: 248px;background: #fffffa;box-shadow: 0 0 3px rgba(45,45,45,0.2);position: relative;margin-top: -15px;}
+    .concern_tip .tran{width: 12px;height: 12px;background: #fffffc;position: absolute;top: -7px;right: 50px;z-index: 999;transform: rotate(45deg);box-shadow: -1px -1px 1px rgba(45,45,45,0.2);}
+  	.cv-top #box-9{position: absolute;top: 190px;right: -200px;}
+  	.goBack{line-height: 50px;width: 40px;}
+  	.goBack span{width: 7px;height: 7px;border-bottom: 1px solid #ffa942;border-left: 1px solid #ffa942;transform: rotate(45deg);margin-right: 2px;}
+  	.HR_inviteIV_{position: relative;top: -7px;}   
+  	.thistab {color:#ffa942;border-bottom: 3px solid #ffa942;}
+    .thistab span {color:#ffa942;}
+    .tab span:hover{color:#ffa942;}
+  	.thistab {color:#ffa942;border-bottom: 3px solid #ffa942;}
+    .thistab span {color:#ffa942;}
+    .tab span:hover{color:#ffa942;}
+  	
+  	.cvGuide{position: fixed;top: 0;left: 0;z-index:1000;}
+  	.cvGuideCon{width: 910px;height: 60px;background: #FFCD00;}
+  	.cvGuideTou{width: 50px;height: 50px;margin-right: 25px;}
+  	.cvGuideTop{padding-top: 6px;margin-bottom: 4px;}
+  	.mgr15{margin-right: 15px;}
+  	.collBtn{color: #000;border: 1px solid #000;margin-top: 13px;}
+  	.btn-transparent:hover,.btn-transparent:active,.btn-transparent:focus {background:#000;color:#fff;border:solid 1px #000;}
+  	.cvGuideCon button:nth-of-type(3){background-color: #000;margin-top: 10px;}
+  	.cvGuideCon button:nth-of-type(4){color: #000;border: 1px solid #000;background: transparent;margin-top: 10px;}
+    .cvGuideCon button:nth-of-type(5){color: #686868;border: 1px solid #686868;background: transparent;margin-top: 10px;}
+  	.cvGuideTop span:nth-child(1){font-size: 16px;}
+  	.cvGuideBottomBtn span:nth-child(1){padding: 13px 10px;color: #fff;background: #686868;border-radius: 2px;height: 16px;} 
+  	.cvGuideTou{margin-top: 10px;}
+  </style>
+</head>
+<body>
+ 
+<div id="topbar"></div>
+<div id="querybar">
+	<div class="h50 main">
+		<div class="color-focus h30 goBack pointer"><span class="inline-block"></span>返回</div>
+	</div>
+</div>
+   
+<div id="container">
+  <div class="main">
+  
+    <div class="cv-top clearfix">
+      <div id="hidata_top" class="gone">
+      <!---------------------------------------- 简历基本详情 begin --------------------------------------------->
+      <div class="debug bg-red full-width text-c">======================DEBUG=====================</div>
+      <!---------------------------------------- 简历基本详情 end --------------------------------------------->
+      </div>
+      
+    </div>
+    
+    <div class="h10"></div>
+    <div class="concern_tip pdall10 float-r gone">
+     	<img class="closeNotice_ float-r pointer" src="../doc/images/HC/close1.png" height="10" />
+     	<img src="../doc/images/HR/toux_icon.png" class="float-l mgr10 pdt10" height="35" />
+     	<div class="pdt10">
+     		就算没职位也要<span class="color-focus">【收藏】</span>哦，不然下周就没咯！
+     	</div>
+     	<div class="tran"></div>
+     </div>
+    <div class="bold f16 dark-grey tab mycandidateCVTab display-td middle"></div>
+
+    <div class="clearfix f12">
+      <div class="cv-left">
+
+        <div class="text-r">
+          <span class="light-grey f9">最后更新：<span id="v_uptdate">2016.11.12</span></span>
+          <a class="link pd10 pointer f14 gone HC_editCV_">简历更新 <img src="../doc/images/HC/edit.png"></a>
+        </div>
+        
+        <div class="tab-block dt20 f18 bold sp2">教育背景</div>
+        <div id="hidata3" class="pdl40">
+          <div class="debug bg-red full-width text-c">======================DEBUG=====================</div>
+          <!---------------------------------------- 教育 begin ------------------------------------------->
+          <!---------------------------------------- 教育 end --------------------------------------------->
+        </div>
+        
+        <div class="h10"></div>
+               
+        <div class="tab-block dt20 f18 bold sp2">培训经历</div>
+        <div id="hidata4" class="pdl40">
+          <div class="debug bg-red full-width text-c">======================DEBUG=====================</div>
+          <!---------------------------------------- 培训 begin ------------------------------------------->
+          <!----------------------------------------- 培训 end --------------------------------------------->
+        </div>
+
+        <div class="h10"></div>
+        
+        <div class="tab-block dt20 f18 bold sp2">获得证书</div>
+        <div id="hidata5" class="pdl40">
+          <div class="debug bg-red full-width text-c">======================DEBUG=====================</div>
+          <!---------------------------------------- 证书 begin ------------------------------------------->
+          <!----------------------------------------- 证书 end -------------------------------------------->
+        </div>
+        
+        <div class="h10"></div>
+        
+        <div class="tab-block dt20 f18 bold sp2">任职经历</div>
+        <div id="hidata6" class="pdl40">
+          <div class="debug bg-red full-width text-c">======================DEBUG=====================</div>
+          <!---------------------------------------- 任职经历 begin ------------------------------------------->
+          <!---------------------------------------- 任职经历 end ------------------------------------------->
+          <div class="line"></div>
+        </div>
+        
+        <div class="h10"></div>
+        
+        <div class="tab-block dt20 f18 bold sp2">工作经验</div>
+        <div id="hidata7" class="pdl40">
+          <div class="debug bg-red full-width text-c">======================DEBUG=====================</div>
+          <!---------------------------------------- 工作经验 end ------------------------------------------->
+        </div>
+
+        <div class="tab-block dt20 f18 bold sp2" style="overflow:hidden;">项目经验</div>
+        <div id="hidata8" class="pdl40">
+          <div class="debug bg-red full-width text-c">======================DEBUG=====================</div>
+          <!---------------------------------------- 项目经验 begin ------------------------------------------->
+          <!---------------------------------------- 项目经验 end ------------------------------------------->
+        </div>
+
+        <div id="hidata9" class="pdl40">
+          <div class="debug bg-red full-width text-c">======================DEBUG=====================</div>
+          <!---------------------------------------- 技能标签 begin ------------------------------------------->
+
+          <!---------------------------------------- 技能标签 end ------------------------------------------->
+        </div>
+
+        <div id="hidata10" class="pdl40">
+          <div class="debug bg-red full-width text-c">======================DEBUG=====================</div>
+          <!---------------------------------------- 工作期望 begin ------------------------------------------->
+          <!---------------------------------------- 工作期望 end ------------------------------------------->
+        </div>
+        
+      </div>
+      <div class="cv-right">      
+				<div class="mgl5" style="padding:20px">
+				
+				 <div class="full-width inline-block">
+				   <span class="float-l f18 bold sp2">顾问面评</span>
+				   <span class="float-r dt3"><a class="link tab-hc dt10 pointer f14 gone HC_addHCIV_">顾问面试</a></span>
+				 </div>
+				 <div id="hidata12" class="gone">
+				   <div class="debug bg-red full-width text-c">=========DEBUG========</div>
+				   <!---------------------------------------- 顾问面试 begin --------------------------------------------->
+				   <!---------------------------------------- 顾问面试 end --------------------------------------------->
+				 </div>
+				 
+				 <div class="h1 bg-green"></div>
+				 <div id="hidata11" class="gone">
+				   <div class="debug bg-red full-width text-c">=========DEBUG========</div>
+				   <!---------------------------------------- 顾问面评 begin --------------------------------------------->          
+				   <!---------------------------------------- 顾问面评 end --------------------------------------------->
+				 </div>          
+				</div>
+        <div class="h10 bg-grey"></div>      
+				<div id="similarCandidate_" style="margin-top: 10px;padding:20px">
+					<div class="full-width inline-block">
+					  <span class="float-l f18 color-focus sp2 bold">相似优质候选人</span>
+					</div>
+				  <div class="h1 bg-focus"></div>
+					<div id="hidata13" class="gone">
+					  <div class="debug bg-red full-width text-c">=========DEBUG========</div>
+					  <div class="h20"></div>
+					  <div>
+					    <div class="f14 bold pointer similarCandidate_detail_">品牌经理-上海好致网络</div><!--最近职位 最近公司简称-->
+					<div class="dt10 grey">
+					  <span class="f12">男 l 27岁 l 3年工作经验 l 25K </span>
+					  <span class="float-r"><img style="width:17px;height:17px;" src="../doc/images/HR/location.png">上海</span>
+					  </div>
+					  <div class="line gone"></div>
+					</div>
+					<!---------------------------------------- 优质候选人 begin --------------------------------------------->          
+					<!---------------------------------------- 优质候选人 end --------------------------------------------->
+					</div>
+				</div>        
+      </div>
+      
+    </div>
+  </div>
+  <div class="h50"></div>
+</div>    
+   
+
+<div id="bottombar"></div>
+
+<!-- 简历导航 -->
+<div class="cvGuide gone" id="hidata_head">
+<!-- 	<div class="float-r bg-white mgl5 nextBtn" id="nextBtn" onclick="nextClick()"><p class="f12 inline-block dt10 float-l mgl5">下一个<br>候选人</p><span class="inline-block nextQuare float-l" style="margin-top: 25px;"></span></div>
+		<div class="float-l bg-white mgr5 nextBtn" id="lastBtn" onclick="lastClick()"><span class="inline-block preQuare float-l mgl5" style="margin-top: 25px;"></span><p class="f12 inline-block dt10 float-l">上一个<br>候选人</p></div>-->	
+	<div class="cvGuideCon pd20 float-l">
+		<div class="cvGuideTou float-l"><img class="raduis cvGuideIcon" style="width:40px;height:40px" src=""></div>
+		<div class="float-l">
+			<div class="cvGuideTop" style="color: #030303;">
+			</div>
+			<div class="cvGuideBottom" style="color: #867948;">
+			</div>
+		</div>
+		<div class="cvGuideBottomBtn float-r">
+		</div>
+	</div>
+</div>
+
+<div class="gone">
+  <script type="text/javascript">var cnzz_protocol = (("https:" == document.location.protocol) ? " https://" : " http://");document.write(unescape("%3Cspan id='cnzz_stat_icon_1261795902'%3E%3C/span%3E%3Cscript src='" + cnzz_protocol + "s95.cnzz.com/z_stat.php%3Fid%3D1261795902%26online%3D2' type='text/javascript'%3E%3C/script%3E"));</script>
+</div>
+</body>
+</html>
+<script type="text/javascript" src="../doc/js/cv_HR.js?cvhr000022"></script>
+<script>
+
+  var prevCid = null;
+  var nextCid = null;
+  $(document).ready(function(){
+    /***********此处编写js*************/    
+    CV_Detail_Top(); //简历-基本详情
+    Query_CV_DetailList(); //简历-各项详情:教育 培训 证书 任职经历 工作经验 项目经验 技能标签 工作期望 顾问面评 顾问面试
+    
+	  $(".closeNotice_").click(function(){
+	      $(".concern_tip").hide();
+        util.Cookie.set('hrdataAttentionShow', "0", 30);
+	  });
+	  if(attentionShow == 1){
+       $(".concern_tip").show();
+    }else{
+       $(".concern_tip").hide();
+    }
+    
+    if(location.href.indexOf('nw=1')>0){
+      parent.shadeHtmlPageID = window.name;
+      $("#topbar").hide();
+      $("#querybar").hide();
+      $("#bottombar").hide();
+      $(".goBack").hide();
+	  }
+    /**********************************/
+  }); 
+  function initCVGuideHead(){
+      $(".cvGuideTop").html("");
+      $(".cvGuideBottom").html("");
+      $(".cvGuideBottomBtn").html("");
+      $(".cvGuideIcon").attr("src",$(".candiIcon_").attr("src"));
+      $(".cvGuideTop").append($(".candiJobInfo_").html());
+      $(".cvGuideBottom").append($(".candiInfo_").html());
+      $(".cvGuideBottomBtn").append($(".buttonArray_").html());
+  }
+  function nextClick(thiscid){
+    CID = thiscid;
+    if(CID == undefined){
+      return;
+    }
+    $("#hidata_top").hide();
+    for(var i=3;i<=12;i++){
+      $("#hidata"+i).hide();
+    }
+    CV_Detail_Top();
+    Query_CV_DetailList();
+  }
+  //简历-各项详情:教育 培训 证书 任职经历 工作经验 项目经验 技能标签 工作期望
+  function Query_CV_DetailList(){
+    for(var i=3;i<=12;i++){
+      ACECommon_ShowData("CandiDetailBService.y?cmd=detail", "{cid:'"+CID+"',index:'"+i+"'}", $("#hidata"+i), 0, function(ret,html,extdata){
+          if(extdata==11){ //顾问面评
+            Pub_InitSlide();
+            $(".btn-slide").get(0).click();
+          }
+      }, function(ret,html,extdata){
+        if(extdata==4 || extdata==5 || extdata==8){ //培训/证书/项目
+          $("#hidata"+extdata).prev().hide();
+          $("#hidata"+extdata).hide();
+        }
+        if(extdata==9 || extdata==10 || extdata==12){ //技能标签/工作期望/顾问面试
+          $("#hidata"+extdata).hide();
+        }
+      }, i);
+    }
+    ACECommon_ShowData("CandiListBService.y?cmd=selectSimilarCandidate", "{objectMode:'H00401-13',cid:'"+CID+"'}", $("#hidata13"), 0, function(ret,html){
+        $("#similarCandidate_").removeClass("gone");
+  
+		  $(".similarCandidate_detail_").click(function(e){
+		      e.stopPropagation();
+		      onlog('点击[相似候选人查看详情]'+$(this).attr("data"));
+		      go("candidate_detail_cv.html?"+URL_SPLITER_CID+$(this).attr("data"));
+		  });
+    },function(ret,html){
+        $("#similarCandidate_").addClass("gone");
+    });   
+    //自动换行
+  }
+  function reload(html){
+    location.reload();
+  }
+  function showSuccess(html){
+    util.UI.html("hrdialog_invite_success.html?"+html, 460, 300);
+  }
+  $(".goBack").click(function(){  
+    var curtHtml = util.Cookie.get('curtHtml');//存储当前HTML
+    go(curtHtml);
+  });
+  
+  //当鼠标滚动一定距离时，出现简历导航
+  $(window).scroll(function(){
+  	var scroll = $(window).scrollTop();
+    if(location.href.indexOf('nw=1')>0){
+      if(scroll > 210){
+        $(".cvGuide").show();
+      }else{
+        $(".cvGuide").hide();
+      }
+    }
+  });
+</script>

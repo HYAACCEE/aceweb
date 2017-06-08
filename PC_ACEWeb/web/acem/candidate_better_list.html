@@ -1,0 +1,187 @@
+<style type="text/css">
+	#container{box-sizing: border-box;}
+	.hrListCon{width: 400px;min-height: 500px;}
+	.hrListCon div{border-bottom: 1px solid #eee;}
+	.hrListCon div:hover{border: 1px solid #ffa942;}
+	.hrListCon div p{max-width: 300px;}
+	.hrListCon div p img{padding-bottom: 2px;}
+	.candidateListCon{width: 600px;min-height: 500px;}
+	.candidateListCon div{border-bottom: 1px solid #eee;}
+	.candidateListCon div:hover{border: 1px solid #ffa942;}
+	.opaBtn{border: 1px solid #ffa942;border-radius: 2px;margin-top: 3px;}
+	
+	input{border-top-right-radius: 0;border-bottom-right-radius: 0;border-right: none;margin-top: -1px;}
+  	input:focus{border-right: none;}
+  	input{width: 273px;}
+  	.main span.searchBtn{padding-top: 7px;padding-bottom: 9px;}
+  	#container{box-sizing: border-box;}
+  	.hrListCon{width: 400px;min-height: 500px;}
+  	.hrListCon div{border-bottom: 1px solid #eee;}
+  	.hrListCon div:hover{border: 1px solid #ffa942;}
+  	.hrListCon div p{max-width: 300px;}
+  	.hrListCon div p img{padding-bottom: 2px;}
+  	.candidateList div.dt5{width: 400px;}
+  	.candidateList input{width: 479px;}
+  	.candidateListCon{width: 600px;min-height: 500px;}
+  	.candidateListCon div{border-bottom: 1px solid #eee;}
+  	.candidateListCon div:hover{border: 1px solid #ffa942;}
+  	.opaBtn{border: 1px solid #ffa942;border-radius: 2px;margin-top: 3px;}
+  	
+  	.includeBtn{position: relative;}
+  	.includeBtn .inputBtn{position: absolute;top: 0;right: 0;}
+  	.bgClick{background:wheat}
+</style>
+<div id="querybar">
+  <div class="main">
+    <div class="title">特别推荐名单</div>
+    <div class="f14 grey tab" id="hidata_condition">
+    </div>
+    <div class="h20"></div>
+    <div class="dt5 gone add_">
+      <span class="btn-focus pd20 dt5 pointer add_">新增特别推荐</span>
+    </div>
+  </div>
+</div>
+
+<div id="container">
+  <div class="main">
+    <div class="hrList float-l mgr20">
+    	<span class="f14 dt10 inline-block">HR列表</span>
+    	<div class="hrListCon bg-white" id="hidata1">
+    	</div>
+    </div>
+
+	<div class="candidateList float-l">
+    	<span class="f14 dt10 inline-block">候选人列表</span>
+    	<div class="candidateListCon bg-white" id="hidata2">
+    		
+    	</div>
+    </div>
+    <div id="nodata" class="gone">
+      <div class="h60"></div>
+      <div class="h30"></div>
+      <div><img class="img100 bottom center" src="../doc/images/nodata.png"> </div>
+      <div class="pdall30 f16 center">列表为空</div>
+      <div class="h100"></div>
+      <div class="h60"></div>
+    </div>
+  </div>
+</div>
+<script type="text/javascript">
+var curtab_data;
+var hrauid = "";
+var aa = 0;
+var queryMK = "";
+ $(document).ready(function(){
+	curtab_data = null;
+	queryStatusList();
+	 $(".add_").click(function(){
+    	to("candidate_better_add.html");
+    })
+})
+   //状态栏
+  function queryStatusList(){
+   ACECommon_ShowData("CandiListMService.y?cmd=betterStatusItemList", "{objectMode:'H00611-2'}", $("#hidata_condition"), 1, function(ret,html){
+	    $(".tab >div >div").click(function(){
+	      curtab_data = $(this).attr("data");
+	      if(curtab_data==3){
+	      	$(".add_").removeClass("gone");
+	      }else{
+	      	$(".add_").addClass("gone");
+	      	loadCandidate($("#hidata1 >div").eq(0));
+	      }
+	      $(this).parent().addClass("thistab").siblings().removeClass("thistab");
+	      submk = $(this).attr("data");
+	      flag = "";
+	      page_query();
+	    });
+	    if(curtab_data) $(".tab >div >div[data='"+curtab_data+"']").click();
+	    else $(".tab >div >div").eq(0).click();
+  });
+ }
+  function loadCandidate($obj){
+  		$obj.addClass("bgClick").siblings().removeClass("bgClick");
+		hrauid = $obj.attr("data");
+		ACECommon_ShowData("CandiListMService.y?cmd=specialCommandCandidateList","{objectMode:'H00611-3',HRid:'"+hrauid+"',queryMK:'"+curtab_data+"'}",$("#hidata2"),0,function(ret,html){
+			$(".showDetail_").click(function(){
+				console.log($(this).parent().parent());
+				var canauid = $(this).parent().parent().attr("data1");
+		    	showCandidateDetail(canauid);
+		    });
+		    
+		    $(".remove_").click(function(){
+		    	var canauid1 = $(this).parent().parent().attr("data1");
+				removeCandidate(canauid1);
+		    });
+		});
+  }
+  
+  function page_query(page){
+    loadHRList();
+  }
+  function loadHRList($obj){
+  	ACECommon_ShowData("CandiListMService.y?cmd=specialCommandHRList",
+             "{objectMode:'H00611-1',queryMK:'"+curtab_data+"'}",
+             $("#hidata1"),0,function(ret,html){
+		        if(ret==1){
+		          My_InitActions(); //初始化按钮的控制
+		        }
+             },function(ret,html){
+             	$("#hidata2").html("");
+             });
+  }
+  
+  function My_InitActions(pdiv){
+    var curdiv = pdiv || $("#hidata2");
+    DataLine_InitFuns(curdiv);
+    Pub_InitSlide(curdiv);
+    $(".listContent").click(function(){
+    	loadCandidate($(this));
+    });
+    
+    if(curtab_data==3){
+    	$(".delete_").removeClass("gone");
+    }
+    $(".delete_").click(function(){
+    	aa = $(".bgClick").index();
+    	hrauid = $(this).parent().attr("data");
+    	ACECommon_Data("CandiListMService.y?cmd=deleteHRCommandList","{HRAuid:'"+hrauid+"'}",function(ret,html){
+  			if(ret==1){
+  				util.UI.msg(html);
+				queryStatusList();
+  			}else{
+  				util.UI.err(html);
+  			}
+  		});
+    });
+    loadCandidate($("#hidata1 >div").eq(aa));
+   }
+   //候选人详情展示
+  function showCandidateDetail(auid){
+  	DATAID = auid;
+    onlog('点击精选名单[查看详情]'+DATAID);
+    //util.UI.html("candidate_detail_cv.html?"+urlCid(), 0, 0);
+    window.open("candidate_detail_cv.html?"+urlCid(),"","width=0,height=0,top=0,left=0");
+  }
+  //移出候选人
+  function removeCandidate(auid){
+  		aa = $(".bgClick").index();
+  		if(curtab_data==2){
+  			queryMK = 2;
+  		}
+  		if(curtab_data==3){
+  			queryMK = 3;
+  		}
+  		ACECommon_Data("CandiListMService.y?cmd=removeSpecialCommand","{CandidateAuid:'"+auid+"',hrAuid:'"+hrauid+"',queryMK:'"+queryMK+"'}",function(ret,html){
+  			if(ret==1){
+  				util.UI.msg(html);
+  				queryStatusList();
+  			}else{
+  				util.UI.err(html);
+  			}
+  		});
+  }
+  function reload(){
+  	to("candidate_better_list.html");
+  }
+</script>

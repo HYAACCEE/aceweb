@@ -1,0 +1,219 @@
+/*public start*/
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+.mauto {
+  width: 1200px;
+  margin: 0 auto;
+}
+.opacityHelf {
+  filter: alpha(opacity=80);
+  -moz-opacity: 0.8;
+  -khtml-opacity: 0.8;
+  opacity: 0.8;
+}
+/*public end*/
+/*vairable start*/
+/*vairable end*/
+/*nav start*/
+.nav {
+  background: rgba(0, 0, 0, 0.5);
+  height: 60px;
+  width: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 1000;
+}
+.nav .navCon {
+  height: 60px;
+  line-height: 60px;
+}
+.nav ul {
+  list-style: none;
+}
+.nav .navConLeft {
+  color: #fff;
+  line-height: 60px;
+  font-size: 14px;
+}
+.nav .navConLeft img {
+  height: 49px;
+  margin-top: 6px;
+  margin-right: 17px;
+}
+.nav .navConRight {
+  height: 30px;
+  line-height: 60px;
+  font-size: 14px;
+}
+.nav .navConRight .colLine {
+  display: inline-block;
+  width: 1px;
+  height: 16px;
+  margin-top: 22px;
+  background: #f7d930;
+}
+.nav .navConRight a:nth-child(1) {
+  color: #f7d930;
+  padding-right: 10px;
+}
+.nav .navConRight a:nth-child(1):hover {
+  filter: alpha(opacity=80);
+  -moz-opacity: 0.8;
+  -khtml-opacity: 0.8;
+  opacity: 0.8;
+}
+.nav .navConRight a:nth-child(2) {
+  background: #f7d930;
+  color: #171717;
+  height: 30px;
+  border-radius: 2px;
+  margin: 0 10px;
+  padding: 5px 10px;
+}
+.nav .navConRight a:nth-child(2):hover {
+  background: #FFCA00;
+}
+.nav .navConRight a:nth-child(3) {
+  color: #f7d930;
+  border-radius: 2px;
+  padding: 4px 10px;
+  border: 1px solid #f7d930;
+}
+.nav .navConRight a:nth-child(3):hover {
+  background: #f7d930;
+  color: #000;
+}
+.nav .navConRight a:nth-child(4) {
+  color: #fff;
+  font-size: 17px;
+  margin-left: 29px;
+  cursor: default;
+}
+.nav .navConRight a:nth-child(4) span {
+  display: inline-block;
+  height: 28px;
+  width: 28px;
+  background-image: url(../img/nav_icon/top_icon.png);
+  background-size: cover;
+  vertical-align: middle;
+  margin-right: 9px;
+  margin-top: -3px;
+}
+/*nav end*/
+/*footer start*/
+.footer {
+  /* height: 130px; */
+  height: 100px;
+  width: 100%;
+  background: #404040;
+  color: #fff;
+  text-align: center;
+}
+.footer a:link,
+.footer a:visited,
+.footer a:focus {
+  color: #404040;
+}
+.footer .footerTop {
+  padding: 20px 0;
+  font-size: 14px;
+}
+.footer .footerTop a {
+  color: #D2D2D2;
+  margin-right: 22px;
+}
+.footer .footerTop a:nth-child(1) {
+  margin-left: 18px;
+}
+.footer .footerTop a:hover {
+  color: #fff;
+}
+/* .footer .footerIcon {
+  margin-bottom: 12px;
+}
+.footer .footerIcon a {
+  display: inline-block;
+  margin-right: 50px;
+}
+.footerIcon a:nth-child(2) {
+  height: 29px;
+  width: 29px;
+  background-image: url(../../index/img/footer_icon/wechat_i.png);
+  background-size: cover;
+  position: relative;
+}
+.footerIcon a:nth-child(2):hover {
+  height: 29px;
+  width: 29px;
+  background: url(../../index/img/footer_icon/weixin_footer_hover.png);
+  background-size: cover;
+}
+.footerIcon a:nth-child(2):hover div {
+  height: 160px;
+  width: 150px;
+  background: url(../../index/img/weixin_icon.png);
+  background-size: contain;
+  background-repeat: no-repeat;
+  position: absolute;
+  top: -160px;
+  left: 50%;
+  margin-left: -75px;
+}
+.footerIcon a:nth-child(1) {
+  height: 29px;
+  width: 29px;
+  background-image: url(../../index/img/footer_icon/facebook_i.png);
+  background-size: contain;
+  background-repeat: no-repeat;
+}
+.footerIcon a:nth-child(1):hover {
+  height: 29px;
+  width: 29px;
+  background-image: url(../../index/img/footer_icon/facebook_footer_hover.png);
+  background-size: contain;
+  background-repeat: no-repeat;
+}
+.footerIcon a:nth-child(3) {
+  margin-right: 0;
+  height: 29px;
+  width: 29px;
+  background-image: url(../../index/img/footer_icon/linkedin_L_.png);
+  background-size: cover;
+}
+.footerIcon a:nth-child(3):hover {
+  height: 29px;
+  width: 29px;
+  background-image: url(../../index/img/footer_icon/in_footer_hover.png);
+  background-size: cover;
+} */
+.footer .footerAuthentic {
+  font-size: 12px;
+  color: #a2a2a2;
+}
+/*footer end*/
+/*media start*/
+@media screen and (max-width: 1920px) and (min-width: 1366px) {
+  .mauto {
+    width: 1200px;
+  }
+}
+@media screen and (max-width: 1366px) {
+  .mauto {
+    width: 940px;
+  }
+}
+@media screen and (max-width: 940px) {
+  .nav {
+    height: 60px;
+    width: 940px;
+  }
+  .footer {
+    height: 130px;
+    width: 940px;
+  }
+}
+/*media end*/

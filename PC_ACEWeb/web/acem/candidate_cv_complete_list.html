@@ -1,0 +1,80 @@
+<style>
+.dt_left {width:230px; display:inline-block;}
+.dt_right {width:240px; display:inline-block;}
+</style> 
+
+<div id="querybar">
+  <div class="main">
+    <div class="title">简历完善</div>
+    <div id="hidata_condition">
+    </div>
+  </div>
+</div>
+
+<div id="container">
+  <div class="main">
+    <div class="dt10">待完善(<span id="totalCount">0</span>)</div>
+
+    <div class="bg-white gone" id="hidata1">
+    
+      <div class="pdall15 bg-white dataline_" data="125354232366" data-rows="8">
+        <span class="pd10"><img class="middle" src="../doc/images/M/face_c_s.png"></span>
+        <span class="dt_left pointer detail_ ">Linda Li</span>
+        <span class="sp1">上海ACE信息科技有限公司 | 销售经理</span>
+        <span class="float-r dt5">
+          <span class="inline-block h15 bg-focus" style="width:120px"><span class="border inline-block h15 bg-grey" style="width:80px"></span></span>
+        </span>
+        <span class="float-r dt5 pdr20">申请于<span>2016.01.01 23:01</span></span>
+      </div>
+      <div class="line"></div>
+    
+    </div>
+          
+    <div id="nodata" class="gone">
+      <div class="h60"></div>
+      <div class="h30"></div>
+      <div><img class="img100 bottom center" src="../doc/images/nodata.png"> </div>
+      <div class="pdall30 f16 center">列表为空</div>
+      <div class="h100"></div>
+      <div class="h60"></div>
+    </div>
+    
+    <div id="pages" class="text-c"></div>
+  </div>
+</div>
+
+<script type="text/javascript" src="../doc/js/calender.js"></script>
+<script src="../doc/js/cv_M.js"></script>
+<script>
+  $(document).ready(function(){
+    /***********此处编写js*************/
+    page_query();
+    /**********************************/
+  });
+  function page_query(page){
+    var keyword = "";    
+    var pq = new PQuery("CandiListMService.y?cmd=list",
+             "{objectMode:'H00602-1',queryMK:'1',keyword:'"+keyword+"'}",
+             $("#hidata1"), $("#nodata"));
+    pq.query(page, function(ret, html){
+        if(ret==1){
+          My_InitActions(); //初始化按钮的控制
+        }
+    });
+  }
+  function My_InitActions(pdiv){
+	  var curdiv = pdiv || $("#hidata1");
+	  DataLine_InitFuns(curdiv);
+	  Pub_InitSlide(curdiv);
+	  
+	  $(".detail_").click(function(e){
+	      e.stopPropagation();
+	      onlog('点击[待完善简历dataline]'+DATAID);
+        util.UI.html("candidate_cv_complete_detail.html?"+urlCid(), 0, 0);
+        //window.open("candidate_cv_complete_detail.html?"+urlCid(),"","width=0,height=0,top=0,left=0");
+	  });
+  }
+  function reload(){
+    page_query();
+  }
+</script>

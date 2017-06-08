@@ -1,0 +1,75 @@
+<style>
+.dt_left {width:230px; display:inline-block;}
+.dt_right {width:240px; display:inline-block;}
+</style>
+
+<div id="querybar">
+  <div class="main">
+    <div class="title">HR在线申请审核</div>
+    <div class="dt5" id="hidata_condition">
+      <div>
+        <span><input type="text" class="keyword_" placeholder="公司名称/HR账户名称/公司邮箱" style="width:400px;"></span><button class="btn-focus pd20 mgl10 search_">搜索</button>
+      </div>
+    </div>   
+  </div>
+</div>
+
+<div id="container">
+  <div class="main">
+    <div class="dt10">待审核(<span id="totalCount">0</span>)</div>
+    <div class="bg-white" id="hidata1">
+    </div>
+    
+    <div id="nodata" class="gone">
+      <div class="h60"></div>
+      <div class="h30"></div>
+      <div><img class="img100 bottom center" src="../doc/images/nodata.png"> </div>
+      <div class="pdall30 f16 center">列表为空</div>
+      <div class="h100"></div>
+      <div class="h60"></div>
+    </div>
+    
+    <div id="pages" class="text-c"></div>
+  </div>
+</div>
+
+<script>
+  $(document).ready(function(){
+    /***********此处编写js*************/
+    page_query();
+    
+    $(".search_").click(function(e){
+        page_query();
+    });
+    $(".keyword_").keydown(function(e){
+        if(e.keyCode==13) $(".search_").click();
+    });
+    /**********************************/
+  });
+  function page_query(page){
+    var keyword = $(".keyword_").val();
+    var pq = new PQuery("MMMService.y?cmd=listHR",
+             "{objectMode:'H00604-1',queryMK:'1',keyword:'"+keyword+"'}",
+             $("#hidata1"), $("#nodata"));
+    pq.query(page, function(ret, html){
+        if(ret==1){
+          My_InitActions(); //初始化按钮的控制
+        }
+    });
+  }
+  function My_InitActions(pdiv){
+    var curdiv = pdiv || $("#hidata1");
+    DataLine_InitFuns(curdiv);
+    Pub_InitSlide(curdiv);
+    
+    $(".detail_").click(function(e){
+        e.stopPropagation();
+        util.UI.html("hr_online_apply_detail.html?id="+DATAID, 0, 0);
+        //window.open("hr_online_apply_detail.html?id="+DATAID,"","width=0,height=0,top=0,left=0");
+    });
+  }
+  
+  function reload(){
+  	page_query();
+  }
+</script>

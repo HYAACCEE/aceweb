@@ -1,0 +1,203 @@
+<link rel="stylesheet" href="../doc/js/autocomplete/style.css" />
+<script src="../doc/js/autocomplete/jquery.autocomplete.js"></script>
+<script src="../doc/js/autocomplete/autocomplete.js"></script>
+
+<style>
+.dt_left {width:100px; display:inline-block; text-align:right;}
+.dt_right {width:260px; display:inline-block;}
+.dt_input1 {width:30px;}
+.dt_input2 {width:220px;}
+</style>
+
+<div id="former">
+  <div class="main">
+    <form class="layui-form" action="">
+      <div class="bg-white pdall20">
+        <div class="title dt10 ellipsis" style="width:140px;">新增合同</div>
+        <div class="" id="hidata">
+          <div class="debug bg-red">======================DEBUG=====================</div>
+<div class="layui-form-item">
+  <div class="layui-inline">
+    <label class="layui-form-label"><i class="x"></i>招聘公司</label>
+    <div class="layui-input-inline">
+       <input class="layui-input vv notnull autocomplete-checkedHR" placeholder="请输入公司" autocomplete="off" required lay-verify="required">
+    </div>
+  </div>
+</div>
+<div class="layui-form-item">
+  <div class="layui-inline">
+    <label class="layui-form-label"><i class="x"></i>合同生效日期</label>
+    <div class="layui-input-inline">
+      <input class="layui-input vv notnull" placeholder="请输入合同终止日期" autocomplete="off" required lay-verify="required" onclick="layui.laydate({elem: this, istime: true, format: 'YYYY-MM-DD'})">
+    </div>
+  </div>
+  <div class="layui-inline">
+    <label class="layui-form-label"><i class="x"></i>合同终止日期</label>
+    <div class="layui-input-inline">
+      <input class="layui-input vv notnull" placeholder="请输入合同终止日期" autocomplete="off" required lay-verify="required" onclick="layui.laydate({elem: this, istime: true, format: 'YYYY-MM-DD'})">
+    </div>
+  </div>
+</div>
+<div class="layui-form-item">
+  <div class="layui-inline">
+    <label class="layui-form-label"><i class="x"></i>合同副本</label>
+     <div class="layui-input-inline" style="margin-top: 9px">
+         <td colspan="6"><input class="vv notnull" type=hidden id="v10"/>
+          <a class="pointer pdr5 uploadFile_" href="javascript:void(-1)">
+              <img style="width:11px;height:11px" src="../doc/images/HC/add_plus.png" />
+            <span class="pd5">上传合同副本</span>
+            <span id="file" class="pd10 grey"></span>
+          </a>
+          <br/>
+          <!-- <input id="v_pic1" type="hidden" class="vv"/> -->
+          <input id="uploadfile" type="file" style="display: none"/>
+         </td>
+    </div>
+  </div>
+</div>
+        </div>
+        <div class="layui-form-item center">
+          <div class="layui-input-block">
+            <button class="layui-btn" lay-submit lay-filter="submit_">保存</button>
+          </div>
+        </div>
+        
+      </div>
+    </form>
+  </div>
+</div>
+<script>
+$(document).ready(function(){
+  /***********此处编写js*************/  
+  initForm(); //初始化Form
+  /**********************************/
+  /***********此处编写js*************/
+  var cid = getUrlCid();
+  var pcid = getUrlPcid();
+  var tid = getUrlTid();
+  var attachName;
+});
+  /**********************************/
+  //引用laydate
+    layui.use('laydate', function(){
+    var laydate = layui.laydate;
+  });
+  
+  //初始化Form
+  function initForm(){  
+    ACECommon_ShowData("ComService.y?cmd=html", "{objectMode:'H00610-1'}", $("#hidata1"), 0, function(ret,html){
+        Form_InitActions();
+    });
+  }  
+  function Form_InitActions(){
+    autocomplete_Init();
+    
+  
+    //选择文件
+  $(".uploadFile_").click(function(){
+      $("#uploadfile").click();
+			      //选择文件
+			var maxsize = UPLOAD_FILE_MAXSIZE;//2M
+			var errMsg = "上传的附件文件不能超过2M！！！";
+			var  browserCfg = {};
+			var ua = window.navigator.userAgent;
+			if (ua.indexOf("MSIE")>=1){
+			 browserCfg.ie = true;
+			}else if(ua.indexOf("Firefox")>=1){
+			 browserCfg.firefox = true;
+			}else if(ua.indexOf("Chrome")>=1){
+			 browserCfg.chrome = true;
+			}
+      $("#uploadfile").on("change",function(){     
+            if(!/\.(word|doc|pdf|docx|DOC|DOCX|PDF|PDF\/DOC)$/.test(this.files[0].name)){  
+              util.UI.err("文件类型必须是.pdf,.doc,.docx中的一种"); 
+              return false;  
+            }else{
+             try{
+               var obj_file = document.getElementById("uploadfile");
+               if(obj_file.value==""){
+                  util.UI.err("请先选择上传文件");
+                  return;
+                }
+                var filesize = 0;
+               if(browserCfg.firefox || browserCfg.chrome ){
+                  filesize = obj_file.files[0].size;
+               }else{
+                  util.UI.err(tipMsg);
+                  return;
+               }
+               if(filesize==-1){
+                  util.UI.err(tipMsg);
+                  return;
+               }else if(filesize>maxsize){
+                  util.UI.err(errMsg);
+                  return;
+              }else{
+                    $("#file").html(this.files[0].name);
+                    attachName = this.files[0].name;
+                    return;
+              }
+           }catch(e){
+            util.UI.err(e);
+           } 
+            }
+      });
+   });
+    layui.use(['form'], function(){
+      var form = layui.form();
+      form.render();
+      
+      form.on('radio(radio_sex)', function(data){
+        $("#v_sex").val(data.value);
+      });
+      //监听提交
+      form.on('submit(submit_)', function(data){
+        if(!$("#file").html()){
+          util.UI.err("合同副本不能为空！");
+          return false;
+        }
+        util.UI.confirm('确认提交吗？', function(){
+            ajaxFile_("MMMService.y?cmd=uploadFile", "{file1:'$(\"#uploadfile\")[0].files[0]'}", function(html){
+	             if(html.indexOf("222")==0){
+		              util.UI.err("文件上传失败...");
+		              return;
+	              }  
+                html = html.split("`");
+                $("#v10").val(html[0]);
+                ACECommon_FormSubmit(null, "MMMService.y?cmd=addAgreeMent", "", function(ret, html){
+                    if(ret==1){
+   			           var vv = $(".vv");
+  			           // 成功之后置空
+						for(var i=0;i<vv.length;i++){
+						  $(vv[i]).val("");
+						}
+						 $("#file").html("");
+	                      util.UI.msg(html);
+	                      initForm();
+	                    }else{
+	                      util.UI.err(html);
+	                    }
+                });
+            });            
+        });
+        return false;
+      });
+    });
+    
+    
+  }
+  function checkIsPhone() {
+    var mobile = $.trim($("#phone").val());   
+    var isPhone = /^(?:(?:0\d{2,3})-)?(?:\d{7,8})(-(?:\d{3,}))?$/; 
+    //如果为0开头则验证固定电话号码  
+    if (mobile.substring(0, 1) == 0) {  
+        if (!isPhone.test(mobile)) {
+            $("#phoneMsg").html("<font color='red'>座机号码格式不正确！请重新输入！</font>");
+            $("#phone").focus();  
+            return false;  
+        }  
+    }
+    $("#phoneMsg").html("");
+    return true;  
+  }
+</script>

@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+  <title>ACE Elite HR在线</title>
+  <link rel="stylesheet" href="../doc/css/common.css?comcs000005" />
+  <link rel="stylesheet" href="../doc/css/styles_HR.css?hrcs000001" />
+  <link rel="stylesheet" href="../doc/js/layui/css/layui.css" />
+  <!--[if IE 8]> 
+  	<script src="../doc/js/jquery-1.8.0.js"></script>
+  <![endif]--> 
+  <!--[if gte IE 8]> 
+  	<script src="../doc/js/jquery-2.1.4.min.js"></script>
+  <![endif]--> 
+  <script src="../doc/js/jquery-2.1.4.min.js"></script>
+  <script src="../doc/js/layui/layui.js"></script>
+  <script src="../doc/js/common.js"></script>
+  <script src="../doc/js/myjs_HR.js"></script>
+  <style>
+    .dt_input { width: 380px;}
+  </style>
+</head>
+<body class="bg-white">
+<div class="frozen">
+
+  <div class="dt20">
+    <span class="dt_input text-c f18 center color-focus" id="title"></span>
+  </div>
+  <div class="pdall10 bg-white center" style="line-height:30px" id="detail_">
+    <div class="dt10">
+      <span class="dt_input text-c bold" ></span>
+    </div>
+  </div>
+
+</div>
+</body>
+</html>
+<script>
+$(document).ready(function(){
+  /***********此处编写js*************/
+  var cid = getUrlCid();
+  var pcid = getUrlPcid();
+  var tid = getUrlTid();
+  var pid = getUrlPid();
+
+  ACECommon_ShowData("CandiProcessBService.y?cmd=detailInfo", "{cid:'"+cid+"',tid:'"+tid+"',pcid:'"+pcid+"',pid:'"+pid+"'}", null, 0, function(ret, html){
+      if(ret==1){
+        var ss = html.split("`");
+        if(ss[0] == "安排面试"){
+          $("#title").html("面试详情");
+        }else if(ss[0] == "安排顾问面试"){
+          $("#title").html("顾问面试详情");
+        }else{
+          $("#title").html(ss[0]);
+        }
+        $("#detail_").html(ss[1]);
+        
+      }
+  });
+  /**********************************/
+});
+</script>

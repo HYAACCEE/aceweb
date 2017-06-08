@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+  <title>ACE Elite 管理在线</title>
+  <link rel="stylesheet" href="../doc/css/common.css" />
+  <link rel="stylesheet" href="../doc/css/styles_M.css" />
+  <link rel="stylesheet" href="../doc/js/layui/css/layui.css" />
+  <script src="../doc/js/jquery-2.1.4.min.js"></script>
+  <script src="../doc/js/layui/layui.js"></script>
+  <script src="../doc/js/laydate/laydate.js"></script>
+  <script src="../doc/js/common.js"></script>
+  <script src="../doc/js/myjs_M.js"></script>
+  
+  <link rel="stylesheet" href="../doc/js/autocomplete/style.css" />
+  <script src="../doc/js/autocomplete/jquery.autocomplete.js"></script>
+  <script src="../doc/js/autocomplete/autocomplete.js"></script>
+  <script type="text/javascript" src="../doc/js/ace-validate.js"></script>
+  <style>
+    .dt_left {width: 130px; display:inline-block;text-align: right; padding-right:10px}
+    .dt_right {width: 260px; display:inline-block;}
+    .dt_input {width: 230px; display:inline-block;}
+  </style>
+</head>
+<body>
+
+<div id="former">
+  <div class="main">
+    <form class="layui-form" action="">
+      <div class="bg-white pdall20">
+      <div class="title dt10">HR账号更新</div>
+      <div class="gone" id="hidata1">
+        <div class="debug bg-red">======================DEBUG=====================</div>
+      </div>
+
+      <div class="layui-form-item center">
+        <div class="layui-input-block">
+          <button class="layui-btn" lay-filter="submit_" lay-submit="">立即提交</button>
+        </div>
+  
+      </div>
+    </div>
+    </form>
+  </div>
+</div>
+
+<div class="h100"></div>
+<div class="h100"></div>
+
+<script>
+var id = getUrlId();
+var oldPhone = "";
+var oldEmail = "";
+$(document).ready(function(){
+  /***********此处编写js*************/
+  initForm(); //初始化Form
+  /**********************************/
+});
+
+//初始化Form
+function initForm(){  
+  ACECommon_ShowData("ComService.y?cmd=html", "{objectMode:'H00604-5'}", $("#hidata1"), 0, function(ret,html){
+      Form_InitActions();
+      ACECommon_ShowData("MMMService.y?cmd=infoHR", "{id:'"+id+"'}", null, 0, function(ret,html){
+          if(ret==1){
+            var ss = html.split("`");
+            var vv = $("#hidata1").find(".vv");
+            for(var i=0;i<vv.length;i++){
+              $(vv[i]).val(ss[i]);
+            }
+            oldPhone = $("#mobile").val();
+            oldEmail = $("#email").val();
+            var v_sex = $("#v_sex").val();
+            if(v_sex.length>0){
+              $("#v_sex"+v_sex).click();
+            }
+          }
+      });
+  });
+} 
+function Form_InitActions(){
+  autocomplete_Init();
+  
+  var checked = [];
+  layui.use(['form'], function(){
+    var form = layui.form();
+    form.render();
+    
+    form.verify({
+      mobile: function(value){
+         $("#checkPhone").html("");
+      if(value==''){
+          return "手机号码不能为空！";
+        }else if(value.length!=11){
+          return "手机号码格式不正确！";
+        }else if (!isMobile(value)){
+          return "手机号码格式0000不正确！";
+        }/* else{
+          //by Linda 本来想加个提示,但是这个方法只有在点击submit的时候才触发,有点晚了
+           alert("测试mobile");
+          return checkAccountMobile($("#mobile"), $("#checkPhone"), false, function(result){
+          }); */
+      //  } 
+      }
+      ,content: function(value){
+        layedit.sync(editIndex);
+      }
+    });
+
+    form.on('radio(radio_sex)', function(data){
+      $("#v_sex").val(data.value);
+    });
+    //监听提交
+    form.on('submit(submit_)', function(data){
+/* 		    ajax_("HIMService.y?cmd=registCheckPhoneEmail", "{userGroup:'2', phone:'"+$("#mobile").val()+"',email:'"+$("#email").val()+"'}",function(ret, html){
+		        if(ret==2){
+		          alert(html);
+		          if(html=="该手机号已注册"){
+	              if($("#mobile").val() == oldPhone){
+	                
+	              }else{
+	                return util.UI.err(html); 
+	              }
+		          }
+              if(html=="该邮箱已注册"){
+                alert("oldEmail");
+                if($("#email").val() == oldEmail){
+                
+                }else{
+                  return util.UI.err(html); 
+                }
+              }
+		        }   */ 
+			      util.UI.confirm('确认提交吗？', function(){
+			         ACECommon_FormSubmit(null, "MMMService.y?cmd=editHR", "{id:'"+id+"'}", function(ret, html){
+			             if(ret==1){
+				              parent.util.UI.msg(html);
+			                setTime = setInterval(function(){
+			                  parent.util.UI.closeDialog();
+			                  parent.reload();
+			                },2000);
+			             }else{
+			               util.UI.err(html);
+			             }
+			         });        
+			      });
+       // });
+        return false;
+     });
+  });   
+}
+</script>

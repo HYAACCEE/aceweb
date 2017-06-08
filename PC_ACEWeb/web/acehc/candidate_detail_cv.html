@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+  <title>ACE Elite 顾问在线</title>
+  <link rel="stylesheet" href="../doc/css/common.css?comcs000005" />
+  <link rel="stylesheet" href="../doc/css/styles_HC.css?hccs000001" />
+  <link rel="stylesheet" href="../doc/js/layui/css/layui.css" />
+  <!--[if IE 8]> 
+  	<script src="../doc/js/jquery-1.8.0.js"></script>
+  <![endif]--> 
+  <!--[if gte IE 8]> 
+  	<script src="../doc/js/jquery-2.1.4.min.js"></script>
+  <![endif]--> 
+  <script src="../doc/js/jquery-2.1.4.min.js"></script>
+  <script src="../doc/js/layui/layui.js"></script>
+  <script src="../doc/js/common.js?com00000027"></script>
+  <script src="../doc/js/myjs_HC.js?myhc00000015"></script>
+  <script src="../doc/js/Menu.js"></script>
+  <style>
+    .dt_left {width: 160px; display:inline-block;}
+    .dt_top2 {width: 720px; display:inline-block;}
+    .dt_right {width: 340px; height:auto; display:inline-block;}
+    a.link:hover{color: rgba(255,169,66,0.7);}
+    .headPortrait{position: relative;}
+    .headPortrait:hover:before{content: "";position: absolute;top: 0;left: 0;width: 120px;height: 150px;background-color: rgba(0,0,0,.5);}
+    .headPortrait:hover:after{content: "查看名片";text-align: center;color: #fff;font-size: 16px;position: absolute;top: 70px;left: 0;height: 20px;width: 100%;}
+    .goBack{line-height: 50px;width: 40px;}
+  	.goBack span{width: 7px;height: 7px;border-bottom: 1px solid #ffa942;border-left: 1px solid #ffa942;transform: rotate(45deg);margin-right: 2px;}
+  	.thistab {color:#ffa942;border-bottom: 3px solid #ffa942;}
+	  .thistab span {color:#ffa942;}
+	  .tab span:hover{color:#ffa942;}
+  </style>
+</head>
+<body>
+ 
+<div id="topbar"></div>
+<div class="h50 main">
+  <div class="color-focus goBack pointer"><span class="inline-block"></span>返回</div>
+</div>
+   
+<div id="container">
+  <div class="main">
+  
+    <div class="cv-top clearfix">
+      <div id="hidata_top" class="gone">
+        <div class="debug bg-red full-width text-c">======================DEBUG=====================</div>
+      </div>
+    </div>
+    
+    <div class="h10"></div>
+    <div class="bold f16 dark-grey tab mycandidateCVTab display-td middle"></div>
+
+    <div class="clearfix f12">
+      <div class="cv-left">
+
+        <div class="text-r" id="p_cvupdate">
+          <span class="light-grey f9">最后更新：<span id="v_uptdate">2016.11.12</span></span>
+          <a class="link pd10 pointer f14 gone HC_editCV_"><span class="pdr10 f14">简历更新</span><img style="width:12px;height:12px"src="../doc/images/gengxin_icon.png"></a>
+        </div>
+        
+        <div class="tab-block dt20 f18 bold sp2">教育背景</div>
+        <div id="hidata3" class="pdl40 gone">
+          <div class="debug bg-red full-width text-c">======================DEBUG=====================</div>
+        </div>
+        
+        <div class="h10"></div>
+               
+        <div class="tab-block dt20 f18 bold sp2">培训经历</div>
+        <div id="hidata4" class="pdl40 gone">
+          <div class="debug bg-red full-width text-c">======================DEBUG=====================</div>
+          <!---------------------------------------- 培训 begin ------------------------------------------->
+          <div class="dt3"><span class="dt_left">2006.09</span><span class="sp1">参加6sigma黑带培训</span></div>
+          <div class="dt3"><span class="dt_left">2013.12</span><span class="sp1">参加领导管理培训</span></div>
+          <!----------------------------------------- 培训 end --------------------------------------------->
+        </div>
+
+        <div class="h10"></div>
+        
+        <div class="tab-block dt20 f18 bold sp2">获得证书</div>
+        <div id="hidata5" class="pdl40">
+          <div class="debug bg-red full-width text-c">======================DEBUG=====================</div>
+        </div>
+        
+        <div class="h10"></div>
+        
+        <div class="tab-block dt20 f18 bold sp2">任职经历</div>
+        <div id="hidata6" class="pdl40 gone">
+          <div class="debug bg-red full-width text-c">======================DEBUG=====================</div>
+        </div>
+        
+        <div class="h10"></div>
+        
+        <div class="tab-block dt20 f18 bold sp2">工作经验</div>
+        <div id="hidata7" class="pdl40 gone">
+          <div class="debug bg-red full-width text-c">======================DEBUG=====================</div>
+        </div>
+
+        <div class="tab-block dt20 f18 bold sp2" style="overflow:hidden;">项目经验</div>
+        <div id="hidata8" class="pdl40 gone">
+          <div class="debug bg-red full-width text-c">======================DEBUG=====================</div>
+        </div>
+
+        <div id="hidata9" class="pdl40 gone">
+          <div class="debug bg-red full-width text-c">======================DEBUG=====================</div>
+        </div>
+
+        <div id="hidata10" class="pdl40 gone">
+          <div class="debug bg-red full-width text-c">======================DEBUG=====================</div>
+        </div>
+        
+      </div>      
+      <div class="cv-right mgl5">
+      
+        <div class="full-width inline-block">
+          <span class="float-l f18 bold sp2">顾问面评</span>
+          <span class="float-r dt3"><a class="link dt10 pointer f14 gone HC_editHCComment_"><img class="pd5 float-r" style="width:12px;height:12px;margin-top: 4px;" src="../doc/images/gengxin_icon.png">顾问面评更新</a></span>
+        </div>
+        <div id="hidata12" class="gone">
+          <div class="debug bg-red full-width text-c">=========DEBUG========</div>
+        </div>
+        
+        <div class="h1 bg-green"></div>
+        <div id="hidata11" class="gone">
+          <div class="debug bg-red full-width text-c">=========DEBUG========</div>
+        </div>
+        
+      </div>
+      
+    </div>
+  </div>
+  <div class="h100"></div>
+</div>    
+   
+<div id="bottombar"></div>
+<div class="gone">
+  <script type="text/javascript">var cnzz_protocol = (("https:" == document.location.protocol) ? " https://" : " http://");document.write(unescape("%3Cspan id='cnzz_stat_icon_1261795902'%3E%3C/span%3E%3Cscript src='" + cnzz_protocol + "s95.cnzz.com/z_stat.php%3Fid%3D1261795902%26online%3D2' type='text/javascript'%3E%3C/script%3E"));</script>
+</div>
+</body>
+</html>
+
+<script type="text/javascript" src="../doc/js/cv_HC.js?cvhc00000014"></script>
+<script>
+  $(document).ready(function(){
+    /***********此处编写js*************/
+    CV_Detail_Top(); //简历-基本详情
+    Query_CV_DetailList(); //简历-各项详情:教育 培训 证书 任职经历 工作经验 项目经验 技能标签 工作期望 顾问面评 顾问面试
+    /**********************************/
+  }); 
+  //简历-各项详情:教育 培训 证书 任职经历 工作经验 项目经验 技能标签 工作期望
+  function Query_CV_DetailList(){
+    for(var i=3;i<=12;i++){
+      ACECommon_ShowData("CandiDetailSService.y?cmd=detail", "{cid:'"+CID+"',index:'"+i+"'}", $("#hidata"+i), 0, function(ret,html,extdata){
+          if(extdata==11){ //顾问面评
+            Pub_InitSlide();
+            $(".btn-slide").get(0).click();
+          }
+          if(extdata==12){ //顾问面试
+            $("#hidata"+extdata).find(".HC_editHCIV_").click(function(e){
+                e.stopPropagation();
+                onlog('点击[修改顾问面试]按钮'+cur_dataid());
+                util.UI.html("hcdialog_hc_interview_edit.html?tid="+DATAID2+"&pcid="+DATAID1+"&"+urlCid(), 450, 360, function(){});
+            });
+          }
+
+      }, function(ret,html,extdata){
+        if(extdata==4 || extdata==5 || extdata==8){ //培训/证书/项目
+          $("#hidata"+extdata).prev().hide();
+          $("#hidata"+extdata).hide();
+        }
+        if(extdata==9 || extdata==10 || extdata==12){ //技能标签/工作期望/顾问面试
+          $("#hidata"+extdata).hide();
+        }
+      }, i);
+    }
+  }
+  function reload(){
+    location.reload();
+  }
+  $(".goBack").click(function(){  
+    var curtHtml = util.Cookie.get('curtHtml');//存储当前HTML
+    go(curtHtml);
+  }); 
+</script>

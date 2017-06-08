@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+  <title>ACE Elite 顾问在线</title>
+  <link rel="stylesheet" href="../doc/css/common.css?comcs000005" />
+  <link rel="stylesheet" href="../doc/css/styles_HC.css?hccs000001" />
+  <link rel="stylesheet" href="../doc/js/layui/css/layui.css" />
+  <!--[if IE 8]> 
+  	<script src="../doc/js/jquery-1.8.0.js"></script>
+  <![endif]--> 
+  <!--[if gte IE 8]> 
+  	<script src="../doc/js/jquery-2.1.4.min.js"></script>
+  <![endif]--> 
+  <script src="../doc/js/jquery-2.1.4.min.js"></script>
+  <script src="../doc/js/layui/layui.js"></script>
+  <script src="../doc/js/common.js"></script>
+  <script src="../doc/js/myjs_HC.js"></script>
+  <script src="../doc/js/Menu.js"></script>
+  <style>
+    .dt_left {width: 29%; border-right: 1px solid #eeeeee;}
+    .dt_top2 {width: 720px; display:inline-block;}
+    .dt_right {width: 70%;}
+    .dt_main { min-height: 500px;}
+    .m_4{margin-top: -4px;}
+    .goBack{line-height: 50px;width: 40px;}
+    .goBack span{width: 7px;height: 7px;border-bottom: 1px solid #ffa942;border-left: 1px solid #ffa942;transform: rotate(45deg);margin-right: 2px;}
+    .thistab {color:#ffa942;border-bottom: 3px solid #ffa942;}
+	.thistab span {color:#ffa942;}
+	.tab span:hover{color:#ffa942;}
+  </style>
+</head>
+<body>
+ 
+<div id="topbar"></div>
+<div class="h50 main">
+  <div class="color-focus goBack pointer"><span class="inline-block"></span>返回</div>
+</div>
+   
+<div id="container">
+  <div class="main">
+  
+    <div id="hidata_top" class="cv-top"></div>
+    
+    <div class="h10"></div>
+    <div class="bold f16 dark-grey tab mycandidateCVTab display-td middle"></div>
+    <input id="uploadfile" type="file" class="gone"/>
+    <div class="clearfix bg-light-grey f12">
+          
+      <div id="hidata_condition" class="float-l dt_left bg-white gone">    
+      </div>
+      
+      <div class="float-r dt_right">
+        <div class="dt10 pd20 bg-white">          
+          <button class="btn-default pd30 uploadpic_">上传</button>
+          <span class="pdl30 fileName_">上传图片仅支持.png .jpg .jpeg格式；文件大小在2M以内</span>
+          <button class="float-r btn-default pd30 delFile_">删除</button>
+        </div>
+        
+        <span class="pd30 gone"><input id="type_id"><input id="file_id"><input id="file_type"><input id="file_url"></span>
+        
+        <div class="pdall5 dt_main">
+          <div class="border bg-white center">
+            <div id="attach_file" class="gone">
+
+<style type="text/css">
+  <!--    
+  #pdf {
+    width: 600px;
+    height: 600px;
+    margin: 2em auto;
+    border: 2px solid #666666;
+  }
+  #pdf p {
+     padding: 1em;
+  }
+  #pdf object {
+     display: block;
+     border: solid 1px #666;
+  }
+  -->
+</style>
+<a id="file0" class="" href="#">　　　</a>
+<div id="pdf"><a href=""></a></div>
+<script type="text/javascript" src="../doc/js/pdf/pdfobject.js"></script>
+            
+            </div>
+            
+	          <img id="attach_pic" class="gone" style="max-width:620px" src="../doc/images/face_c2_b.png">
+	          
+          </div>
+        </div>
+      </div>
+      
+    </div>
+    
+    
+  </div>
+  <div class="h100"></div>
+</div>    
+   
+<div id="bottombar"></div>
+<div class="gone">
+  <script type="text/javascript">var cnzz_protocol = (("https:" == document.location.protocol) ? " https://" : " http://");document.write(unescape("%3Cspan id='cnzz_stat_icon_1261795902'%3E%3C/span%3E%3Cscript src='" + cnzz_protocol + "s95.cnzz.com/z_stat.php%3Fid%3D1261795902%26online%3D2' type='text/javascript'%3E%3C/script%3E"));</script>
+</div>
+</body>
+</html>
+
+<script type="text/javascript" src="../doc/js/cv_HC.js?cvhc00000014"></script>
+<script>
+  var typeID;
+	$(document).ready(function(){
+	  /***********此处编写js*************/
+	  CV_Detail_Top(); //简历-基本详情
+	  initCondition(); //附件-condition
+    InitUploadFile();
+	  My_InitActions(); //定义action
+	  
+    $(".uploadpic_").click(function () {
+        $("#uploadfile").click();  //隐藏了input:file样式后，点击头像就可以本地上传
+    });
+    
+    $(".goBack").click(function(){  
+      var curtHtml = util.Cookie.get('curtHtml');//存储当前HTML
+      go(curtHtml);
+    }); 
+	  /**********************************/
+	});
+
+  //附件-condition
+  function initCondition(){
+    ACECommon_ShowData("CandiDetailSService.y?cmd=attachFileType", "{objectMode:'H00404-2', cid:'"+CID+"'}", $("#hidata_condition"), 0, function(ret,html){
+        Condition_InitActions($("#hidata_condition")); //定义条件中的action
+        Condition_InitActions($("#hidata1")); //定义条件中（其他）的action
+        $("#hidata_condition").children(".dataline_:first").click();
+    });
+  }
+  //定义条件中的action
+  function Condition_InitActions(parentDiv){   
+    parentDiv.children(".dataline_").click(function(e){
+        var fileid = $(this).attr("data1");        
+        DATAID = $(this).attr("data");
+        
+        if(fileid!=-1){
+	        $("#hidata_condition").children(".dataline_").removeClass("tab-selected-v");
+	        $("#hidata1").children(".dataline_").removeClass("tab-selected-v");
+	        $(this).addClass("tab-selected-v");
+        }
+        
+        if(fileid!=-1){
+          $("#file_id").val(fileid);
+          typeID = DATAID;
+          $("#type_id").val(typeID);
+          $("#file_type").val(typeID);
+          showFile(fileid);
+        }
+    });
+    parentDiv.find(".uploadfile_").click(function(e){
+        //e.stopPropagation();
+        typeID = 250009;
+        $("#uploadfile").click();  //隐藏了input:file样式后，点击头像就可以本地上传
+    });
+  }
+  // 网络请求附件
+  var waiting = null;
+  var waitingTime = 0;
+  var loadingIndex = null;
+  function showFile(fileID){
+    $(".delFile_").addClass("gone");
+    $("#attach_pic").parent().hide();
+    $("#attach_pic").hide();
+    $("#attach_file").hide();
+    if(fileID>0){
+      if(waitingTime==0) loadingIndex = util.UI.loading();
+	    ACECommon_ShowData("CandiDetailSService.y?cmd=attachFiles", "{cid:'"+CID+"',index:'1',fileID:'"+fileID+"'}", null, 0, function(ret,html){
+          eval(html);
+          var fileurl = $("#file_url").val();
+	        var fileType = fileurl.substring(fileurl.lastIndexOf('.')).toLowerCase();/////////////////////////////////"."+$("#file_type").val();
+	        if(/\.(gif|jpg|jpeg|png|GIF|JPG|PNG)$/.test(fileType)){
+            util.UI.msg("正在加载图片...");
+	          
+	          $("#attach_pic").parent().show();
+	          $("#attach_pic").show();
+	          $("#attach_pic").attr("src", $("#file_url").val());
+            util.UI.closeLoading(loadingIndex);
+	          util.UI.msg("加载完成");
+	          $(".fileName_").html("");
+            $(".fileName_").addClass("light-grey");
+	        }else if(/\.(pdf|PDF)$/.test(fileType)){
+	          util.UI.msg("正在加载文件...");
+            if(waiting) clearInterval(waiting);
+	          
+	          $("#attach_file").parent().show();
+	          $("#attach_file").show();
+	          $("#attach_file > a").attr("href", $("#file_url").val());
+	          
+	          $("#file0").attr("href", fileurl);
+            var success = new PDFObject({
+                url: fileurl,
+                pdfOpenParams: {
+                    scrollbars: '0',
+                    toolbar: '0',
+                    statusbar: '0'
+                    }
+            }).embed("pdf");
+            util.UI.closeLoading(loadingIndex);
+            util.UI.msg("加载完成");
+          }else if(/(doc|docx|DOC|DOCX|PDF\/DOC)$/.test(fileType)){
+            //if(waitingTime==0) util.UI.msg("正在转码中...");
+          
+            if(waiting) clearInterval(waiting);
+            if(waitingTime==4){
+              waitingTime = 0;
+              util.UI.err("超大文件正在转码中，请稍后再试");
+              util.UI.closeLoading(loadingIndex);
+              return;
+            }
+            waitingTime++;
+            waiting = setInterval(function(){
+              showFile(fileID);
+            },2000);
+	        }
+	        
+	    });
+    }
+  }
+  //定义结果中的action
+  function My_InitActions(){
+    $(".delFile_").click(function(){
+        $btn_ = $(this);
+        util.UI.confirm("确定要删除吗？", function(){
+            var attachID = $("#file_id").val();
+            var attachType = typeID;
+            var attachName = $(".fileName_").html();
+            ACECommon_FormSubmit($btn_, "CandiDetailSService.y?cmd=delAttachFile", "{cid:'"+CID+"',attachDataid:'"+attachID+"',attachType:'"+attachType+"',attachName:'"+attachName+"'}", function(ret, html){
+                if(ret==1){
+                   parent.util.UI.msg(html);
+                   initCondition();
+                   CV_Detail_Top();
+                }
+            });
+        });
+    });
+  }
+  function InitUploadFile(){
+		$("#uploadfile").on("change",function(){
+		    var objUrl = getLocalObjectURL(this.files[0]) ; //获取图片的路径，该路径不是图片在本地的路径
+		    if (objUrl) {
+		      var attachID = "";
+		      //$(".fileName_").html(this.files[0].name);
+		      var attachType = typeID;
+		      var attachName = this.files[0].name;
+		      var arr = attachName.split('.');
+		      var attachTitle = arr[0];
+		      var attachFileType = arr[1].toUpperCase();
+		      //$(".img_uploadpic").attr("src", objUrl); //将图片路径存入src中，显示出图片
+		      
+		      var title = "";
+		      if(typeID == 250002){//简历
+            attachID = $("#file_id").val();
+		        title = "<span>"+attachTitle+"</span>";
+		        if(!/\.(word|doc|pdf|docx)$/.test(this.files[0].name)){
+		          util.UI.err("文件类型必须是.word,doc,pdf,docx中的一种")  
+		          return false;  
+		        }
+		      }else if(typeID == 250001){//头像
+            attachID = $("#file_id").val();
+		        title = "<img src='"+objUrl+"' height=80>";
+		        if(!/\.(gif|jpg|jpeg|png|GIF|JPG|PNG)$/.test(this.files[0].name)){  
+		          util.UI.err("图片类型必须是.gif,jpeg,jpg,png中的一种")  
+		          return false;  
+		        }
+		      }
+		      $btn_ = $(this);
+		      util.UI.confirm("确认上传吗？<br>"+title, function(){
+		          //上传文件
+		          loadingIndex = util.UI.loading();
+		          var url = "uploadFile";
+		          if(typeID == 250001){
+		            url = "uploadFace";
+		          }
+		          ajaxFile_("CandiDetailSService.y?cmd="+url, "{file1:'$(\"#uploadfile\")[0].files[0]'}", function(html){
+				          if(html.indexOf("222")==0){
+				              util.UI.err(html.substring(3));
+				              return;
+				          }
+		              var attach = html;
+		              ACECommon_FormSubmit($btn_, "CandiDetailSService.y?cmd=editAttachFile", "{cid:'"+CID+"',attachDataid:'"+attachID+"',attachType:'"+attachType+"',attachTitle:'"+attachTitle+"',attachName:'"+attachName+"',attachFileType:'"+attachFileType+"',attach:'"+attach+"'}", function(ret, html){
+		                  if(ret==1){
+		                    $btn_.attr("disabled", "");
+		                    parent.util.UI.msg(html);
+		                    initCondition();
+		                    CV_Detail_Top();
+		                  }
+		                  util.UI.closeLoading(loadingIndex);
+		              });
+		          });
+		      });
+		    }
+		});
+  }
+</script>

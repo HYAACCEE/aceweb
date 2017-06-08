@@ -1,0 +1,167 @@
+/*public start*/
+.opacityHelf{
+    filter: alpha(opacity=80);
+    -moz-opacity: 0.8;
+    -khtml-opacity: 0.8;
+    opacity: 0.8;
+}
+/*public end*/
+
+/*vairable start*/
+@hei: 10px;
+@wid: 10px;
+
+.wh(@hei,@wid){
+    height: @hei;
+    width: @wid;
+}
+
+.poAbso(@hei,@wid){
+    position: absolute;
+    top: @hei;
+    left: @wid;
+}
+
+.btnStyle(@hei){
+    background: rgb(247,217,48);
+    color: rgb(23,23,23);
+    height: @hei;
+    border-radius: 2px;
+}
+
+.titl(@hei){
+    text-align: center;
+    font-size: 20px;
+    padding-top: @hei;
+    color: rgb(79,79,79);
+}
+
+.line{
+    .wh(2px,20px);
+    background: rgb(247,217,48);
+    margin: 27px auto 0; 
+    text-align: center;
+    margin-bottom: 62px;
+}
+
+.section{
+    color: #3F3F3F;
+    font-size: 16px;
+    img{
+        height: 70px;
+        margin-right: 16px;
+    }
+    p{
+        padding-top: 4px;
+        margin-bottom: 23px;
+    }
+    div{
+        font-size: 18px;
+        font-weight: bold;
+    }
+}
+/*vairable end*/
+
+/*banner start*/
+.banner{
+    .wh(400px,100%);
+    line-height: 400px;
+    background-image: url(../img/acecontactHei.png);
+    overflow: hidden;
+    .bannerCon{
+        background-image: url(../img/acecontact.png);
+        background-size: auto 400px;
+        -moz-background-size: auto 400px;
+        -ms-background-size: auto 400px;
+        -o-background-size: auto 400px;
+        -webkit-background-size: auto 400px;
+        filter: progid:DXImageTransform.Microsoft.AlphaImageLoader( src='../img/acecontact.png', sizingMethod='scale');
+        background-position: center center;
+        background-repeat: no-repeat;
+        
+        span{
+            color: #FFFFFF;
+            font-size: 30px; 
+            padding: 8px 15px;
+            border: 2px solid #fff;
+            background: rgba(0,0,0,0.3);
+        }
+    }
+}
+/*banner end*/
+
+/*contact start*/
+.contact{
+    .contactTitle{
+        .titl(36px);
+    }
+    
+    .contactLine{
+        .line;
+    }
+    
+    .contactCon{
+        .contactLeft{
+            width: 40%;
+            .contactSection{
+                .section;
+                &:nth-child(1){
+                    margin-bottom: 61px;
+                    margin-top: 52px;
+                }
+                
+            }
+        }
+        
+        .contactRight{
+            width: 60%;
+            .attention{
+                color: #3F3F3F;
+                font-size: 16px;
+                margin-bottom: 30px;
+            }
+            
+            input{
+                .wh(40px,565px);
+                margin-bottom: 20px;
+            }
+            
+            textarea{
+                .wh(200px,565px);
+                margin-bottom: 43px;
+            }
+            
+            .sub{
+                .btnStyle(40px);
+                width: 225px;
+                font-size: 18px;
+                line-height: 40px;
+                text-align: center;
+                margin-bottom: 109px;
+                cursor: pointer;
+                
+                &:hover{
+                    background: #FFCA00;
+                }
+            }
+        }
+    }
+}
+/*contact end*/
+
+/*media start*/
+@media screen and (max-width: 940px){
+    .banner{
+        width: 940px;
+        .bannerPic{
+            width: 940px;
+            height: 900px;
+        } 
+    }
+    
+    .contact{
+        width: 940px;
+    }
+}
+
+/*media end*/

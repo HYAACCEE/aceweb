@@ -1,0 +1,198 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+  <title>ACE Elite 顾问在线</title>
+  <link rel="stylesheet" href="../doc/css/common.css?comcs000005" />
+  <link rel="stylesheet" href="../doc/css/styles_HC.css?hccs000001" />
+  <link rel="stylesheet" href="../doc/js/layui/css/layui.css" />
+  <!--[if IE 8]> 
+  	<script src="../doc/js/jquery-1.8.0.js"></script>
+  <![endif]--> 
+  <!--[if gte IE 8]> 
+  	<script src="../doc/js/jquery-2.1.4.min.js"></script>
+  <![endif]--> 
+  <script src="../doc/js/jquery-2.1.4.min.js"></script>
+  <script src="../doc/js/layui/layui.js"></script>
+  <script src="../doc/js/common.js"></script>
+  <script src="../doc/js/myjs_HC.js?myhc000000013"></script>
+  <script src="../doc/js/Menu.js"></script>
+  <style>
+  .searchDiv {width:300px; height: 25px;padding: 1px;font-size: 14px;border:solid 1px #ccc;border-radius:1px;margin-bottom: 28px;background-color: #fcfcf9;}
+  .box-link img.raduis:hover{-webkit-transition:border linear .1s,-webkit-box-shadow linear .1s; -webkit-box-shadow:0 0 8px rgba(244,173,66,1);transform: scale(1.05,1.05);animation: luminescence 0.2s linear; }
+  @keyframes luminescence{from{transform: none;}to{transform: scale(1.05,1.05);}}
+  @-webkit-keyframes luminescence{from{transform: none;}to{transform: scale(1.05,1.05);}}
+  @-moz-keyframes luminescence{from{transform: none;}to{transform: scale(1.05,1.05);}}
+  </style>
+</head>
+<body>
+<div id="topbar"></div>
+<div id="menubar">
+  <div class="main">
+    <div class="h3"></div>
+    <div class="float-l f14 dt3 tab" id="hidata4"></div>
+    <div class="float-r pdr10 dt8"><button class="btn-focus pd10 h30 addpage_"><img class="pd5"style="margin-top: -2px;width:12px;height:12px" src="../doc/images/dir1_close.png">新增候选人</button></div>
+  </div>
+</div>        
+<div id="querybar">
+  <div class="main dt30">
+    <form class="layui-form" action="">
+      <div id="hidata_condition" class="float-l gone">
+      </div>
+      <div id="searchView" class="searchDiv">
+        <span><input type="text" class="h25 keyword_" style="width:240px;border-style: none;height: 25px;line-height: 25px;" placeholder="搜索"></span>
+        <img class="float-r dt5 pd5" width="14" src="../doc/images/search.png" />
+      </div>
+      <div class="clearfix gone grey f12" id="sortView">
+        <span class="float-r dt10 sortTab_">
+          排序:
+          <span class="pdl20 pointer" data="浏览"><img class="pd5" style="width:11px;height:9px" src="../doc/images/HC/sort.png" />浏览</span>
+          <span class="pdl20 pointer" data="收藏"><img class="pd5" style="width:11px;height:9px" src="../doc/images/HC/sort.png" />收藏</span>
+          <span class="pdl20 pointer" data="邀请面试"><img class="pd5" style="width:11px;height:9px" src="../doc/images/HC/sort.png" />邀请面试</span>
+          <span class="pdl20 pointer" data="入库时间"><img class="pd5" style="width:11px;height:9px" src="../doc/images/HC/sort.png" />入库时间</span>
+          <span class="pdl20 pointer" data="姓名"><img class="pd5" style="width:11px;height:9px" src="../doc/images/HC/sort.png" />姓名</span>
+          <span class="pdl20 pointer" data="公司名"><img class="pd5" style="width:11px;height:9px" src="../doc/images/HC/sort.png" />公司名</span>
+        </span>
+      </div>
+    </form>
+  </div>
+</div>
+<div id="container">
+  <div class="main">
+      
+    <div id="hidata1">
+      <div class="debug bg-red full-width text-c">======================DEBUG=====================</div>
+    </div>
+      
+    <div id="nodata" class="gone">
+      <div class="h60"></div>
+      <div class="h30"></div>
+      <div><img class="img100 bottom center" src="../doc/images/nodata.png"> </div>
+      <div class="pdall30 f16 center">很抱歉，当前您的候选人列表为空</div>
+      <div class="color-focus pointer center addpage_">新增候选人</div>
+      <div class="h100"></div>
+      <div class="h60"></div>
+    </div>
+    <div id="pages" class="text-c"></div>
+  </div>
+  <div class="h100"></div>
+</div>
+
+<div id="bottombar"></div>
+<div class="gone">
+  <script type="text/javascript">var cnzz_protocol = (("https:" == document.location.protocol) ? " https://" : " http://");document.write(unescape("%3Cspan id='cnzz_stat_icon_1261795902'%3E%3C/span%3E%3Cscript src='" + cnzz_protocol + "s95.cnzz.com/z_stat.php%3Fid%3D1261795902%26online%3D2' type='text/javascript'%3E%3C/script%3E"));</script>
+</div>
+</body>
+</html>
+
+<script type="text/javascript" src="../doc/js/cv_HC.js?cvhc00000014"></script>
+<script>
+  var stStatus;
+  var sortMK;
+  var status;
+  var curtab;
+  var keyword = "";
+  $(document).ready(function(){
+    /***********此处编写js*************/
+    $(".addpage_").click(function(){       
+        if(power == 0){
+            util.UI.warning("您的账户还未通过审核,无法新增候选人");
+        }else{
+            location.href = "candidate_add.html?"+cmmv;
+        }
+    });
+    /**********************************/
+  });
+  function init(){
+    queryStatusList(true); //初始化Conditon
+    
+    $(".sortTab_ span").click(function(){
+        $(this).addClass("color-focus").siblings().removeClass("color-focus");
+        $(".sortTab_ img").hide();
+        $(this).children("img").show();
+        sortMK = $(this).attr("data");
+        if(stStatus == "240090"){
+          page_query();
+        }
+    });
+    $(".sortTab_ span")[0].click();
+    //获取数据
+    curtab = util.Cookie.get('curtypeHC');
+  }
+  //状态栏
+  function queryStatusList(flag){
+    ACECommon_ShowData("CandiListSService.y?cmd=statusList", "{objectMode:'H00303-3'}", $("#hidata4"), 1, function(ret,html){
+        if(flag) initCondition();
+        $(".tab").find("div").eq(0).addClass("thistab");
+        $(".tab div").click(function(){
+            $(this).addClass("thistab").siblings().removeClass("thistab");
+        });
+    });   
+  }
+  //初始化Conditon
+  function initCondition(){
+    ACECommon_ShowData("ComService.y?cmd=html", "{objectMode:'H00303-2'}", $("#hidata_condition"), 1, function(ret,html){
+        $("#hidata_condition").hide();
+        Condition_InitActions();
+        page_query();
+    });
+  }  
+  function Condition_InitActions(){  
+    $(".keyword_").keyup(function(){
+        keyword = $('.keyword_').val();
+        page_query();
+    });
+    layui.use(['form'], function(){
+      var form = layui.form();
+      form.render();
+      form.on('select(status_)', function(data){
+          status = data.value;//这就是selected的值
+          page_query(); 
+      });
+    });
+    $(".titleType_").click(function(){
+        stStatus = $(this).attr("data");
+        curtab = $(this).attr("id");
+        if(stStatus == ""){
+          status = '';
+          keyword = $('.keyword_').val();
+          $("#hidata_condition").hide();
+          $("#sortView").hide();
+          $("#searchView").show();
+          sortMK = "更新时间"
+        }else if(stStatus == "240000" || stStatus == "240020"){
+          status = '';
+          $("#hidata_condition").hide();
+          keyword = "";
+          $("#searchView").hide();
+          $("#sortView").hide();
+          sortMK = "更新时间"
+        }else if(stStatus == "240090"){
+          $("#hidata_condition").show();
+          $("#sortView").show();
+          keyword = "";
+          $("#searchView").hide();
+        }
+        
+        /*添加数据 */
+        util.Cookie.set('curtypeHC',curtab,30)
+        page_query();
+    });
+    if(curtab) $("#"+curtab).click();
+    else $(".titleType_")[0].click();
+  }  
+  function page_query(page){
+    var pq = new PQuery("CandiListSService.y?cmd=list",
+             "{objectMode:'H00303-1',queryMK:'0',stStatus:'"+stStatus+"',status:'"+status+"',sortMK:'"+sortMK+"',keyword:'"+keyword+"'}",
+             $("#hidata1"), $("#nodata"));
+    pq.query(page, function(ret, html){
+        if(ret==1){
+           CV_InitActions(); //初始化按钮的控制
+        }
+    });
+  }
+  function reload(){
+    queryStatusList(true);
+  }
+</script>

@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+  <title>ACE Elite 管理在线</title>
+  <link rel="stylesheet" href="../doc/css/common.css" />
+  <link rel="stylesheet" href="../doc/css/styles_M.css" />
+  <link rel="stylesheet" href="../doc/js/layui/css/layui.css" />
+  <script src="../doc/js/jquery-2.1.4.min.js"></script>
+  <script src="../doc/js/layui/layui.js"></script>
+  <script src="../doc/js/laydate/laydate.js"></script>
+  <script src="../doc/js/common.js"></script>
+  <script src="../doc/js/myjs_M.js"></script>
+  
+  <link rel="stylesheet" href="../doc/js/autocomplete/style.css" />
+  <script src="../doc/js/autocomplete/jquery.autocomplete.js"></script>
+  <script src="../doc/js/autocomplete/autocomplete.js"></script>
+  
+  <link rel="stylesheet" href="../doc/selector/css.css" />
+  <script src="../doc/selector/selector.js"></script>
+  <script src="../doc/selector/drag.js"></script>
+  <script src="../doc/selector/city_arr.js"></script>
+  <script src="../doc/selector/nationality_arr.js"></script>
+  <script src="../doc/selector/funtype_arr.js"></script>
+  <script src="../doc/selector/skilltype_arr.js"></script>
+  <script src="../doc/selector/industry_arr.js"></script>
+  <script src="../doc/selector/major_arr.js"></script>
+  <script src="../doc/selector/school_arr.js"></script>
+    
+  <style type="text/css">
+    .dt_1 {width: 105px; display:inline-block; text-align: right; padding-right:10px; border:0px solid red;}
+    .dt_2 {width: 255px; display:inline-block; border:0px solid green;}
+    .dt_input1 {width: 230px;}
+    .dt_3 {width: 30px; display:inline-block; padding-left:5px; border:0px solid red;}
+    .dt_left {width: 270px; display:inline-block;}
+    .dt_right {width: 660px; display:inline-block;}
+    .dt_textarea {width:633px;}
+  </style>
+</head>
+<body>
+    
+<div id="topbar"></div>
+
+<div id="querybar">
+  <div class="main display-table">
+    <div class="tab myjobTab display-td middle f16">
+    </div>
+  </div>
+</div>
+
+<div id="container">
+  <div class="main">
+    <div class="content pdall20 bg-white clearfix">
+      <div class="pdall10"><span class="bold f18">顾问面评</span></div>
+       <div class="clearfix" id="hidataInfo">
+        <div class="float-l" style="width:700px">
+          <div>
+            <div class="dt5"><span><img class="candidate_ middle pointer" src="../doc/images/M/face_c_s.png"><span class="showCandidateDetail_ vv gone"></span></span><span class="pdl20 bold vv"></span><span class="pdl5 vv"></span><span class="pdl60 vv"></span><span class="pd5 vv"></span><span class="pd5 gone vv"></span><span class="pd5 vv"></span><span class="pd5 vv"></span></div>
+            <div class="dt5"><span><img class="hcFace_ middle pointer" src="../doc/images/M/face_c_s.png"><span class="showHCDetail_ vv gone"></span></span><span class="pdl20 vv"></span></div>   
+          </div>
+          <div class="dt20"></div>
+          <div>
+            <span class="btn-focus pd10 dt5">联系候选人</span>     
+          </div>
+        </div>
+        <div class="float-l" id="hidataIvInfo" style="width:300px">
+          <div class="bg-grey" style="border-radius:2px">
+            <div class="full-width inline-block pd10">
+              <span class="float-l tab-hc dt10 f14 bold"><span class="gone vv"></span>顾问面试</span>
+            </div>
+              <div class="dt5 grey pd10"><img src="../doc/images/HC/time.png" height="12px" style="padding-left: 3px;margin-right: 3px"><span class="vv pdl5"></span></div>
+              <div class="dt5 grey pd10"><img style="width:17px;height:17px" src="../doc/images/HR/location.png"><span class="vv pdl5"></span></div>            
+            </div>
+          </div>
+        </div>  
+      <div class="dt20"></div>     
+      <div id="hidata00" style="disabled:disabled">
+	      <div class="pdall10"><span class="pdl5 bg-focus"></span><span class="bold pd10 f14">工作经验</span></div>
+	        
+	      <form id="hidata1_form">
+	      <div class="pdall20 gone" id="hidata1"><!-- 工作经验 -->
+	        <div class="debug bg-red full-width text-c">======================DEBUG=====================</div>
+	      </div>
+	      <div class="gone"><a class="link pointer addmore_" data="1">+新的工作经验（隐藏）</a></div>
+	      </form>
+	                  
+	      <div class="h30"></div>
+	      
+	      <div class="pdall10"><span class="pdl5 bg-focus"></span><span class="bold pd10 f14">工作期望</span></div>
+	      <form id="hidata2_form">
+	      <div class="gone" id="hidata2"><!-- 工作期望 -->
+	        <div class="debug bg-red full-width text-c">======================DEBUG=====================</div>
+	      </div>
+	      </form>
+	      
+	      <form id="hidata3_form">
+	      <div class="gone" id="hidata3"><!-- 意向公司 -->
+	        <div class="debug bg-red full-width text-c">======================DEBUG=====================</div>
+	      </div>
+	      </form>
+	      
+	      <form id="hidata4_form">
+	      <div class="gone" id="hidata4"><!-- 屏蔽公司 -->
+	        <div class="debug bg-red full-width text-c">======================DEBUG=====================</div>
+	      </div>
+	      </form>
+	                  
+	      <div class="h30"></div>
+	
+	      <div class="dt20"><span class="pdl5 bg-focus"></span><span class="bold pd10 f14">技能标签</span></div>
+	      <form id="hidata5_form">
+	      <div class="gone" id="hidata5"><!-- 技能标签 -->
+	        <div class="debug bg-red full-width text-c">======================DEBUG=====================</div>  
+	      </div>
+	      </form>
+	      
+	      <div class="h30"></div>
+	                
+	      <form id="hidata6_form">
+	      <div class="gone" id="hidata6"><!-- 工作总结 整体印象  -->
+	        <div class="debug bg-red full-width text-c">======================DEBUG=====================</div>
+	      </div>
+	      </form>
+      </div>
+
+      <form class="layui-form" action="">
+      <div class="pdall10"><span class="pdl5 bg-focus"></span><span class="bold pd10 f14">审核信息</span></div>
+      <div id="hidata99">
+        <div class="layui-form-item">
+          <label class="layui-form-label">审核结果</label><input id="code" class="notnull" type="hidden" value="220026">
+          <div class="layui-inline">
+            <input class="radio" type="radio" name="radio_isPass" value="220026" title="通过" lay-filter="radio_isPass" checked>
+            <input class="radio" type="radio" name="radio_isPass" value="220046" title="不通过" lay-filter="radio_isPass">
+          </div>
+        </div>
+        
+        <div class="layui-form-item gone" id="v_unpassView">
+          <label class="layui-form-label top" id="p_unpassReason">不通过原因</label><input id="v_unpassReason" class="vv vvc" type="hidden" for="p_unpassReason">
+          <div class="layui-inline">
+            <input class="checkbox" name="checkbox" type="checkbox" value="候选人不看机会" lay-filter="radio_unpass"/>候选人不看机会<br/>
+            <input class="checkbox" name="checkbox" type="checkbox" value="候选人未进行顾问面试" lay-filter="radio_unpass" />候选人未进行顾问面试<br/>
+            <input class="checkbox" name="checkbox" type="checkbox" value="面评信息有误" lay-filter="radio_unpass"/>面评信息有误<br/>
+            <input class="checkbox" name="checkbox" type="checkbox" value="其他原因" lay-filter="radio_unpass"/>其他原因<br/>
+          </div>
+          <div> 
+            <span class="dt_left"></span>
+            <span class="dt_right"><textarea class="vv" name="vvn" id="otherReason" style="width:645px"/></textarea></span>
+          </div>
+        </div>
+      </div>
+      </form>
+  
+      <div class="center f14" >
+      <div class="h50"></div>
+        <button class="btn-focus pd30 submitCmt_">提交</button>
+      </div>
+      <div class="h50"></div>
+      
+    </div>
+    
+  </div>
+</div>
+
+<!-- for selector start -->
+<div id="maskLayer" style="display:none">
+<iframe id="maskLayer_iframe" frameBorder=0 scrolling=no style="filter:alpha(opacity=50)"></iframe>
+<div id="alphadiv" style="filter:alpha(opacity=50);-moz-opacity:0.5;opacity:0.5"></div>
+  <div id="drag">
+    <h3 id="drag_h"></h3>
+    <div id="drag_con"></div><!-- drag_con end -->
+  </div>
+</div><!-- maskLayer end -->
+</div>
+<!-- alpha div end -->
+<div id="sublist" style="display:none"></div>
+<!-- for selector end -->
+
+<div class="h100"></div>
+<div id="bottombar"></div>
+</body>
+</html>
+
+<script src="../doc/js/cv_hccomment_edit.js?chedit00000020"></script>
+<script>
+var cid = getUrlCid();
+var hcid = getUrlHcid();
+$(document).ready(function(){
+  /***********此处编写js*************/
+  initTopForm(); //初始化Form
+  $(".candidate_").click(function(e){
+      util.UI.html("mdialog_show_candidate_info.html?"+$(".showCandidateDetail_").html(), 380, 240);
+  });
+  $(".hcFace_").click(function(e){
+      util.UI.html("mdialog_show_hunter_info.html?"+$(".showHCDetail_").html(), 380, 240);
+  });
+  /**********************************/
+});
+var form;
+//初始化Form
+function initTopForm(){
+    ACECommon_ShowData("CandiDetailMService.y?cmd=candiInfoForActive", "{cid:'"+cid+"'}", null, 0, function(ret,html){
+        if(ret==1){
+          var ss = html.split("`");
+          var vv = $("#hidataInfo").find(".vv");
+          for(var i=0;i<vv.length;i++){
+            $(vv[i]).html(ss[i]);
+          }
+        }
+      });
+      
+    ACECommon_ShowData("CandiProcessMService.y?cmd=ivInfo", "{cid:'"+cid+"',hcid:'"+hcid+"';ivMK:'HC'}", null, 0, function(ret, html){
+        if(ret==1){
+          var ss = html.split("`");
+          var vv = $("#hidataIvInfo").find(".vv");
+          for(var i=0;i<vv.length;i++){
+            $(vv[i]).html(ss[i]);
+          }
+        }
+    });      
+}
+
+var M0 = "M";
+var loadingIndex;
+
+var checked = "";
+layui.use(['form'], function(){
+  var form = layui.form();
+  form.render();
+  
+  form.on('checkbox(radio_unpass)', function(data){
+    if(data.elem.checked == true){
+      if(data.value == "其他原因"){
+      }else{       
+        checked += "<br>"+(data.value);
+      }
+    }else{
+      checked = checked.replace(new RegExp("<br>"+data.value, "g"),'');
+    }
+  });
+
+  form.on('radio(radio_isPass)', function(data){
+    if(data.value == '220026'){
+      $("#v_unpassView").hide();
+    }else{
+      $("#v_unpassView").show();
+    }
+    $("#code").val(data.value);
+  });
+  //监听提交
+  $(".submitCmt_").click(function(e){
+    util.UI.confirm('确认提交吗？', function(){
+        if($("#otherReason").val()==""){
+        }else{
+            checked += "<br>"+$("#otherReason").val();
+        }
+        $("#v_unpassReason").val(checked.substring(checked.length>0 ? "<br>".length : 0));
+        if($("#code").val()==220026) $("#v_unpassReason").removeClass("notnull");
+        else $("#v_unpassReason").addClass("notnull");
+        save();
+    });
+    return false;
+  });
+});
+function submitCommplete(){
+  if(submitFlag == MAX_INDEX && successFlag == submitFlag){
+    ajax_("CandiComment"+M0+"Service.y?cmd=commentUpdate", "{cid:'"+cid+"'}", function(){
+    
+        ajax_("CandiComment"+M0+"Service.y?cmd=commentCommitCheck", "{cid:'"+cid+"',commitFlag:'"+commitFlag+"'}", function(ret,html){
+           if(ret==1){
+		          ACECommon_FormSubmit(null, "CandiProcessMService.y?cmd=doProcess", "{cid:'"+cid+"',process:'"+$("#code").val()+"'}", function(ret, html){
+		              if(ret==1){
+		                parent.util.UI.msg(html);
+		                setTime = setInterval(function(){
+		                  parent.util.UI.closeDialog();
+		                  parent.reload();
+		                },2000);
+		              }else{
+		                util.UI.msgDialog("", html, function(){
+		                  parent.util.UI.closeDialog();
+		                  parent.reload();
+		                });
+		              }
+		        }, $("#hidata99"));
+           }else{
+           
+             layer.alert(html, {
+               title: '顾问面评'+(ret==1?'':'未')+'提交成功'
+             });
+             
+           }
+           util.UI.closeLoading(loadingIndex); //关闭loading
+       });
+    });
+  }else if(submitFlag == MAX_INDEX){
+    util.UI.closeLoading(loadingIndex); //关闭loading
+  }
+} 
+</script>

@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+  <title>ACE Elite 管理在线</title>
+  <link rel="stylesheet" href="../doc/css/common.css" />
+  <link rel="stylesheet" href="../doc/css/styles_M.css" />
+  <link rel="stylesheet" href="../doc/js/layui/css/layui.css" />
+  <script src="../doc/js/jquery-2.1.4.min.js"></script>
+  <script src="../doc/js/layui/layui.js"></script>
+  <script src="../doc/js/common.js?com00000027"></script>
+  <script src="../doc/js/myjs_M.js?mym00000002"></script>
+
+  <style>
+    html,body { margin:0; height:100%; min-width: 1180px;}
+	  .box_l {border:0px solid red; width:170px;}
+	  .box_r {border:0px solid green; width: 980px;}
+	  #mainArea{width: 1200px;}
+	  table.stat_candi tbody{width: 1200px;}
+	  table.stat_candi tbody tr th:nth-child(1){width: 120px;}
+	  table.stat_candi tbody tr th:nth-child(2){width: 40px;padding-left:0;}
+	  table.stat_candi tbody tr th:nth-child(3){width: 160px;}
+	  table.stat_candi tbody tr th:nth-child(4){width: 160px;}
+	  table.stat_candi tbody tr th:nth-child(5){width: 60px;}
+	  #mainArea table.stat_candi tbody tr.pdall10:hover{background: transparent;}
+	  table.stat_candi tr{border-bottom: 1px solid #eee;margin-top: -1px;}
+	  #mainArea table.stat_candi tr:hover{background-color: #FFFFE0;}
+	  .triangle-up {
+	  	margin-top: 5px;
+	  	margin-bottom: 2px;
+	    width: 0;
+	    height: 0;
+	    border-left: 5px solid transparent;
+	    border-right: 5px solid transparent;
+	    border-bottom: 5px solid #ffa942;
+	    cursor: pointer;
+		}
+		.triangle-down {
+		    width: 0;
+		    height: 0;
+		    border-left: 5px solid transparent;
+		    border-right: 5px solid transparent;
+		    border-top: 5px solid #ffa942;
+		    cursor: pointer;
+		}
+		table tr th[class^="opa"]{padding-left: 15px;padding-right: 0;padding-right: 5px;width: 35px;}
+  </style>
+</head>
+<body>
+
+<div id="topbar">
+  <div class="main">
+    <span class="pdall20 logo"><img class="img60" src="../doc/images/M/logo.png"></span>
+  </div>
+</div>
+
+<div class="clearfix full-height">
+	<div id="leftbar" class="float-l box_l"></div>
+  <script src="js/main-index.js"></script>
+	
+	<div class="float-l box_r">
+	  <input type="hidden" id="detail_id">
+	  <div id="mainArea" class="pd20"></div>
+	</div>
+</div>
+</body>
+<script>
+	$(function(){
+		$("#leftbar ul li dd").click(function(){
+			var hei = $("div#mainArea.pd20").height();
+			$("#leftbar").css('height',hei);
+		})
+	})
+</script>
+</html>
+
+<script src="../doc/js/cv_M.js"></script>

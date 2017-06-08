@@ -1,0 +1,98 @@
+<link rel="stylesheet" href="../doc/js/autocomplete/style.css" />
+<script src="../doc/js/autocomplete/jquery.autocomplete.js"></script>
+<script src="../doc/js/autocomplete/autocomplete.js"></script>
+<style>
+.dt_left {width:100px; display:inline-block; text-align:right;}
+.dt_right {width:260px; display:inline-block;}
+.dt_input1 {width:30px;}
+.dt_input2 {width:220px;}
+</style>
+<div id="former">
+  <div class="main">
+    <form class="layui-form" action="">
+    <div class="bg-white pdall20">
+      <div class="title dt10">新增职位</div>
+      <div class="gone" id="hidata1">
+        <div class="debug bg-red text-c">======================DEBUG=====================</div>
+      </div>
+      
+      <div class="layui-form-item center">
+        <div class="layui-input-block">
+          <button class="layui-btn" lay-submit lay-filter="submit_">保存</button>
+          <button type="reset" class="layui-btn layui-btn-primary">重置</button>
+        </div>
+      </div>
+      
+    </div>
+    </form>
+         
+  </div>
+</div>
+<script>
+  var form;
+  $(document).ready(function(){
+    /***********此处编写js*************/
+    initForm();
+    /**********************************/
+  });
+  //初始化Form
+  function initForm(){  
+    ACECommon_ShowData("ComService.y?cmd=html", "{objectMode:'H00604-8,H00604-9'}", $("#hidata1"), 0, function(ret,html){
+      Form_InitActions();
+    });
+  }  
+  function Form_InitActions(){
+  	autocomplete_Init();
+    layui.use(['form'], function(){
+      form = layui.form();
+      form.render();
+      
+    
+      
+      
+    $(".xinzi_").keyup(function(){
+        $("#xinzi").val($("#xinzi1").val()+"-"+$("#xinzi2").val());
+    });
+      form.on('radio(radio_address)', function(data){
+        $("#v_address").val(data.value);
+        $("#otherAddress").addClass("gone");
+      });
+      form.on('radio(radio_otheraddress)', function(data){
+        $("#otherAddress").removeClass("gone");
+      });
+      form.on('radio(radio_encv)', function(data){
+        $("#v_encv").val(data.value);
+      });
+      //监听提交
+      form.on('submit(submit_)', function(data){
+        if(parseFloat($("#xinzi1").val()) > parseFloat($("#xinzi2").val())){
+          $(".xinzi_")[1].focus();
+          layer.tips('请正确填写', $(".xinzi_")[1]);
+          return false;
+        }
+        util.UI.confirm('确认提交吗？', function(){
+	        ACECommon_FormSubmit(null, "JobMService.y?cmd=add", "{hrAuid:'"+$("#auid").val()+"'}", function(ret, html){
+             if(ret==1){
+                util.UI.msg(html);
+                initForm();
+             }else{
+               util.UI.err(html);
+             }
+          });      
+        });
+        return false;
+      });
+    });
+    
+    $(".uploadPic_").click(function(){
+        $this_ = $(this);
+        $this_.next().click();  //隐藏了input:file样式后，点击头像就可以本地上传
+        $this_.next().on("change",function(){
+            var objUrl = getLocalObjectURL(this.files[0]) ; //获取图片的路径，该路径不是图片在本地的路径
+            if (objUrl) {
+              $this_.find("img").attr("src", objUrl) ; //将图片路径存入src中，显示出图片
+            }
+        });
+    });
+  }
+</script>

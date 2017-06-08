@@ -1,0 +1,101 @@
+<style>
+.dt_left {width: 280px; display:inline-block;}
+.dt_right {width: 140px; display:inline-block;}
+</style>
+
+<div id="querybar">
+  <div class="main">
+    <div class="title">新增公司</div>
+    <div class="dt5" id="hidata_condition">
+      <div>
+        <span><input class="keyword_" placeholder="公司名称" style="width:400px;"></span>
+        <button class="btn-focus pd20 mgl10" id="searchBtn_">搜索</button>
+        <button class="btn-focus pd20 mgl10 add_">新增公司</button>
+      </div>
+    </div>   
+  </div>
+</div>
+
+<div id="former">
+  <div class="main">
+    <div class="dt10">待新增公司(<span id="totalCount">0</span>)</div>
+    <div class="bg-white" id="hidata1">
+    
+      <div class="line dt1"></div>
+      <div class="pdall15 bg-white" data="111">
+        <span class="pd10"><img class="middle" src="../doc/images/M/face_c_s.png"></span>
+        <span class="dt_left pointer">li22nda</span><span class="pd5">上海智库信息科技有限公司</span><span class="pd5">|</span><span>销售经理</span>
+        <span class="float-r">
+          <span class="pd5"><span>新增于2016.12.29 23:01</span></span>
+         </span>
+      </div>
+      <div class="line"></div>
+    
+    </div>
+    
+    <div id="nodata" class="gone">
+      <div class="h60"></div>
+      <div class="h30"></div>
+      <div><img class="img100 bottom center" src="../doc/images/nodata.png"> </div>
+      <div class="pdall30 f16 center">列表为空</div>
+      <div class="h100"></div>
+      <div class="h60"></div>
+    </div>
+    
+    <div id="pages" class="text-c"></div>
+  </div>
+</div>
+
+<script>
+  $(document).ready(function(){
+    /***********此处编写js*************/
+    page_query();
+    
+    // 搜索按钮被点击
+    $("#searchBtn_").click(function(){
+      page_query();
+    })
+    
+    $(".add_").click(function(e){
+        e.stopPropagation();
+        //util.UI.html("hr_company_add_detail.html?id="+DATAID, 0, 0);
+        window.open("hr_company_add_detail.html", 0, 0);
+    });
+    /**********************************/
+    $(".keyword_").keydown(function(e){
+        if(e.keyCode==13) $("#searchBtn_").click();
+    });
+  });
+  function page_query(page){
+    var keyword = $(".keyword_").val();
+    var pq = new PQuery("MMMService.y?cmd=listMM",
+             "{objectMode:'H00604-10',queryMK:'1',keyword:'"+keyword+"'}",
+             $("#hidata1"), $("#nodata"));
+    pq.query(page, function(ret, html){
+        if(ret==1){
+          My_InitActions(); //初始化按钮的控制
+        }
+    });
+  }
+  function My_InitActions(pdiv){
+    var curdiv = pdiv || $("#hidata1");
+    DataLine_InitFuns(curdiv);
+    Pub_InitSlide(curdiv);
+    
+    /* enter键进行登录 */
+    $(window).keypress(function(e){
+      if(e.keyCode == 13){
+         page_query();
+      }
+    })
+    $(".detail_").click(function(e){
+        e.stopPropagation();
+        util.UI.html("hr_company_add_detail.html?id="+DATAID, 0, 0);
+        //window.open("hr_company_add_detail.html?id="+DATAID,"","width=0,height=0,top=0,left=0");
+    });
+  }
+  
+  function reload(){
+  	page_query();
+  }
+</script>

@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+  <title>ACE Elite HR在线</title>
+  <link rel="stylesheet" href="../doc/css/common.css?comcs000005" />
+  <link rel="stylesheet" href="../doc/css/styles_HR.css?hrcs000001" />
+  <link rel="stylesheet" href="../doc/js/layui/css/layui.css" />
+  <!--[if IE 8]> 
+  	<script src="../doc/js/jquery-1.8.0.js"></script>
+  <![endif]--> 
+  <!--[if gte IE 8]> 
+  	<script src="../doc/js/jquery-2.1.4.min.js"></script>
+  <![endif]--> 
+  <script src="../doc/js/jquery-2.1.4.min.js"></script>
+  <script src="../doc/js/layui/layui.js"></script>
+  <script src="../doc/js/common.js"></script>
+  <script src="../doc/js/myjs_HR.js"></script>
+  <script src="../doc/js/Menu.js"></script>
+  <style>
+  	.goBack{line-height: 50px;width: 40px;}
+  	.goBack span{width: 7px;height: 7px;border-bottom: 1px solid #ffa942;border-left: 1px solid #ffa942;transform: rotate(45deg);margin-right: 2px;}
+  </style>
+</head>
+<body>
+
+<div id="topbar"></div>
+<div class="h50 main">
+  <div class="color-focus goBack pointer"><span class="inline-block"></span>返回</div>
+</div>
+
+<div id="container">
+  <div class="main">
+    <div class="clearfix bg-white full-width" style="width: 100%; min-height: 550px;">
+      
+      <div class="float-l pd30 dt30" style="width: 62%; min-height: 550px; border-right:10px solid #f5f3f0"">
+        <div class="gone pd10" id="hidata1">
+        </div>
+      </div>
+      <div class="float-r dt30" style="width: 28%;">
+        <div class="mgnl10 gone" id="hidata2">
+        </div>
+        
+        <div id="nodata" class="gone">
+          <div class="h60"></div>
+          <div class="h30"></div>
+          <div><img class="center" src="../doc/images/nodata.png"> </div>
+          <div class="pdall30 f16 center">暂时没数据</div>
+          <div class="h100"></div>
+          <div class="h100"></div>
+          <div class="h100"></div>
+        </div>
+               
+      </div>
+      
+    </div>
+  </div>
+</div>
+
+<div class="h100"></div>
+<div class="h100"></div>
+<div id="bottombar"></div>
+<div class="gone">
+  <script type="text/javascript">var cnzz_protocol = (("https:" == document.location.protocol) ? " https://" : " http://");document.write(unescape("%3Cspan id='cnzz_stat_icon_1261795902'%3E%3C/span%3E%3Cscript src='" + cnzz_protocol + "s95.cnzz.com/z_stat.php%3Fid%3D1261795902%26online%3D2' type='text/javascript'%3E%3C/script%3E"));</script>
+</div>
+</body>
+</html>
+<script>
+  var jobid = location.href.split("?")[1];
+  $(document).ready(function(){
+    /***********此处编写js*************/
+    /* initCondition(); //初始化Conditon */
+    queryJobDetail();
+    queryCompanyDetail();
+    /**********************************/
+  });
+  // 职位详情
+  function queryJobDetail(){  
+    ACECommon_ShowData("JobBService.y?cmd=jobdetail","{objectMode:'H00105-1',jobid:'"+jobid+"'}", $("#hidata1"), 0, function(ret,html){
+      if(ret==1){
+      }
+    });
+  }
+  // 公司详情
+  function queryCompanyDetail(){
+    ACECommon_ShowData("MMBService.y?cmd=infoCompany","{objectMode:'H00105-2'}", $("#hidata2"), 0, function(ret,html){
+    },function(ret,html){
+        $("#nodata").show();
+    });
+    
+  }
+  $(".goBack").click(function(){
+  	window.history.back();
+  });
+</script>

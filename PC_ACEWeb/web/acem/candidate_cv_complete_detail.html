@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+  <title>ACE Elite 管理在线</title>
+  <link rel="stylesheet" href="../doc/css/common.css" />
+  <link rel="stylesheet" href="../doc/css/styles_M.css" />
+  <link rel="stylesheet" href="../doc/js/layui/css/layui.css" />
+  <script src="../doc/js/jquery-2.1.4.min.js"></script>
+  <script src="../doc/js/layui/layui.js"></script>
+  <script src="../doc/js/laydate/laydate.js"></script>
+  <script src="../doc/js/common.js"></script>
+  <script src="../doc/js/myjs_M.js"></script>
+
+  <script src="../doc/js/calendar-select.js?cal00000004"></script>
+  <link rel="stylesheet" href="../doc/js/autocomplete/style.css" />
+  <script src="../doc/js/autocomplete/jquery.autocomplete.js"></script>
+  <script src="../doc/js/autocomplete/autocomplete.js"></script>
+  
+  <link rel="stylesheet" href="../doc/selector/css.css" />
+  <script src="../doc/selector/selector.js"></script>
+  <script src="../doc/selector/drag.js"></script>
+  <script src="../doc/selector/city_arr.js"></script>
+  <script src="../doc/selector/nationality_arr.js"></script>
+  <script src="../doc/selector/funtype_arr.js"></script>
+  <script src="../doc/selector/industry_arr.js"></script>
+  <script src="../doc/selector/major_arr.js"></script>
+  <script src="../doc/selector/drag.js"></script>
+  <script src="../doc/selector/school_arr.js"></script>
+  <style>
+    .dt_left {width: 100px; display:inline-block; text-align: right; padding-right:10px; border:0px solid red;}
+    .dt_right {width: 280px; display:inline-block;border:0px solid green;}
+    .dt_input1 {width: 255px;}
+    .dt_input2 {width: 101px;}
+    .dt_input3 {width: 72px;}
+    .dt_phone1 {width: 50px;}
+    .dt_phone2 {width: 180px;}
+    .dt_textarea {width:670px;height:200px}
+  </style>
+</head>
+<body>
+    
+<div class="pd100 dt20"><span class="bold pd20 f18">简历完善</span></div>
+<div id="container">
+  <div class="main">
+    <div class="content pdall30 bg-white clearfix">
+        <div class="pd30 dt10">
+          <span class="btn-focus pd20 dt5 pointer openFile_">打开简历源文件</span>
+          <div class="dt10 grey"></div>
+        </div>
+	      <fieldset class="layui-elem-field layui-field-title">
+	        <legend><span class="pdl5 bg-focus"></span><span class="bold pd10 f14">基本信息</span></legend>
+	      </fieldset>
+       
+        <form id="hidata1_form">
+        <div class="gone" id="hidata1"><!-- 基本信息 -->
+          <div class="debug bg-red full-width text-c">======================DEBUG=====================</div>
+          <div class="hidata_subform">
+          </div>
+        </div>
+        </form>        
+        
+        <form id="hidata3_form">
+        <div class="h20"></div>
+        <fieldset class="layui-elem-field layui-field-title">
+          <legend><span class="pdl5 bg-focus"></span><span class="bold pd10 f14">教育背景</span></legend>
+        </fieldset>
+        <div class="gone" id="hidata3"><!-- 基本信息 -->
+        </div>
+        <span class="dt_left dt10"></span>
+        <span class="dt_right"><span class="link pointer color-focus addmore_" data="3">+新的教育经历</span></span>
+        </form>
+          
+        <form id="hidata4_form">
+        <div class="h20"></div>  
+        <div class="pd30 dt10"><span class="pdl5 bg-focus"></span><span class="bold pd10 f14">培训经历</span></div>
+        <div class="gone" id="hidata4"><!-- 培训经历 -->
+        </div>
+        <span class="dt_left dt10"></span>
+        <span class="dt_right"><span class="link pointer color-focus addmore_" data="4">+新的培训经历</span></span>
+        </form>
+
+        <form id="hidata5_form">
+        <div class="h20"></div>
+        <div class="pd30 dt10"><span class="pdl5 bg-focus"></span><span class="bold pd10 f14">获得证书</span></div>
+        <div class="gone" id="hidata5"><!-- 获得证书 -->
+        </div>
+        <span class="dt_left dt10"></span>
+        <span class="dt_right"><span class="link pointer color-focus addmore_" data="5">+新的证书名称</span></span>
+        </form>
+
+        <form id="hidata7_form">
+        <div class="h15"></div>
+        <div class="pd30 dt10"><span class="pdl5 bg-focus"></span><span class="bold pd10 f14">工作经验</span></div>
+        <div class="gone" id="hidata7"><!-- 工作经验 -->
+        </div>
+        <span class="dt_left dt10"></span>
+        <span class="dt_right"><span class="link pointer color-focus addmore_" data="7">+新的工作经验</span></span>
+        </form>
+                  
+        <form id="hidata8_form">
+        <div class="h20"></div>
+        <div class="pd30 dt10"><span class="pdl5 bg-focus"></span><span class="bold pd10 f14">项目经验</span></div>  
+        <div class="gone" id="hidata8"><!-- 项目经验 -->
+        </div>
+        <span class="dt_left dt10"></span>
+        <span class="dt_right"><span class="link pointer color-focus addmore_" data="8">+新的项目经验</span></span>
+        </form>
+        
+        <div class="h50"></div>           
+        <div class="center">
+        <button class="btn-focus pd40 dt5 commit_">保存并提交审核</button>
+        <button class="btn-focus pd40 dt5 mgl20 save_">保存</button>
+        </div>
+        <div class="h50"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div id="hidata_result">
+<input type=hidden class="vvc" id="v_result">
+</div>
+
+<!-- for selector start -->
+<div id="maskLayer" style="display:none">
+<iframe id="maskLayer_iframe" frameBorder=0 scrolling=no style="filter:alpha(opacity=50)"></iframe>
+<div id="alphadiv" style="filter:alpha(opacity=50);-moz-opacity:0.5;background:rgba(100,100,100,0.5)"></div>
+  <div id="drag">
+    <h3 id="drag_h"></h3>
+    <div id="drag_con"></div><!-- drag_con end -->
+  </div>
+</div><!-- maskLayer end -->
+</div>
+<!-- alpha div end -->
+<div id="sublist" style="display:none"></div>
+<!-- for selector end -->
+
+<div class="h100"></div>
+<div id="bottombar"></div>
+</body>
+</html>
+
+<script src="../doc/js/cv_edit.js?cvedit00000011"></script>
+<script>
+var M0 = "M";
+var loadingIndex;
+$(document).ready(function(){
+  /***********此处编写js*************/
+  
+  ACECommon_ShowData("CandiMService.y?cmd=candiFile", "{cid:'"+cid+"'}", null, 0, function(ret,html){
+      //util.UI.msg(html);
+		  $(".openFile_").click(function(e){
+		     window.open("mdialog_openfile.html?"+xmll(html),"","width=0,height=0,top=0,left=0");
+		  });
+  });
+	autocomplete_Init();
+  /**********************************/
+});
+function submitCommplete(){
+  if(submitFlag == MAX_INDEX-2 && successFlag == submitFlag){
+    ajax_("Candi"+M0+"Service.y?cmd=cvUpdate", "{cid:'"+cid+"'}", function(){
+        if(commitFlag==1){
+          ajax_("Candi"+M0+"Service.y?cmd=cvCommitCheck", "{cid:'"+cid+"'}", function(ret,html){
+          
+                util.UI.closeLoading(loadingIndex); //关闭loading
+                
+                layer.confirm(html, {
+                  title: '入库审核'+(ret==1?'':'不')+'通过',
+                  btn: ['确定提交', '继续修改'] //可以无限个按钮
+                  
+                }, function(index, layero){ //确定提交
+                  layer.close(index);
+                  //入库审核通过/不通过
+                  $("#v_result").val(html);
+                  stCheckCommit((ret==1?220002:220042), cid);
+                  
+                }, function(index){ //继续修改
+                  layer.close(index);
+                });
+          });
+        }else{
+          ajax_("Candi"+M0+"Service.y?cmd=cvCommitCheck", "{cid:'"+cid+"'}");
+          util.UI.closeLoading(loadingIndex); //关闭loading
+          util.UI.msg("简历已保存.");
+        }
+    });
+  }else if(submitFlag == MAX_INDEX-2){
+    util.UI.closeLoading(loadingIndex); //关闭loading
+  }
+}
+function stCheckCommit(code,cid){
+  ACECommon_FormSubmit(null, "CandiProcess"+M0+"Service.y?cmd=doProcess", "{process:'"+code+"',cid:'"+cid+"'}", function(ret2, html2){
+      if(ret2==1){
+        parent.util.UI.closeDialog();
+        parent.reload();
+      }else{
+        util.UI.warning(html);
+      }
+  }, $("#hidata_result"));
+}
+</script>

@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+  <title>ACE Elite HR在线</title>
+  <link rel="stylesheet" href="../doc/css/common.css?comcs000005" />
+  <link rel="stylesheet" href="../doc/css/styles_HR.css?hrcs000001" />
+  <link rel="stylesheet" href="../doc/js/layui/css/layui.css" />
+  <!--[if IE 8]> 
+  	<script src="../doc/js/jquery-1.8.0.js"></script>
+  <![endif]--> 
+  <!--[if gte IE 8]> 
+  	<script src="../doc/js/jquery-2.1.4.min.js"></script>
+  <![endif]--> 
+  <script src="../doc/js/jquery-2.1.4.min.js"></script>
+  <script src="../doc/js/layui/layui.js"></script>
+  <script src="../doc/js/common.js"></script>
+  <script src="../doc/js/myjs_HR.js"></script>
+  <style>
+    .dt_left {width:28px; display:inline-block;float: left;}
+    .wel_success{width: 330px;background: #F4F4F4;color: #FFA942;font-size: 14px;position: relative;}
+    .wel_success:after{content: "";position: absolute;left: 40px;bottom: -10px;width: 8px;height: 3px;width: 0;height: 0;border-top: 10px solid #F4F4F4;border-left: 20px solid transparent;}
+  	.mgt10{padding-top: 18px;}
+  </style>
+</head>
+<body class="bg-white">
+
+<div class="frozen">
+  <div style="width: 370px;margin: 40px auto 0">
+  	<div class="wel_success dt10 center text-c" style="width: 330px;background: #F4F4F4;color: #FFA942;font-size: 14px;">
+	    邀请面试成功，后续将由我为您服务！
+	</div>
+	<!-- 字体下面的样式 -->
+	<div style="margin-top: 19px;" class="clearfix">
+		<div class="float-l text-c pdl30 mgr40"><span class="vv gone" id="iconStr_"></span> 
+      <img class="dt5 img70 raduis" id="icon_" src="../doc/images/HR/icon_touxiang.png"/>
+			<div class="f16 pd2 dt5 bold" style="color: #545454;">
+		      <span class="text-r vv"></span><span>顾问</span><span><input class="vv" type="hidden"/></span></span>
+		    </div>
+		</div>
+	    <div class="f10 pd2 dt8 mgt10"><span class="dt_left"><img class="img12" width="20" src="../doc/images/HR/gw_email.png"/></span><span class="vv"></span></div>
+	    <div class="f10 pd2 dt8"><span class="dt_left"><img class="img12" width="20" src="../doc/images/HR/iPhone_icon.png"/></span><span class="vv" ></span></div>
+	    <div class="f10 pd2 dt8"><span class="dt_left"><img class="img12" width="20" src="../doc/images/HR/gw_phones.png"/></span><span class="vv"></span></div>
+	</div>
+	<div class="pd10 center">
+	   <button class="btn-focus h40 text-c" style="width: 130px;margin-top: 16px;" id="UI_Button_Ok">知道了</button>
+	</div>
+  </div>	
+</div>
+</body>
+</html>
+<script>
+$(document).ready(function(){
+  /***********此处编写js*************/
+  
+  $("#UI_Button_Ok").click(function(e){
+      parent.util.UI.closeDialog();
+      parent.reload();
+  });
+  var hcid = location.href.split("?")[1];
+  ACECommon_ShowData("CandiProcessBService.y?cmd=hcInfo", "{hcid:'"+hcid+"'}", null, 0, function(ret, html){
+      if(ret==1){
+        var ss = html.split("`");
+        var vv = $("span.vv");
+        for(var i=0;i<vv.length;i++){
+          if(ss[i] != ""){
+          	$(vv[i]).html(ss[i]);
+          }else{
+			       $("span.vv").eq(i).parent().css('display','none');       
+          }
+        }       
+         if($("#iconStr_").html()){
+          $("#icon_").attr("src",$("#iconStr_").html());
+         }else{
+          $("#icon_").attr("src","../doc/images/HR/icon_touxiang.png");
+         }
+      }
+  });
+  /**********************************/
+});
+</script>
